@@ -2,9 +2,11 @@
 
 ## Current result
 
-Diagnostics 0.2.1 is prepared for staging. It fixes the error “Unexpected form field. Product scope is fixed.” by accepting WordPress submit_button()'s standard submit field. Non-string values and unrecognized fields still fail. The request cannot choose another product, metadata key or URL.
+The user supplied the 0.2.1 product snapshot, generated 10 November 2026 at 19:05:23 UTC / 20:05:23 Europe/Sarajevo. It verifies the fixed form exported on staging PHP 8.3.36. The snapshot, raw-content, eight attachment and five Yoast metadata checksums match.
 
-All PHP syntax checks and 62 isolated checks pass. The authorized export regression submits action, _wpnonce, _wp_http_referer and submit, then verifies valid JSON for product 2839 and eight images. Real execution of the corrected release on staging remains pending.
+Product 2839 has no saved primary phrase, SEO title or meta-description key. The two Premium candidate fields exist as empty strings. Variation 2840 has own image ID 0 and inherits the parent image on the frontend. The exact raw artisan block, image markup and CRLF descriptions are preserved in the baseline directory and registry.
+
+Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.0 adds a read-only, published-product schema sample without phrase text, plus WordPress metadata registration evidence. Four PHP files and 76 isolated checks pass. Real execution of 0.3.0 is pending.
 
 ## Completed
 
@@ -17,15 +19,18 @@ All PHP syntax checks and 62 isolated checks pass. The authorized export regress
 - Diagnostics 0.2.0 added a fixed-scope raw exporter. Its own form failed because the submit field was omitted from the request allowlist.
 - Diagnostics 0.2.1 corrects the form bug and adds the relevant regression coverage.
 
+- The 0.2.1 raw snapshot was received and validated. A preservation registry and updated draft v0.2 record actual before-values.
+- The schema-only 0.3.0 exporter is prepared without adding a writer.
+
 ## Next required step
 
-Replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.2.1.zip. Use Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot. Attach BHcrafts_Product_2839_ReadOnly_Snapshot.json to the existing chat.
+Replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.3.0.zip. Use Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot. Attach BHcrafts_Product_2839_ReadOnly_Snapshot.json to the existing chat.
 
 This manual administrator action remains necessary because no authenticated cloud WordPress connection has been established. No password or API key belongs in a chat message or this repository.
 
 ## Still open
 
-- Read actual saved product/attachment fields from the administrator export.
+- Obtain nonempty Premium structure evidence and reconcile it with the installed registration. The selected product’s raw fields are already captured.
 - Establish actual Yoast Premium 28.8 field representation and normal editor-save/indexation behavior.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.

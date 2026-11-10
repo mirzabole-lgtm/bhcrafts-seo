@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BHcrafts SEO Staging Diagnostics
  * Description: Administrator-only, read-only environment report for the designated BHcrafts staging site.
- * Version: 0.2.1
+ * Version: 0.3.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: BHcrafts
@@ -15,11 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-const VERSION = '0.2.1';
+const VERSION = '0.3.0';
 const STAGING_HOST = 'stg-bhcraftsshop-affiliate.kinsta.cloud';
 const EXPORT_ACTION = 'bhcrafts_seo_staging_diagnostics_export';
 
 require_once __DIR__ . '/includes/product-export.php';
+require_once __DIR__ . '/includes/premium-evidence.php';
 
 /** Both WordPress URLs must identify the designated HTTPS staging host. */
 function is_designated_staging() {
@@ -131,7 +132,7 @@ function render_tools_page() {
     echo '</form>';
     echo '<hr><h2>Product 2839: read-only snapshot</h2>';
     echo '<p>Export saved descriptions, attachment metadata and installed Yoast field evidence for the selected handbag.</p>';
-    echo '<p>This action reads product 2839 and its observed variations and images. It performs no content updates.</p>';
+    echo '<p>This action reads product 2839 and its variations and images. It also samples the structure of existing Premium fields on up to 10 published product candidates, without exporting their phrase text. It performs no content updates.</p>';
     echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
     echo '<input type="hidden" name="action" value="' . esc_attr( SNAPSHOT_ACTION ) . '">';
     wp_nonce_field( SNAPSHOT_ACTION );

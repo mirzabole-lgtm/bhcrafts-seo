@@ -31,6 +31,9 @@ function checked_value( $value, $depth = 0 ) {
     if ( $depth > 12 || is_object( $value ) || is_resource( $value ) ) {
         snapshot_error( 'The selected record contains an unsupported value shape.' );
     }
+    if ( is_string( $value ) && preg_match( '//u', $value ) !== 1 ) {
+        snapshot_error( 'A selected string is not valid UTF-8.' );
+    }
     if ( is_string( $value ) && strlen( $value ) > MAX_TEXT_BYTES ) {
         snapshot_error( 'The selected field exceeds the export size limit.' );
     }
@@ -331,6 +334,7 @@ function collect_product_snapshot() {
             'raw_description_contains_artisan_heading' => strpos( $post->post_content, 'MORE INFORMATION ABOUT ARTISANS' ) !== false,
         ),
         'yoast_evidence' => collect_yoast_evidence(),
+        'premium_schema_evidence' => collect_premium_schema_evidence(),
         'coverage' => array(
             'selected_product_raw_fields_read' => true,
             'sitewide_media_usage_complete' => false,

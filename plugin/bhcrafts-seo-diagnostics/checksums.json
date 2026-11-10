@@ -1,9 +1,10 @@
 {
-  "README.md": "21a8591591b340c7e2d4442acc1cb42c2e174f7aaef52bc87720e92e828304a9",
+  "README.md": "f4d13f49ea3510e3921014c76438210cd09ac6ddc744e48356aae79e7b851818",
   "STAGING_CHECK.md": "ba815876befa004ab6a1501a5ad46b1581cc8709866c81e67479558e886b7347",
-  "VALIDATION.md": "4f7fea60254ae7231440715b73521b8363df23ab556e4f00e6792c103f2afbc3",
-  "bhcrafts-seo-diagnostics.php": "f73b9dc495dc022bbc13598542b10f8218e52f40dbf343333547d28d5c59b5ad",
-  "includes/product-export.php": "f16c65a57de5396723bd8a9b30c15e4b24822f8fc57dfe6f97d91038bc347733",
+  "VALIDATION.md": "dbbfe5a41613767145297b67a6c4e96c4c9abfa534c85aefa462c5e6add562db",
+  "bhcrafts-seo-diagnostics.php": "6c440d61ffed705750ef4c5450a7ecbf42d15ccc321b8097552fedc031550ac1",
+  "includes/premium-evidence.php": "fc6f8a6faf427dd5dc3a50e2964c9c966f9e5a3d8246bf9add78d30d477ce93c",
+  "includes/product-export.php": "bfc8a76ff2729a253917dc96a55ac73499867a9bef4a3251376c2afb3bb1c58c",
   "staging-evidence.json": "300dbd5f9847653a43b463153368eddc2e957ce352e35a7d9b2d7c68a9a9ea7f",
-  "tests/security-test.php": "aa116ce0e12cc8cd3b4ac3c19ef27c1a98cb81d726019f54c2f622650d1a2d65"
+  "tests/security-test.php": "0aa222d63d785ef52c939af5712d5ce5983eab1a2e5a1b7bfe1b0156b1be1f4f"
 }

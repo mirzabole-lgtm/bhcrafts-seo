@@ -5,7 +5,7 @@
 **Website:** https://bhcrafts.shop/  
 **Working environment:** ChatGPT Work Cloud, with background execution  
 **Source repository:** https://github.com/mirzabole-lgtm/bhcrafts-seo  
-**Current stage:** Corrected read-only export 0.2.1 prepared; repository handoff; awaiting raw snapshot; no live product changes authorized  
+**Current stage:** Raw staging baseline validated; schema-only diagnostics 0.3.0 prepared; no live product changes authorized  
 **Source conversation:** [Connect ChatGPT WooCommerce](https://chatgpt.com/c/6af0b60e-e7f0-83eb-a17f-58a0d05e52a8)
 
 ## 1. Project mandate and immediate next steps
@@ -560,13 +560,28 @@ The user reported “Unexpected form field. Product scope is fixed.” in diagno
 
 Use releases/BHcrafts_SEO_Staging_Diagnostics_0.2.1.zip to replace the existing diagnostics plugin on staging, then download the product 2839 snapshot. Older ZIPs remain historical artifacts. The GitHub handoff does not install the update, establish authenticated cloud access, verify Yoast write compatibility, or approve content/metadata changes. The user also asked about another PC; continuing requires the same ChatGPT account and workspace, without moving to another chat.
 
+### Saved product baseline received — 10 November 2026
+
+The user attached a successful diagnostics 0.2.1 snapshot, generated at 19:05:23 UTC / 20:05:23 Europe/Sarajevo, from staging PHP 8.3.36. The original file bytes are preserved in docs/product-2839/baseline/BHcrafts_Product_2839_ReadOnly_Snapshot_2026-11-10.json. Its overall checksum, raw-content checksum, all eight attachment baselines and all five selected Yoast metadata checksums verify. These are internal-consistency checks, not a digital signature or an authenticated cloud session.
+
+The actual saved primary keyphrase, SEO title and meta-description keys are absent. The Premium candidate keys _yoast_wpseo_keywordsynonyms and _yoast_wpseo_focuskeywords each exist as one empty string. No nonempty related-keyphrase representation is established by this record. The actual WPSEO_Meta registry exposes the three base content fields but not these Premium candidates through that registry.
+
+Raw descriptions preserve CRLF and the exact escaped malformed fragment. A new preservation_registry_v0.2.json retains the original artisan block and tag markup. Draft review_v0.2.json now includes actual saved before-values and keeps all writes held. It preserves the raw tag image element’s attributes except for the explicitly proposed alt replacement. The master-paragraph replacement and other description changes remain visibly proposed.
+
+Variation 2840 has own image ID 0. Earlier frontend image 2841 was inherited from the parent. Future writes must preserve this inheritance and must not assign 2841 to the variation. Parent image order and eight expected attachments match the inspection manifest.
+
+Diagnostics 0.3.0 adds actual WordPress post-meta registration descriptors and structure-only samples for the two fixed Premium candidates from at most five published product candidates per key. It rechecks object permissions and publication status, omits phrase/synonym text and numeric scores, masks unknown field-name text, and leaves source IDs outside the edit manifest. It adds no writer or public endpoint. Invalid UTF-8 is rejected explicitly before JSON sanitization. Four PHP syntax checks, 76 isolated checks and an authorized standard-form export fixture pass. New 0.3.0 execution and normal editor-save/write compatibility remain unverified.
+
+Next: replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.3.0.zip and use the same product snapshot button. The original product snapshot is valid; this follow-up collects the missing Premium structure evidence without writing example phrases. Full media coverage, backup/isolation checks, cloud authentication and exact human approvals remain pending.
+
 ### Before integration testing or live optimization
 
 - [x] Confirm the actual Kinsta staging URL through public read-only checks: https://stg-bhcraftsshop-affiliate.kinsta.cloud/.
 - [x] Obtain the administrator-exported staging diagnostics report and record its reported versions and environment identity.
 - [ ] Establish authenticated read-only staging access from Work Cloud; the manual report does not establish this connection.
 - [x] Record current staging WordPress/WooCommerce/Flatsome/Yoast SEO and Premium versions from the supplied administrator report.
-- [ ] Receive the fixed-scope product 2839 raw snapshot and inspect saved markup, attachment metadata and actual installed Yoast field evidence.
+- [x] Receive and validate the fixed-scope product 2839 raw snapshot; inspect saved markup, all eight attachment records and current installed Yoast evidence.
+- [ ] Obtain nonempty Premium structural evidence using the bounded 0.3.0 read-only export.
 - [ ] Verify Yoast Premium 28.8 storage format, compatible write behavior, save lifecycle, and all five phrase/synonym round-trips on staging.
 - [ ] Establish a secure cloud-compatible connection with separate staging/live credentials.
 - [ ] Identify the existing hang-tag attachment(s), preserved blocks, and any existing product-specific deviations.

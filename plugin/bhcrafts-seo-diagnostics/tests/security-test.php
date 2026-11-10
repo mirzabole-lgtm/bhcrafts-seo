@@ -122,6 +122,22 @@ function get_post_meta($id,$key,$single=false){
  $v=metadata_exists('post',$id,$key)?$GLOBALS['meta'][$id][$key]:array();
  return $single?(isset($v[0])?$v[0]:''):$v;
 }
+function get_registered_meta_keys($type,$subtype=''){
+ if($type!=='post'||!in_array($subtype,array('','product'),true)){throw new RuntimeException('Unexpected registry scope');}
+ return array('_yoast_wpseo_focuskeywords'=>array('type'=>'string','single'=>true,'show_in_rest'=>false,'default'=>'SECRET-SENTINEL','sanitize_callback'=>array('ExamplePlugin','sanitize')));
+}
+class WP_Query {
+ public $posts;
+ function __construct($args){
+  if($args['post_type']!=='product'||$args['post_status']!=='publish'||$args['posts_per_page']!==5||$args['fields']!=='ids'||!$args['no_found_rows']){throw new RuntimeException('Unexpected sample query scope');}
+  if(!in_array($args['meta_query'][0]['key'],array('_yoast_wpseo_keywordsynonyms','_yoast_wpseo_focuskeywords'),true)){throw new RuntimeException('Unexpected sample metadata key');}
+  $this->posts=array(5001,5002);
+ }
+}
+foreach(array(5001,5002) as $id){$GLOBALS['posts'][$id]=clone $GLOBALS['posts'][2839];$GLOBALS['posts'][$id]->ID=$id;}
+$GLOBALS['posts'][5002]->post_status='draft';
+$GLOBALS['meta'][5001]=array('_yoast_wpseo_keywordsynonyms'=>array('PHRASE-SECRET-SENTINEL'),'_yoast_wpseo_focuskeywords'=>array('[{"keyword":"PHRASE-SECRET-SENTINEL","score":99,"synonyms":"PRIVATE-SYNONYMS"}]'));
+$GLOBALS['meta'][5002]=$GLOBALS['meta'][5001];
 require dirname(__DIR__).'/bhcrafts-seo-diagnostics.php';
 function check($condition,$label){if(!$condition){throw new RuntimeException('FAIL: '.$label);}++$GLOBALS['tests'];}
 function denies($callback,$status,$label){try{$callback();}catch(TestDenied $e){check($e->getCode()===$status,$label);return;}throw new RuntimeException('FAIL: expected denial for '.$label);}
@@ -206,6 +222,9 @@ $GLOBALS['bad_scalar_metadata']=false;
 $GLOBALS['meta'][2839]['_yoast_wpseo_focuskw']=array(str_repeat('x',1048577));
 denies($ns.'collect_product_snapshot',409,'reject oversized field');
 $GLOBALS['meta'][2839]['_yoast_wpseo_focuskw']=array('knitted cotton handbag');
+$GLOBALS['meta'][2839]['_yoast_wpseo_focuskw']=array("invalid\xFF");
+denies($ns.'collect_product_snapshot',409,'reject invalid UTF-8 before WordPress JSON sanitization');
+$GLOBALS['meta'][2839]['_yoast_wpseo_focuskw']=array('knitted cotton handbag');
 $old=$GLOBALS['posts'][2842];unset($GLOBALS['posts'][2842]);
 $missing=($ns.'collect_product_snapshot')();
 check($missing['attachments'][3]['status']==='missing_or_wrong_type','missing image held explicitly');
@@ -214,7 +233,30 @@ $registry=WPSEO_Meta::$meta_fields;WPSEO_Meta::$meta_fields=array();
 $unknown=($ns.'collect_product_snapshot')();
 check(isset($unknown['yoast_evidence']['content_metadata']['_yoast_wpseo_focuskeywords']),'stored allowed content key found without registered definition');
 WPSEO_Meta::$meta_fields=$registry;
+$schema=($ns.'collect_premium_schema_evidence')();
+$sample=$schema['populated_structure_samples']['_yoast_wpseo_focuskeywords'];
+check(count($sample['samples'])===1&&$sample['skipped']===1,'only permitted published source sampled');
+check($sample['samples'][0]['reference_product_id']===5001,'schema source ID labelled separately from target selection');
+check($sample['samples'][0]['structure']['format']==='json_string','existing JSON representation identified');
+$paths=array_column($sample['samples'][0]['structure']['nodes'],'path');
+check(in_array('$[0].keyword',$paths,true)&&in_array('$[0].score',$paths,true)&&in_array('$[0].synonyms',$paths,true),'actual field names retained as structure evidence');
+check(strpos(json_encode($schema),'PHRASE-SECRET-SENTINEL')===false&&strpos(json_encode($schema),'PRIVATE-SYNONYMS')===false,'reference phrases and synonyms excluded');
+check(strpos(json_encode($schema),'SECRET-SENTINEL')===false,'registered defaults excluded');
+check($schema['registered_post_meta']['product']['_yoast_wpseo_focuskeywords']['type']==='string','actual registration type retained');
+check($schema['registered_post_meta']['product']['_yoast_wpseo_focuskeywords']['sanitize_callback']==='ExamplePlugin::sanitize','callback identity recorded without invocation');
+check($schema['storage_contract_verified']===false&&$schema['normal_editor_save_verified']===false,'schema sample does not claim editor or write verification');
+$masked=($ns.'describe_content_structure')('{"PRIVATE-PHRASE":"PRIVATE-SYNONYMS"}');
+check(strpos(json_encode($masked),'PRIVATE-')===false,'unknown object keys and values redacted');
+$native=($ns.'describe_content_structure')(array('keyword'=>'PRIVATE-PHRASE','synonyms'=>'PRIVATE-SYNONYMS'));
+check($native['nodes'][0]['type']==='associative_array'&&in_array('$.keyword',array_column($native['nodes'],'path'),true)&&strpos(json_encode($native),'PRIVATE-')===false,'native associative-array field names retained without values');
+$invalid=($ns.'describe_content_structure')('non-JSON private phrase');
+check($invalid['format']==='plain_or_invalid_json_string'&&strpos(json_encode($invalid),'private phrase')===false,'non-JSON values remain redacted');
+$GLOBALS['denied_objects']=array(5001);
+$none=($ns.'collect_premium_schema_evidence')();
+check($none['populated_structure_samples']['_yoast_wpseo_focuskeywords']['status']==='no_nonempty_sample_observed_within_limits','inaccessible sources skipped without guessing');
+$GLOBALS['denied_objects']=array();
 $source=file_get_contents(dirname(__DIR__).'/bhcrafts-seo-diagnostics.php').file_get_contents(dirname(__DIR__).'/includes/product-export.php');
+$source.=file_get_contents(dirname(__DIR__).'/includes/premium-evidence.php');
 check(!preg_match('/\\b(update_option|add_option|delete_option|wp_update_post|wp_insert_post|update_post_meta|delete_post_meta|wp_remote_get|wp_remote_post|wp_remote_request|register_rest_route|register_activation_hook|wp_delete_attachment)\\s*\\(/',$source),'no persistence, HTTP, public REST, activation or delete calls');
 check(strpos($source,'do_shortcode(')===false,'stored shortcodes never executed');
 if(isset($argv[1])&&'export'===$argv[1]){

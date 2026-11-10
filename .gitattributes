@@ -1,0 +1,3 @@
+docs/product-2839/baseline/*.html -text
+docs/product-2839/baseline/*.json -text
+*.zip -text

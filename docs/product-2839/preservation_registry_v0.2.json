@@ -1,0 +1,17 @@
+{
+  "product_id": 2839,
+  "environment": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+  "snapshot_sha256": "3b5f06cd02f2887958164db8ab23d41f215bce99849d08e4779dbc0fe0439d7d",
+  "source_file_sha256": "730dc868446723a33c84da59a4bc44e884a9d251113c07211315af7d8aed3c06",
+  "raw_content_sha256": "c7a8efa1ef577439f39e5daeb365eade1a97c729017ca94db841ad7bf0c808b6",
+  "original_artisan_block": "<strong>MORE INFORMATION ABOUT ARTISANS</strong>\r\n<img style=\"margin: 5px 10px 0px 0px; max-width: 120px;\" src=\"https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/artisan-handmade-tag.jpg\" alt=\"Tag\" align=\"left\" /> &lt;style=\"padding-left: 120px\"&gt; Lady whose name is written on the hang tag, made this product for you. Her knowledge, patience and love are knit into this product, which makes it unique and customs made. Helping one of hundreds of BHcrafts women producers to earn a living is added value to unique design and the best quality handmade product.\r\nAlthough all our products are made from the best quality materials we cannot guarantee they will not break unless you follow the care instructions. If you do, you will enjoy in this unique piece for a long time.",
+  "original_artisan_block_sha256": "08c91e5a034aefae78ee87ec62d4278375a51f64917cfbddde8967bb8b69aa95",
+  "original_tag_img_markup": "<img style=\"margin: 5px 10px 0px 0px; max-width: 120px;\" src=\"https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/artisan-handmade-tag.jpg\" alt=\"Tag\" align=\"left\" />",
+  "tag_attachment_id": 577,
+  "original_embedded_alt": "Tag",
+  "literal_malformed_fragment": "&lt;style=\"padding-left: 120px\"&gt;",
+  "variation_2840_own_image_id": 0,
+  "raw_line_endings": "CRLF",
+  "layout_browser_verified": false,
+  "proposed_artisan_change_requires_review": true
+}

@@ -1,0 +1,121 @@
+{
+  "admin_products_anonymous": {
+    "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/wc/v3/products?per_page=1&_fields=id",
+    "status": 401,
+    "www_authenticate": null,
+    "x_robots_tag": "noindex",
+    "body_excerpt": "{\"code\":\"woocommerce_rest_cannot_view\",\"message\":\"Sorry, you cannot list resources.\",\"data\":{\"status\":401}}"
+  },
+  "home": {
+    "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+    "final_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/html; charset=UTF-8",
+      "X-Robots-Tag": "noindex, nofollow, nosnippet, noarchive"
+    },
+    "title": [
+      "Handmade Ethical Gifts: Make a Difference Today"
+    ],
+    "robots_meta": [
+      "<meta name='robots' content='noindex, nofollow' />"
+    ],
+    "flatsome_assets": [
+      "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/themes/flatsome/assets/js/flatsome.js?ver=c70e5a9a66ada87bcb37",
+      "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/themes/flatsome/assets/js/chunk.slider.js?ver=3.20.11",
+      "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/themes/flatsome/assets/js/chunk.popups.js?ver=3.20.11",
+      "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/themes/flatsome/assets/js/chunk.tooltips.js?ver=3.20.11",
+      "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/themes/flatsome/assets/js/woocommerce.js?ver=0a34cb2fc352afcbec43"
+    ],
+    "yoast_comments": []
+  },
+  "public_media": {
+    "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/wp/v2/media?per_page=1&_fields=id",
+    "final_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/wp/v2/media?per_page=1&_fields=id",
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-WP-Total": "2439",
+      "X-WP-TotalPages": "2439",
+      "X-Robots-Tag": "noindex"
+    },
+    "sample": [
+      {
+        "id": 10133,
+        "name": null,
+        "type": null,
+        "permalink": null
+      }
+    ]
+  },
+  "public_products": {
+    "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/wc/store/v1/products?per_page=1",
+    "final_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/wc/store/v1/products?per_page=1",
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-WP-Total": "378",
+      "X-WP-TotalPages": "378",
+      "X-Robots-Tag": "noindex"
+    },
+    "sample": [
+      {
+        "id": 10022,
+        "name": "Handmade Christmas Stockings on Sale – Set of 5 + Jute Tote",
+        "type": "simple",
+        "permalink": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/handmade-christmas-stockings-on-sale-set-of-5-jute-tote/"
+      }
+    ]
+  },
+  "rest_index": {
+    "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/",
+    "final_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/",
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-Robots-Tag": "noindex"
+    },
+    "name": "BHcrafts",
+    "site_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud",
+    "home_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud",
+    "application_passwords": {
+      "endpoints": {
+        "authorization": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-admin/authorize-application.php"
+      }
+    },
+    "namespaces": [
+      "oembed/1.0",
+      "contact-form-7/v1",
+      "nextend-social-login/v1",
+      "whols/v1",
+      "wc/v3",
+      "wc/v1",
+      "wc/pos/v1/catalog",
+      "yoast/v1",
+      "jetpack/v4",
+      "paypal/v1",
+      "wc/v3/wc_paypal",
+      "wc-admin",
+      "wc-analytics",
+      "wc/store",
+      "wc/store/v1",
+      "wc/private",
+      "wc/v2",
+      "ivole/v1",
+      "wc-admin-email",
+      "wc-push-notifications",
+      "wc-telemetry",
+      "wccom-site/v3",
+      "code-snippets/v1",
+      "wp-abilities/v1",
+      "wp/v2",
+      "wp-site-health/v1",
+      "wp-block-editor/v1"
+    ],
+    "routes_present": [
+      "/wc/v3/products",
+      "/wp/v2/media",
+      "/yoast/v1/get_head"
+    ]
+  }
+}

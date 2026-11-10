@@ -1,0 +1,45 @@
+{
+  "proposal_id": "bhcrafts-stg-2839-draft-v0.1",
+  "version": "0.1",
+  "generated_at_utc": "2026-11-10T14:31:29.470529+00:00",
+  "environment": "https://stg-bhcraftsshop-affiliate.kinsta.cloud",
+  "scope": "read-only inspection and content drafting only",
+  "product_id": 2839,
+  "product_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/",
+  "product_name": "Knitted Bag with Three-Doll Applique",
+  "type": "variable",
+  "variation_ids_observed": [
+    2840
+  ],
+  "featured_image_id_observed": 2841,
+  "gallery_image_order_observed": [
+    2843,
+    2844,
+    2842,
+    2845,
+    445,
+    357
+  ],
+  "embedded_artisan_image_id": 577,
+  "attachment_ids": [
+    2841,
+    2843,
+    2844,
+    2842,
+    2845,
+    445,
+    357,
+    577
+  ],
+  "approval_eligible": false,
+  "approved": false,
+  "writes_performed": false,
+  "limitations": [
+    "No authenticated raw product/media baseline",
+    "Existing saved Yoast keyphrases and synonyms unavailable",
+    "Yoast Premium storage and normal save lifecycle not inspected",
+    "Shared reference scan limited to public staging products",
+    "Responsive product page and lightbox not browser-tested",
+    "Variation configuration and default attributes need authenticated confirmation"
+  ]
+}

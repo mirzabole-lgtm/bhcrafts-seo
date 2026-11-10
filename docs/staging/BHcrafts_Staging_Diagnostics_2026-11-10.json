@@ -1,0 +1,57 @@
+{
+    "report_schema": "bhcrafts-seo-staging-diagnostics/1",
+    "diagnostics_plugin_version": "0.1.0",
+    "generated_at_utc": "2026-11-10T14:15:50+00:00",
+    "mode": "read_only",
+    "environment": {
+        "home_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+        "site_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+        "rest_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/",
+        "designated_staging_match": true,
+        "wordpress_environment_type": "staging",
+        "wordpress_version": "7.1.4",
+        "php_version": "8.3.36",
+        "multisite": false,
+        "blog_public": "0"
+    },
+    "theme": {
+        "stylesheet": "flatsome",
+        "version": "3.20.11",
+        "parent_template": null,
+        "parent_version": null
+    },
+    "plugins": {
+        "woocommerce": {
+            "standard_entry_file_found": true,
+            "version": "11.2.2",
+            "active": true
+        },
+        "yoast_seo": {
+            "standard_entry_file_found": true,
+            "version": "28.8",
+            "active": true
+        },
+        "yoast_premium": {
+            "standard_entry_file_found": true,
+            "version": "28.8",
+            "active": true
+        }
+    },
+    "authentication": {
+        "application_passwords_available": true,
+        "current_administrator_authorized": true,
+        "cloud_authenticated_connection_tested": false
+    },
+    "coverage": {
+        "raw_products_read": false,
+        "images_inspected": false,
+        "yoast_premium_storage_verified": false,
+        "yoast_write_adapter_available": false,
+        "outbound_integrations_isolated_verified": false,
+        "backup_verified": false,
+        "notes": [
+            "A missing standard plugin entry file does not rule out an alternative installation path.",
+            "This report does not establish a cloud API connection or authorize content writes."
+        ]
+    }
+}

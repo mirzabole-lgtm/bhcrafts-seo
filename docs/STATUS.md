@@ -14,6 +14,8 @@ The [corrected export](product-2839/yoast_editor_test_v0.1.md#corrected-editor-s
 
 The administrator supplied the Work Bridge 0.1.0 apply receipt from 11 November 2026 at 08:50:47 Europe/Sarajevo. It matches the bundled proposal and reports a successful write and exact read-back of all five Yoast rows. The primary synonyms now read `cotton knit handbag, knitted cotton bag`. The administrator attested to the staging backup and outbound isolation. This record omits account identifiers and the private backup reference.
 
+The [post-apply Diagnostics 0.3.1 export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Apply_2026-11-11.json) from 11 November 2026 at 09:31:21 Europe/Sarajevo verifies the receipt independently. The exact proposal comparison passes for the SEO title, meta description, five keyphrases and all synonym pairs. Only the synonym metadata row differs from the corrected pre-apply export. The full product record, captured protected-field hashes, variation, all eight attachment records and artisan preservation checks match.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -30,7 +32,7 @@ The administrator supplied the Work Bridge 0.1.0 apply receipt from 11 November 
 
 ## Next required step
 
-Export the post-apply product 2839 snapshot through Diagnostics 0.3.1. Then complete the [editor resave, storefront and separate rollback checks](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging). The apply receipt covers the five Yoast rows. The independent diagnostic export covers the recorded protected fields. A background request to the staging storefront timed out, so the storefront check remains open.
+Reopen product 2839 in the staging editor and verify the five Yoast keyphrase and synonym entries, SEO title and meta description. Click Update without changing those fields, then export a fresh Diagnostics 0.3.1 snapshot before testing rollback. The [staging checklist](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging) also covers storefront output and the separate rollback. The earlier background storefront request timed out.
 
 ## Still open
 

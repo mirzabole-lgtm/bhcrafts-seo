@@ -2,7 +2,7 @@
 
 Background development and review for bhcrafts.shop. Current installable diagnostics version: **0.3.1**.
 
-The diagnostics plugin collects read-only product evidence. A separate staging add-on is ready for its first Yoast write test. The first manual editor test saved the proposed Yoast fields for product 2839. Its descriptions and attachment metadata match the pre-test snapshot.
+The diagnostics plugin collects read-only product evidence. Work Bridge provides separate staging diagnostics and exact, administrator-approved write tests for product 2839.
 
 ## Start here
 
@@ -11,12 +11,12 @@ The diagnostics plugin collects read-only product evidence. A separate staging a
 - [Plugin setup instructions](plugin/bhcrafts-seo-diagnostics/README.md)
 - [Plugin source](plugin/bhcrafts-seo-diagnostics/)
 - [Current installable ZIP: 0.3.1](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip)
-- [Yoast staging test ZIP: Work Bridge 0.1.1](releases/BHcrafts_SEO_Work_Bridge_0.1.1.zip)
+- [Yoast staging test ZIP: Work Bridge 0.1.2](releases/BHcrafts_SEO_Work_Bridge_0.1.2.zip)
 - [Change history](CHANGELOG.md)
 
 ## Current action on staging
 
-The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.1 report found a live-domain hash and empty title and description in the staging indexable. Review the [proposed single-row staging repair](docs/STATUS.md#proposed-staging-indexable-repair).
+The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.1 report found a live-domain hash and empty title and description in the staging indexable. Work Bridge 0.1.2 is ready to preview and approve the [single-row staging repair](plugin/bhcrafts-seo-work-bridge/README.md#repair-the-staging-indexable).
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 61 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The read-only indexable report ran on staging. The repair and the remaining Yoast write types still need staging tests.
+Current result: 78 diagnostics and 86 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The read-only indexable report ran on staging. The derived indexable repair still needs its first staging database run.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

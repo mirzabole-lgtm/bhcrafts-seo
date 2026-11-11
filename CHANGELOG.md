@@ -1,5 +1,11 @@
 # Change history
 
+## Work Bridge 0.1.2: staged indexable repair
+
+- Preview and approve the exact permalink hash, title and description repair for staging product 2839.
+- Update one existing derived row with baseline and collision checks. Verify read-back and provide a separate exact restore.
+- Pass 86 Work Bridge fixture checks. The first staging database execution remains pending.
+
 ## Work Bridge 0.1.1: read-only Yoast indexable report
 
 - Compare the stored Yoast indexable for staging product 2839 with its current permalink and saved metadata.

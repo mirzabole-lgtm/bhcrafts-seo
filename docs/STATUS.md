@@ -46,9 +46,11 @@ The [first staging indexable report](product-2839/baseline/BHcrafts_Yoast_Indexa
 
 ## Next required step
 
-Review the scoped staging repair below. The read-only report has completed its first staging run. The repair has not been applied.
+Install [Work Bridge 0.1.2](../releases/BHcrafts_SEO_Work_Bridge_0.1.2.zip) on staging, then [review and approve the exact repair](../plugin/bhcrafts-seo-work-bridge/README.md#repair-the-staging-indexable). The package passed 86 isolated fixture checks. Its first staging database run is pending.
 
 ## Proposed staging indexable repair
+
+Work Bridge 0.1.2 implements `bhcrafts-stg-2839-yoast-indexable-repair-v0.1` with proposal SHA-256 `a79d7d7dd0030e9636f8db39b7779853bd0153f83d4d12e73ecc15d7c0170e4c`.
 
 Repair only the existing derived Yoast row for post object 2839 on the designated Kinsta staging host. Use a fresh read to confirm exactly one row, the expected staging permalink, all three before-values and both saved source fields. Check for any conflicting row at the staging permalink and hash. Reject drift and require separate approval of the exact change. Retain the before-values as the rollback baseline.
 
@@ -69,4 +71,4 @@ Verify the same row with the read-only report, retest the Yoast URL response and
 - Establish secure cloud access and a trusted human-approval mechanism before an automated apply route.
 - Obtain exact staging test and production pilot approvals when concrete proposals exist.
 
-Diagnostics 0.3.1 remains read-only. Work Bridge 0.1.0 implements the fixed staging test through WordPress admin. The full content draft remains pending review and apply.
+Diagnostics 0.3.1 remains read-only. Work Bridge 0.1.2 contains the read-only report and the separately approved staging repair and synonym actions. The full content draft remains pending review and apply.

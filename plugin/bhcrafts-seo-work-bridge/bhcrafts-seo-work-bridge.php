@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: BHcrafts SEO Work Bridge
- * Description: Yoast indexable diagnostics and a fixed-proposal staging test for product 2839.
- * Version: 0.1.1
+ * Description: Yoast indexable diagnostics and fixed-proposal staging repairs for product 2839.
+ * Version: 0.1.2
  * Requires at least: 6.2
  * Requires PHP: 8.0
  * Author: BHcrafts
@@ -22,6 +22,8 @@ const INDEXABLE_ACTION = 'bhcrafts_seo_yoast_indexable_report';
 const PRODUCT_ID = 2839;
 const SYNONYMS_KEY = '_yoast_wpseo_keywordsynonyms';
 const PROPOSAL_SHA256 = '51894bdd9415e611dc4984cdf56389395aaa0b075e2866fe22407f9fa894d60d';
+
+require_once __DIR__ . '/indexable-repair.php';
 
 function stop_test( string $message, int $status = 409 ): void {
     wp_die( esc_html( $message ), '', array( 'response' => $status ) );
@@ -108,31 +110,20 @@ function download_indexable_report(): void {
         stop_test( 'Refresh the staging test page and download the report again.', 403 );
     }
 
-    global $wpdb;
     $permalink = get_permalink( PRODUCT_ID );
     $permalink = is_string( $permalink ) && $permalink !== '' ? $permalink : null;
     // Yoast 28.8 looks up the full permalink and its length-prefixed MD5 together.
     $permalink_hash = $permalink === null ? null : strlen( $permalink ) . ':' . md5( $permalink );
     $saved_title = get_post_meta( PRODUCT_ID, '_yoast_wpseo_title', false );
     $saved_description = get_post_meta( PRODUCT_ID, '_yoast_wpseo_metadesc', false );
-    $query = $wpdb->prepare(
-        'SELECT object_sub_type, permalink, permalink_hash, title, description FROM %i WHERE object_id = %d AND object_type = %s ORDER BY id LIMIT 3',
-        $wpdb->prefix . 'yoast_indexable', PRODUCT_ID, 'post'
-    );
-    $previous_suppression = $wpdb->suppress_errors( true );
-    try {
-        $rows = $wpdb->get_results( $query, ARRAY_A );
-        $query_failed = $wpdb->last_error !== '' || ! is_array( $rows );
-    } finally {
-        $wpdb->suppress_errors( $previous_suppression );
-    }
-
-    if ( $query_failed ) {
+    $rows = read_indexable_rows();
+    if ( $rows === null ) {
         $rows = array();
         $status = 'query_failed';
     } else {
         $status = array( 'missing', 'found' )[count( $rows )] ?? 'multiple';
         foreach ( $rows as &$row ) {
+            unset( $row['id'] );
             $row['matches_current_permalink'] = $permalink !== null && $row['permalink'] === $permalink;
             $row['matches_current_permalink_hash'] = $permalink_hash !== null && $row['permalink_hash'] === $permalink_hash;
             $row['matches_saved_title'] = $saved_title === array( $row['title'] );
@@ -169,6 +160,7 @@ function render_page(): void {
     wp_nonce_field( INDEXABLE_ACTION );
     submit_button( 'Download Yoast indexable report', 'secondary' );
     echo '</form><hr>';
+    render_indexable_repair( $proposal );
     echo '<p>Product 2839. The test changes one Yoast metadata field. Compare the values below before approving.</p>';
     echo '<p>Proposal <code>' . esc_html( $proposal['id'] ) . '</code> · SHA-256 <code>' . esc_html( PROPOSAL_SHA256 ) . '</code></p>';
     foreach ( array( 'apply' => 'Approve and remove trailing comma', 'restore' => 'Approve and restore original synonyms' ) as $operation => $label ) {

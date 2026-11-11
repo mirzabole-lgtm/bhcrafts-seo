@@ -141,6 +141,73 @@ $before = json_decode( $original[$key][0], true, 16, JSON_THROW_ON_ERROR );
 $after = json_decode( $proposal['proposed_value'], true, 16, JSON_THROW_ON_ERROR );
 check( $before[0] === $after[0] . ',' && array_slice( $before, 1 ) === array_slice( $after, 1 ), 'Only the trailing comma should differ.' );
 check( ! isset( $GLOBALS['hooks']['admin_post_nopriv_' . Bridge\ACTION] ), 'No unauthenticated action.' );
+class IndexableDatabaseFixture {
+    public string $prefix = 'custom_';
+    public string $postmeta = 'custom_postmeta';
+    public string $last_error = '';
+    public bool $suppressed = false;
+    public array $rows = array();
+    public int $reads = 0;
+    public bool $fail = false;
+    public bool $collision = false;
+    public array $updates = array();
+    public array $parameters = array();
+    public function prepare( $query, ...$params ) {
+        if ( strpos( $query, 'UPDATE ' ) === 0 ) {
+            if ( substr_count( $query, '%i' ) !== 6 || substr_count( $query, '%s' ) !== 11 || substr_count( $query, '%d' ) !== 2
+                || ! str_contains( $query, "SET target.permalink_hash = %s, target.title = NULLIF(%s, ''), target.description = NULLIF(%s, '')" )
+                || ! str_contains( $query, 'extra_source.meta_id IS NULL AND other_row.id IS NULL AND url_row.id IS NULL' ) ) {
+                throw new LogicException( 'Unexpected indexable update statement.' );
+            }
+            $this->parameters = $params;
+            return 'prepared-update';
+        }
+        if ( $params !== array( 'custom_yoast_indexable', 2839, 'post' )
+            || $query !== 'SELECT id, object_sub_type, permalink, permalink_hash, title, description FROM %i WHERE object_id = %d AND object_type = %s ORDER BY id LIMIT 3' ) {
+            throw new LogicException( 'Unexpected indexable query or scope.' );
+        }
+        return 'prepared-select';
+    }
+    public function get_results( $query, $format ) {
+        if ( $query !== 'prepared-select' || $format !== ARRAY_A || ! $this->suppressed ) {
+            throw new LogicException( 'Unexpected indexable query execution.' );
+        }
+        ++$this->reads;
+        $this->last_error = $this->fail ? 'Fixture database error' : '';
+        return $this->rows;
+    }
+    public function suppress_errors( bool $suppress ): bool {
+        $previous = $this->suppressed;
+        $this->suppressed = $suppress;
+        return $previous;
+    }
+    public function query( $query ) {
+        if ( $query !== 'prepared-update' || ! $this->suppressed ) { throw new LogicException( 'Unexpected indexable mutation.' ); }
+        $this->updates[] = $this->parameters;
+        [ $table, $title_table, $source_title, $description_table, $source_desc, $extra_source_table, $duplicate_table, $collision_table,
+            $destination_hash, $collision_url, $next_hash, $next_title, $next_desc,
+            $row_id, $product_id, $url, $old_hash, $old_title, $old_desc ] = $this->parameters;
+        if ( array( $table, $duplicate_table, $collision_table ) !== array_fill( 0, 3, 'custom_yoast_indexable' )
+            || array( $title_table, $description_table, $extra_source_table ) !== array_fill( 0, 3, 'custom_postmeta' ) || $product_id !== 2839
+            || $destination_hash !== $next_hash || $collision_url !== $url ) {
+            throw new LogicException( 'Wrong indexable update scope.' );
+        }
+        $row = $this->rows[0];
+        if ( $this->collision || count( $this->rows ) !== 1 || (int) $row['id'] !== $row_id || $row['permalink'] !== $url
+            || $row['permalink_hash'] !== $old_hash || $row['title'] !== ( $old_title !== '' ? $old_title : null )
+            || $row['description'] !== ( $old_desc !== '' ? $old_desc : null )
+            || get_post_meta( 2839, '_yoast_wpseo_title', false ) !== array( $source_title )
+            || get_post_meta( 2839, '_yoast_wpseo_metadesc', false ) !== array( $source_desc ) ) {
+            return 0;
+        }
+        $this->rows[0]['permalink_hash'] = $next_hash;
+        $this->rows[0]['title'] = $next_title !== '' ? $next_title : null;
+        $this->rows[0]['description'] = $next_desc !== '' ? $next_desc : null;
+        return 1;
+    }
+}
+
+$GLOBALS['wpdb'] = $wpdb = new IndexableDatabaseFixture();
 ob_start();
 Bridge\render_page();
 $preview = ob_get_clean();
@@ -205,36 +272,6 @@ $failed = request( 409 );
 check( ! $failed['all_five_rows_verified'] && $failed['readback'] === array( $proposal['proposed_value'] ), 'Hook failure reports actual read-back and uncertainty.' );
 check( $GLOBALS['filters'] === array(), 'Temporary insert guard is removed.' );
 
-class IndexableDatabaseFixture {
-    public string $prefix = 'custom_';
-    public string $last_error = '';
-    public bool $suppressed = false;
-    public array $rows = array();
-    public int $reads = 0;
-    public bool $fail = false;
-    public function prepare( $query, ...$params ) {
-        if ( $params !== array( 'custom_yoast_indexable', 2839, 'post' )
-            || $query !== 'SELECT object_sub_type, permalink, permalink_hash, title, description FROM %i WHERE object_id = %d AND object_type = %s ORDER BY id LIMIT 3' ) {
-            throw new LogicException( 'Unexpected indexable query or scope.' );
-        }
-        return 'prepared-select';
-    }
-    public function get_results( $query, $format ) {
-        if ( $query !== 'prepared-select' || $format !== ARRAY_A || ! $this->suppressed ) {
-            throw new LogicException( 'Unexpected indexable query execution.' );
-        }
-        ++$this->reads;
-        $this->last_error = $this->fail ? 'Fixture database error' : '';
-        return $this->rows;
-    }
-    public function suppress_errors( bool $suppress ): bool {
-        $previous = $this->suppressed;
-        $this->suppressed = $suppress;
-        return $previous;
-    }
-}
-
-$GLOBALS['wpdb'] = $wpdb = new IndexableDatabaseFixture();
 $download_report = $GLOBALS['hooks']['admin_post_' . Bridge\INDEXABLE_ACTION];
 check( ! isset( $GLOBALS['hooks']['admin_post_nopriv_' . Bridge\INDEXABLE_ACTION] ), 'Report has no unauthenticated action.' );
 check( strpos( $preview, 'value="' . Bridge\INDEXABLE_ACTION . '"' ) !== false && strpos( $preview, 'Download Yoast indexable report' ) !== false, 'Preview contains the report form.' );
@@ -256,20 +293,20 @@ $_POST = $report_form + array( 'product_id' => '616' );
 request( 400, $download_report );
 $_POST = array_replace( $report_form, array( 'submit' => array( 'unexpected' ) ) );
 request( 400, $download_report );
-check( $wpdb->reads === 0, 'Rejected requests do not read the indexable table.' );
+check( $wpdb->reads === 1, 'Only the authorized preview has read the indexable table.' );
 $_POST = $report_form;
 $writes_before = $GLOBALS['attempts'];
 $missing = request( 200, $download_report );
 check( $missing['status'] === 'missing' && $missing['indexable_rows'] === array(), 'Missing indexable is reported.' );
 check( $missing['saved_title_values'] === $original['_yoast_wpseo_title'] && $missing['saved_description_values'] === $original['_yoast_wpseo_metadesc'], 'Saved values stay separate from indexable data.' );
 $old = 'https://bhcrafts.shop/product/' . $proposal['product_slug'] . '/';
-$wpdb->rows = array( array( 'object_sub_type' => 'product', 'permalink' => $old,
+$wpdb->rows = array( array( 'id' => '91', 'object_sub_type' => 'product', 'permalink' => $old,
     'permalink_hash' => strlen( $old ) . ':' . md5( $old ), 'title' => 'Old title', 'description' => null ) );
 $found = request( 200, $download_report );
 check( $found['status'] === 'found' && $found['indexable_rows'][0]['permalink'] === $old, 'The exact stored permalink is returned.' );
 check( array_filter( $found['indexable_rows'][0], 'is_bool' ) === array_fill_keys( array( 'matches_current_permalink', 'matches_current_permalink_hash', 'matches_saved_title', 'matches_saved_description' ), false ), 'Each mismatch is reported independently.' );
 $url = $found['current_permalink'];
-$matching = array( 'object_sub_type' => 'product', 'permalink' => $url, 'permalink_hash' => strlen( $url ) . ':' . md5( $url ),
+$matching = array( 'id' => '92', 'object_sub_type' => 'product', 'permalink' => $url, 'permalink_hash' => strlen( $url ) . ':' . md5( $url ),
     'title' => $original['_yoast_wpseo_title'][0], 'description' => $original['_yoast_wpseo_metadesc'][0] );
 $wpdb->rows[] = $matching;
 $multiple = request( 200, $download_report );
@@ -280,4 +317,64 @@ $failed = request( 200, $download_report );
 check( $failed['status'] === 'query_failed' && $failed['indexable_rows'] === array(), 'Failed reads are distinct from missing records.' );
 check( strpos( json_encode( $failed ), 'Fixture database error' ) === false && ! $wpdb->suppressed, 'Raw database error stays private and suppression is restored.' );
 check( $GLOBALS['attempts'] === $writes_before, 'Report never attempts a metadata write.' );
+check( $wpdb->updates === array(), 'Read-only report never updates the indexable.' );
+
+$wpdb->fail = false;
+$repair = Bridge\indexable_repair_proposal( $proposal );
+$hash = Bridge\indexable_repair_hash( $repair );
+$uploaded = json_decode( file_get_contents( dirname( $path ) . '/BHcrafts_Yoast_Indexable_2839.json' ), true, 32, JSON_THROW_ON_ERROR );
+$wpdb->rows = array( array( 'id' => '91' ) + array_intersect_key( $uploaded['indexable_rows'][0], $matching ) );
+$original_row = $wpdb->rows[0];
+check( array_intersect_key( $original_row, $repair['before'] ) === $repair['before'], 'Repair starts from the supplied staging report.' );
+check( $repair['after']['permalink_hash'] === '89:8f4f7009daffbd9e477791a629563f18', 'Repair uses the verified staging hash.' );
+check( ! isset( $GLOBALS['hooks']['admin_post_nopriv_' . Bridge\INDEXABLE_REPAIR_ACTION] ), 'Repair has no unauthenticated action.' );
+$repair_handler = $GLOBALS['hooks']['admin_post_' . Bridge\INDEXABLE_REPAIR_ACTION];
+ob_start();
+Bridge\render_indexable_repair( $proposal );
+$repair_preview = ob_get_clean();
+check( str_contains( $repair_preview, 'value="' . Bridge\INDEXABLE_REPAIR_ACTION . '"' ) && str_contains( $repair_preview, $hash ), 'Repair preview includes the scoped form and proposal hash.' );
+check( $wpdb->updates === array(), 'Repair preview is read-only.' );
+$repair_form = form( 'repair' );
+$repair_form['action'] = Bridge\INDEXABLE_REPAIR_ACTION;
+$repair_form['_wpnonce'] = hash( 'sha256', Bridge\indexable_repair_nonce( 'repair', $hash ) );
+$restore_form = array_replace( $repair_form, array( 'operation' => 'restore', '_wpnonce' => hash( 'sha256', Bridge\indexable_repair_nonce( 'restore', $hash ) ) ) );
+$_POST = $repair_form;
+$_SERVER['REQUEST_METHOD'] = 'GET';
+request( 405, $repair_handler );
+$_SERVER['REQUEST_METHOD'] = 'POST';
+$GLOBALS['environment'] = 'production';
+request( 403, $repair_handler );
+$GLOBALS['environment'] = 'staging';
+$GLOBALS['can_edit'] = false;
+request( 403, $repair_handler );
+$GLOBALS['can_edit'] = true;
+$_POST = $repair_form + array( 'title' => 'injected' );
+request( 400, $repair_handler );
+$_POST = array_replace( $repair_form, array( '_wpnonce' => $restore_form['_wpnonce'] ) );
+request( 403, $repair_handler );
+$_POST = array_replace( $repair_form, array( 'backup_reference' => '' ) );
+request( 400, $repair_handler );
+$_POST = $repair_form;
+$wpdb->rows[] = $matching;
+request( 409, $repair_handler );
+$wpdb->rows = array( $original_row );
+$GLOBALS['rows']['_yoast_wpseo_title'] = array( 'A newer title' );
+request( 409, $repair_handler );
+$GLOBALS['rows']['_yoast_wpseo_title'] = $original['_yoast_wpseo_title'];
+check( $wpdb->updates === array(), 'Invalid and stale requests never attempt an update.' );
+$wpdb->collision = true;
+$conflict = request( 409, $repair_handler );
+check( $conflict['affected_rows'] === 0 && $wpdb->rows[0] === $original_row, 'A destination collision blocks the repair.' );
+$wpdb->collision = false;
+$receipt = request( 200, $repair_handler );
+check( $receipt['proposal_sha256'] === $hash && $receipt['affected_rows'] === 1 && $receipt['readback'][0]['id'] === '91', 'Repair receipt verifies the same row and proposal.' );
+check( $wpdb->rows[0] === array_replace( $original_row, $repair['after'] ), 'Repair updates exactly the three derived columns.' );
+request( 409, $repair_handler );
+$_POST = $restore_form;
+$wpdb->rows[0]['title'] = 'An intervening title';
+request( 409, $repair_handler );
+$wpdb->rows[0]['title'] = $repair['after']['title'];
+$restored = request( 200, $repair_handler );
+check( $restored['affected_rows'] === 1 && $wpdb->rows[0] === $original_row, 'Restore reinstates the exact hash and both nulls.' );
+check( count( $wpdb->updates ) === 3 && ! $wpdb->suppressed && $GLOBALS['attempts'] === $writes_before, 'No unexpected derived or WordPress metadata writes.' );
 echo 'PASS: ' . $GLOBALS['checks'] . " staging test fixture checks.\n";

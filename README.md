@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. Work Bridge provides
 
 ## Current action on staging
 
-The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.2 repair corrected the derived row. The Yoast head API and storefront now show the approved title and description, and staging remains `noindex`. See the [verification and remaining checks](docs/STATUS.md#current-result).
+The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.2 repair corrected the derived row. The Yoast head API and storefront show the approved title and description, and the authenticated post-repair snapshot matches the protected-field baseline. See the [next staging test](docs/STATUS.md#draft-staging-title-and-description-test).
 
 ## Documents and evidence
 

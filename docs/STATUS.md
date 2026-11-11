@@ -32,9 +32,11 @@ The [first staging indexable report](product-2839/baseline/BHcrafts_Yoast_Indexa
 
 On 11 November 2026 at 12:19:41 Europe/Sarajevo, the supplied repair receipt reports `verified` and one affected staging row. Its before-values, proposal hash, resulting hash, title and description match the exact proposal below. The receipt read-back preserves the staging permalink. The receipt remains private because it contains administrator and backup details.
 
-Independent GET requests after the repair returned HTTP 200 from the Yoast head endpoint and the staging storefront. The response body reports Yoast status 200, replacing the earlier 404. Both storefront responses, with and without a query parameter, contain one title and one meta description matching the approved values exactly. The page robots tag remains `noindex, nofollow`. Both responses also include the Kinsta `X-Robots-Tag` header with `noindex`. The ordinary storefront response is dated 12:21:07 Europe/Sarajevo. The repair rollback remains available and has only fixture coverage. The authenticated product snapshot after this repair remains pending.
+Independent GET requests after the repair returned HTTP 200 from the Yoast head endpoint and the staging storefront. The response body reports Yoast status 200, replacing the earlier 404. Both storefront responses, with and without a query parameter, contain one title and one meta description matching the approved values exactly. The page robots tag remains `noindex, nofollow`. Both responses also include the Kinsta `X-Robots-Tag` header with `noindex`. The ordinary storefront response is dated 12:21:07 Europe/Sarajevo. The repair rollback remains available and has only fixture coverage.
 
-A separate public WooCommerce Store API read returned HTTP 200. All 23 compared fields match the earlier public product capture, including identity, SKU, long and short descriptions, prices, stock signals, variations, image records, dimensions and taxonomy assignments. This comparison covers public fields. The full protected-field comparison uses the authenticated Diagnostics export.
+A separate public WooCommerce Store API read returned HTTP 200. All 23 compared fields match the earlier public product capture, including identity, SKU, long and short descriptions, prices, stock signals, variations, image records, dimensions and taxonomy assignments.
+
+The authenticated [post-repair Diagnostics snapshot](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Repair_2026-11-11.json) from 12:29:53 Europe/Sarajevo passed integrity validation. The complete product 2839 record, all 29 protected product hashes, all 29 variation hashes, eight attachment records, artisan evidence and all five saved Yoast metadata records match the pre-repair export. The separate reference product 616 shows a newer modification timestamp and the same recorded Yoast field structure. The repair changed derived indexable data, which the Work Bridge receipt and storefront checks verify separately.
 
 ## Completed
 
@@ -52,7 +54,7 @@ A separate public WooCommerce Store API read returned HTTP 200. All 23 compared 
 
 ## Next required step
 
-Capture an authenticated post-repair Diagnostics snapshot for the full protected-field comparison before using this product as a baseline for further writes. Prepare the next staging proposal for testing changes to the remaining saved Yoast fields and their rendered output.
+Use the verified post-repair baseline to implement the [staging title and description test](#draft-staging-title-and-description-test). Review and approve the exact test once the implementation and rollback are ready.
 
 ## Proposed staging indexable repair
 
@@ -67,6 +69,17 @@ Repair only the existing derived Yoast row for post object 2839 on the designate
 | Meta description | `null` | Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans. |
 
 Verify the same row with the read-only report, retest the Yoast URL response and compare the rendered title and description on staging. Verify `noindex` and compare the protected product fields with the baseline. If rollback is approved, restore the exact three prior values only if the row still matches the applied state. Keep the repair scoped to the derived row, with product metadata, the current permalink, search visibility and the live subscription outside the write scope. Yoast's general post rebuild also touches related indexable data, so review the selected implementation's write footprint before applying it. See [the Yoast 28.8 builder](https://github.com/Yoast/wordpress-seo/blob/28.8/src/builders/indexable-builder.php#L328-L357).
+
+## Draft staging title and description test
+
+Scope is product 2839 on the designated Kinsta staging host. The two distinct proposed values use product facts already recorded in the saved copy. The test targets the saved Yoast title and description and their matching derived fields. Verify the current staging URL, URL hash and both before-values in a fresh read before approval. The protected-field baseline is the post-repair Diagnostics snapshot.
+
+| Field | Verified before | Proposed test value |
+| --- | --- | --- |
+| SEO title | Knitted Cotton Handbag with Doll Appliqué &#124; BHcrafts | Knitted Cotton Handbag with Three Doll Appliqués &#124; BHcrafts |
+| Meta description | Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans. | This knitted cotton handbag has three doll appliqués and striped handles. Handmade by BHcrafts women artisans and available in black or green. |
+
+Preview both saved fields and the derived output. Check stale values and ensure a failed write cannot leave mismatched saved and derived metadata. Verify the exact values in the WordPress editor, Yoast head response and ordinary storefront HTML. Resave through the editor and check again. Verify `noindex` and the protected-field snapshots. Prepare a separately approved rollback to the exact before-values in both locations, with drift checks. This draft is for implementation and review. Approval and staging execution remain pending.
 
 ## Still open
 

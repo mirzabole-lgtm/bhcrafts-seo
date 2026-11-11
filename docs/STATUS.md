@@ -16,6 +16,8 @@ The administrator supplied the Work Bridge 0.1.0 apply receipt from 11 November 
 
 The [post-apply Diagnostics 0.3.1 export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Apply_2026-11-11.json) from 11 November 2026 at 09:31:21 Europe/Sarajevo verifies the receipt independently. The exact proposal comparison passes for the SEO title, meta description, five keyphrases and all synonym pairs. Only the synonym metadata row differs from the corrected pre-apply export. The full product record, captured protected-field hashes, variation, all eight attachment records and artisan preservation checks match.
 
+The [post-resave export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Resave_2026-11-11.json) from 10:10:21 Europe/Sarajevo matches the exact proposal and all five saved Yoast rows, including the recorded related keyphrase scores. The product modification time advanced to 10:09:58. The remaining captured product fields, variation, eight attachments and artisan checks match the post-apply snapshot.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -32,11 +34,11 @@ The [post-apply Diagnostics 0.3.1 export](product-2839/baseline/BHcrafts_Product
 
 ## Next required step
 
-Reopen product 2839 in the staging editor and verify the five Yoast keyphrase and synonym entries, SEO title and meta description. Click Update without changing those fields, then export a fresh Diagnostics 0.3.1 snapshot before testing rollback. The [staging checklist](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging) also covers storefront output and the separate rollback. The earlier background storefront request timed out.
+Complete the storefront and separate rollback checks in the [staging checklist](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging). Review the reverse diff and use **Approve and restore original synonyms** in the staging test page. Keep the receipt private and export a fresh Diagnostics 0.3.1 snapshot to verify the original string and the captured product fields.
 
 ## Still open
 
-- Validate the Yoast Premium 28.8 adapter, normal resave, frontend output and rollback on staging.
+- Verify rendered metadata and rollback for the Yoast Premium 28.8 synonym test on staging.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.
 - Verify backups, staging outbound isolation, protected fields and rollback.

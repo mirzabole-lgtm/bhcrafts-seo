@@ -5,7 +5,7 @@
 **Website:** https://bhcrafts.shop/  
 **Working environment:** ChatGPT Work Cloud, with background execution  
 **Source repository:** https://github.com/mirzabole-lgtm/bhcrafts-seo  
-**Current stage:** First Yoast staging write verified by its apply receipt and independent diagnostics. Editor resave, storefront and rollback checks pending. No live product changes authorized.  
+**Current stage:** First Yoast staging write and editor resave verified. Storefront and rollback checks pending. No live product changes authorized.  
 **Source conversation:** [Connect ChatGPT WooCommerce](https://chatgpt.com/c/6af0b60e-e7f0-83eb-a17f-58a0d05e52a8)
 
 ## 1. Project mandate and immediate next steps
@@ -578,7 +578,7 @@ The next product 2839 export verified the first manual editor save. The title, m
 
 The [corrected editor export](docs/product-2839/yoast_editor_test_v0.1.md#corrected-editor-save) confirms five distinct synonym slots in Yoast Premium 28.8, with the primary pair first and the four related pairs in phrase order. The primary pair contains one extra trailing comma, which remains in the exact stored evidence. The title, meta description and all five keyphrases still match the proposal. The raw descriptions, variation, attachment records and recorded protected fields still match the baseline.
 
-[Work Bridge 0.1.0](plugin/bhcrafts-seo-work-bridge/README.md) packages the first Yoast staging write test for product 2839. The fixed proposal removes one trailing comma from the primary synonym slot. An authorized staging administrator reviews the exact diff and approves apply and rollback separately. The 39 isolated fixture checks passed. On 11 November 2026 at 08:50:47 Europe/Sarajevo, the supplied apply receipt reports exact read-back of the proposed synonym value and verifies all five Yoast rows. The [independent post-apply export](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Apply_2026-11-11.json) at 09:31:21 confirms the exact proposal and shows no changes to the captured product, variation, attachment and artisan records. Editor resave, rendered output and field-level rollback still need staging evidence.
+[Work Bridge 0.1.0](plugin/bhcrafts-seo-work-bridge/README.md) packages the first Yoast staging write test for product 2839. The fixed proposal removes one trailing comma from the primary synonym slot. An authorized staging administrator reviews the exact diff and approves apply and rollback separately. The 39 isolated fixture checks passed. On 11 November 2026 at 08:50:47 Europe/Sarajevo, the supplied apply receipt reports exact read-back of the proposed synonym value and verifies all five Yoast rows. The [independent post-apply export](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Apply_2026-11-11.json) at 09:31:21 confirms the exact proposal and shows no changes to the captured product, variation, attachment and artisan records. The [post-resave export](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Resave_2026-11-11.json) at 10:10:21 confirms all five Yoast rows survived the normal editor save. The product modification time advanced while the other captured product fields, variation, attachments and artisan checks still match. Rendered output and field-level rollback still need staging evidence.
 
 ### Before integration testing or live optimization
 

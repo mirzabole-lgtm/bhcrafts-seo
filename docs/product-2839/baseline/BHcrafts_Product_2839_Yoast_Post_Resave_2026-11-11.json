@@ -1,0 +1,886 @@
+{
+    "report_schema": "bhcrafts-seo-product-snapshot/1",
+    "diagnostics_plugin_version": "0.3.1",
+    "generated_at_utc": "2026-11-11T09:10:21+00:00",
+    "mode": "read_only",
+    "environment_report": {
+        "report_schema": "bhcrafts-seo-staging-diagnostics/1",
+        "diagnostics_plugin_version": "0.3.1",
+        "generated_at_utc": "2026-11-11T09:10:21+00:00",
+        "mode": "read_only",
+        "environment": {
+            "home_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+            "site_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/",
+            "rest_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-json/",
+            "designated_staging_match": true,
+            "wordpress_environment_type": "staging",
+            "wordpress_version": "7.1.4",
+            "php_version": "8.3.36",
+            "multisite": false,
+            "blog_public": "0"
+        },
+        "theme": {
+            "stylesheet": "flatsome",
+            "version": "3.20.11",
+            "parent_template": null,
+            "parent_version": null
+        },
+        "plugins": {
+            "woocommerce": {
+                "standard_entry_file_found": true,
+                "version": "11.2.2",
+                "active": true
+            },
+            "yoast_seo": {
+                "standard_entry_file_found": true,
+                "version": "28.8",
+                "active": true
+            },
+            "yoast_premium": {
+                "standard_entry_file_found": true,
+                "version": "28.8",
+                "active": true
+            }
+        },
+        "authentication": {
+            "application_passwords_available": true,
+            "current_administrator_authorized": true,
+            "cloud_authenticated_connection_tested": false
+        },
+        "coverage": {
+            "raw_products_read": false,
+            "images_inspected": false,
+            "yoast_premium_storage_verified": false,
+            "yoast_write_adapter_available": false,
+            "outbound_integrations_isolated_verified": false,
+            "backup_verified": false,
+            "notes": [
+                "A missing standard plugin entry file does not rule out an alternative installation path.",
+                "This report does not establish a cloud API connection or authorize content writes."
+            ]
+        },
+        "coverage_scope": "This nested report covers environment diagnostics only; selected product reads are recorded in the parent report."
+    },
+    "selection": {
+        "product_id": 2839,
+        "expected_slug": "knit-handbag-with-dolls-applique",
+        "actual_permalink": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/",
+        "actual_parent_image_order": [
+            2841,
+            2843,
+            2844,
+            2842,
+            2845,
+            445,
+            357
+        ],
+        "inspection_parent_image_order_matches": true,
+        "observed_variation_ids": [
+            2840
+        ],
+        "inspection_variation_ids_match": true,
+        "attachment_ids_read": [
+            2841,
+            2843,
+            2844,
+            2842,
+            2845,
+            445,
+            357,
+            577
+        ]
+    },
+    "product": {
+        "id": 2839,
+        "name": "Knitted Bag with Three-Doll Applique",
+        "slug": "knit-handbag-with-dolls-applique",
+        "status": "publish",
+        "type": "variable",
+        "modified_gmt": "2026-11-11 09:09:58",
+        "long_description_raw": "All BHcrafts products meet fair trade standards so we are proud to be guarantee Fair Trade Organization <a href=\"https://www.bhcrafts.org/pdf/WFTO_Certificate_2014-16.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">WFTO certificate</a>\r\n\r\nMore details about our Fair Trade mission you may find at: <a href=\"https://www.bhcrafts.org\" target=\"_blank\" rel=\"noopener noreferrer\">www.bhcrafts.org</a>\r\n\r\nGift wrapping in eco friendly recycled paper and postcard with customized text is free of charge with any purchase.\r\n\r\nHere you do not only buy you do \"Shopping With Purpose\"\r\n\r\n<strong>MORE INFORMATION ABOUT ARTISANS</strong>\r\n<img style=\"margin: 5px 10px 0px 0px; max-width: 120px;\" src=\"https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/artisan-handmade-tag.jpg\" alt=\"Tag\" align=\"left\" /> &lt;style=\"padding-left: 120px\"&gt; Lady whose name is written on the hang tag, made this product for you. Her knowledge, patience and love are knit into this product, which makes it unique and customs made. Helping one of hundreds of BHcrafts women producers to earn a living is added value to unique design and the best quality handmade product.\r\nAlthough all our products are made from the best quality materials we cannot guarantee they will not break unless you follow the care instructions. If you do, you will enjoy in this unique piece for a long time.",
+        "short_description_raw": "This unique handmade bag with its doll applique can be your ideal everyday bag. Made from 100% cotton, it is sure to withstand the daily stress of a busy lifestyle, and with its width of 29cm (11.4 inch) and a height of 46cm (18.1 inch), it can pack everything you may need for the day, including a laptop.",
+        "raw_content_sha256": "c7a8efa1ef577439f39e5daeb365eade1a97c729017ca94db841ad7bf0c808b6",
+        "attributes": {
+            "color": {
+                "id": 0,
+                "name": "Color",
+                "options": [
+                    "Black",
+                    "Green"
+                ],
+                "visible": false,
+                "variation": true
+            }
+        },
+        "protected_field_hashes": {
+            "name": {
+                "supported": true,
+                "sha256": "f20c8f52e04f069f14f13c5d1d38011466974a4e7332d102b01515f00e869b5c"
+            },
+            "slug": {
+                "supported": true,
+                "sha256": "460a6665d17df6e4bfa803842fba51a8cf4ff3c891a92e7d86312f18a983f9f6"
+            },
+            "status": {
+                "supported": true,
+                "sha256": "692017075c1714ef134231284deac90b7f3a8a2ac9dd7ce3b1ce3493f62bb64c"
+            },
+            "parent_id": {
+                "supported": true,
+                "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+            },
+            "sku": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "price": {
+                "supported": true,
+                "sha256": "e0f1046d36c525dd231b50fa1d6f01cf01a9b3fd97e18367159e6ddb7ad2680c"
+            },
+            "regular_price": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "sale_price": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "manage_stock": {
+                "supported": true,
+                "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+            },
+            "stock_quantity": {
+                "supported": true,
+                "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+            },
+            "stock_status": {
+                "supported": true,
+                "sha256": "45547157dc5fe73fd92d957b5b653a8e96b8be931102678d924a0decf6f415f0"
+            },
+            "backorders": {
+                "supported": true,
+                "sha256": "04a06452677210a3cdaec376fd5ebbca1714cb7af9e62bf5cce1644310a9086a"
+            },
+            "sold_individually": {
+                "supported": true,
+                "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+            },
+            "image_id": {
+                "supported": true,
+                "sha256": "bfedf73c234ce100b41cc10e509b05030edfa4a9fb6873c6537eb932a69f2dd7"
+            },
+            "gallery_image_ids": {
+                "supported": true,
+                "sha256": "383a41703bec9ab97e42214b6eeb3df5733a026ab304db3fc8ca3195f03aec6c"
+            },
+            "category_ids": {
+                "supported": true,
+                "sha256": "445c49a31c9ea23cdd0a2d35c928b3bdfa784de56ad24fb693186661bbd0855b"
+            },
+            "tag_ids": {
+                "supported": true,
+                "sha256": "6388276615fdb35057b419ab8bb1b1c3abf128efe306295f6854943dd45bb1f1"
+            },
+            "default_attributes": {
+                "supported": true,
+                "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+            },
+            "weight": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "length": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "width": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "height": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "tax_status": {
+                "supported": true,
+                "sha256": "605cc4bcd3463dc16f647625a8e8d5632b5e69d4e0a1db33b2dc8c9151467887"
+            },
+            "tax_class": {
+                "supported": true,
+                "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+            },
+            "shipping_class_id": {
+                "supported": true,
+                "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+            },
+            "virtual": {
+                "supported": true,
+                "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+            },
+            "downloadable": {
+                "supported": true,
+                "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+            },
+            "attributes": {
+                "supported": true,
+                "sha256": "0f01f0c58e575192daf08f573b4f4e723f8083c9cca73c302e96bf2bf4baf906"
+            },
+            "type": {
+                "supported": true,
+                "sha256": "2338e6d5c249540db08b98736acf02e877a8cd60522eac58c3204fc942ec73db"
+            }
+        }
+    },
+    "variations": [
+        {
+            "id": 2840,
+            "parent_id": 2839,
+            "image_id": 0,
+            "attributes": {
+                "color": ""
+            },
+            "description_raw": "",
+            "modified_gmt": "2025-03-04 08:35:37",
+            "protected_field_hashes": {
+                "name": {
+                    "supported": true,
+                    "sha256": "f20c8f52e04f069f14f13c5d1d38011466974a4e7332d102b01515f00e869b5c"
+                },
+                "slug": {
+                    "supported": true,
+                    "sha256": "362c324181399a3787397141cb3befabbc2e688dbeb79c92e069376737d90a10"
+                },
+                "status": {
+                    "supported": true,
+                    "sha256": "692017075c1714ef134231284deac90b7f3a8a2ac9dd7ce3b1ce3493f62bb64c"
+                },
+                "parent_id": {
+                    "supported": true,
+                    "sha256": "d7cee86db1db18fe93e067b9519cca02a3aee1be78423a3a2e1f4c9dbe6938cc"
+                },
+                "sku": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "price": {
+                    "supported": true,
+                    "sha256": "e0f1046d36c525dd231b50fa1d6f01cf01a9b3fd97e18367159e6ddb7ad2680c"
+                },
+                "regular_price": {
+                    "supported": true,
+                    "sha256": "e0f1046d36c525dd231b50fa1d6f01cf01a9b3fd97e18367159e6ddb7ad2680c"
+                },
+                "sale_price": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "manage_stock": {
+                    "supported": true,
+                    "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+                },
+                "stock_quantity": {
+                    "supported": true,
+                    "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+                },
+                "stock_status": {
+                    "supported": true,
+                    "sha256": "45547157dc5fe73fd92d957b5b653a8e96b8be931102678d924a0decf6f415f0"
+                },
+                "backorders": {
+                    "supported": true,
+                    "sha256": "04a06452677210a3cdaec376fd5ebbca1714cb7af9e62bf5cce1644310a9086a"
+                },
+                "sold_individually": {
+                    "supported": true,
+                    "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+                },
+                "image_id": {
+                    "supported": true,
+                    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+                },
+                "gallery_image_ids": {
+                    "supported": true,
+                    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+                },
+                "category_ids": {
+                    "supported": true,
+                    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+                },
+                "tag_ids": {
+                    "supported": true,
+                    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+                },
+                "default_attributes": {
+                    "supported": true,
+                    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+                },
+                "weight": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "length": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "width": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "height": {
+                    "supported": true,
+                    "sha256": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+                },
+                "tax_status": {
+                    "supported": true,
+                    "sha256": "605cc4bcd3463dc16f647625a8e8d5632b5e69d4e0a1db33b2dc8c9151467887"
+                },
+                "tax_class": {
+                    "supported": true,
+                    "sha256": "e31e1f443ba5da4f95255ccebb05e60d51a158d36f5400090fd6c43c9eb42062"
+                },
+                "shipping_class_id": {
+                    "supported": true,
+                    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+                },
+                "virtual": {
+                    "supported": true,
+                    "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+                },
+                "downloadable": {
+                    "supported": true,
+                    "sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+                },
+                "attributes": {
+                    "supported": true,
+                    "sha256": "3221078df865b9d26218d70259ad3c7bc98959b8b2e176863989941bd7a5881d"
+                },
+                "type": {
+                    "supported": true,
+                    "sha256": "99920088c112a1713e4dddc189a0e51d03c4afa5a421df3950d04b2afd10d50d"
+                }
+            }
+        }
+    ],
+    "attachments": [
+        {
+            "id": 2841,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2021/04/il_1140xn2467228434_lqp5.jpg",
+            "modified_gmt": "2021-04-17 18:21:03",
+            "title_raw": "il_1140xN.2467228434_lqp5",
+            "caption_raw": "rainbow handle shoulder bag",
+            "description_raw": "casual bag with doll applique",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "fair trade green knitted bag"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "b0e5a3753ffaf5065c4340bce7970ee246b9399ab7f3ae75824f9ac2c9d75b48",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "b9c6871b658f3bb041023aeadd1d2d0983cb0dcd22aa1b813c0d7b6d74675eb0"
+        },
+        {
+            "id": 2843,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2021/04/il_1140xn2467228784_fy0v.jpg",
+            "modified_gmt": "2021-04-17 18:20:55",
+            "title_raw": "il_1140xN.2467228784_fy0v",
+            "caption_raw": "fair trade green knitted bag",
+            "description_raw": "rainbow handle shoulder bag",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "casual bag with doll applique"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "6b415cdd070f008efb46a7db32640f7e71f3ba8c6997b0dee7db4ff272063e67",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "cec51f1cee6ab6f1195e3e644c3e74c7e766b70f8227aa3f5b4ce3d0e023b5dc"
+        },
+        {
+            "id": 2844,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2021/04/il_1140xn2514906249_mp1w.jpg",
+            "modified_gmt": "2021-04-17 18:22:16",
+            "title_raw": "il_1140xN.2514906249_mp1w",
+            "caption_raw": "fair trade black knitted bag",
+            "description_raw": "eco friendly shoulder bag with applique",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "knit tote bag"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "391261da6691cc316f2a8d94f9aa4ea2da6188fb80bd851f9c23fd6d03925377",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "487a3709bc9cbccb0fcfd0d978e320583c72b7ed6f3618160e763905ed4337a3"
+        },
+        {
+            "id": 2842,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2021/04/il_1140xn2467228766_2fyk.jpg",
+            "modified_gmt": "2021-04-17 18:21:44",
+            "title_raw": "il_1140xN.2467228766_2fyk",
+            "caption_raw": "eco friendly shoulder bag with applique",
+            "description_raw": "knit tote bag",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "fair trade black knitted bag"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "af2bd5d3bba18d74fd29746ba47a7758ded004c6747ade022b327c9ca1684af8",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "d2e24d9ba3b2c14d2bc80de093eb9d70a082de2ea884805f56142287166e29d1"
+        },
+        {
+            "id": 2845,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2021/04/il_1140xn2514906421_px7u.jpg",
+            "modified_gmt": "2021-04-17 18:23:06",
+            "title_raw": "il_1140xN.2514906421_px7u",
+            "caption_raw": "fair trade eco friendly shoulder bag",
+            "description_raw": "knit shoulder bag with doll applique",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "knitted tote bag"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "daa5bbd484a7b5b567e7de0d797bb96057c742156d61b9f4a233293683c0b2b0",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "4ea217ba2ef262161f1324bbd06b4ca23cd620fe76b4eed1749317993025ffba"
+        },
+        {
+            "id": 445,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/eco-friendly-gift-wrapping.jpg",
+            "modified_gmt": "2025-08-17 10:05:07",
+            "title_raw": "Eco-Friendly Gift Wrapping",
+            "caption_raw": "Complimentary eco-friendly gift wrapping with recycled paper and a personalized postcard with every purchase.",
+            "description_raw": "Enhance your gift-giving experience with our complimentary eco-friendly gift wrapping, featuring recycled paper and a customized postcard, included free with every purchase.",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "Eco-friendly gift wrapping with recycled paper and a customized postcard, free with any purchase."
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "32966829b5d6d68adc42a954d3d74480fd9a4951d59743cfdf63661c594039a0",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "f78ea9a8c764e8160f8955fdd63e55efc6b5c0972487f1604932ef08d7d9423c"
+        },
+        {
+            "id": 357,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/quantity-discount-offer.jpg",
+            "modified_gmt": "2025-08-17 10:11:40",
+            "title_raw": "Quantity Discount Offer",
+            "caption_raw": "Save up to 40% with our quantity discount on bulk purchases.",
+            "description_raw": "Take advantage of our quantity discount, offering up to 40% off when purchasing multiple items, making your holiday shopping more affordable.",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "Quantity discount chart offering up to 40% off for bulk purchases."
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "7cc2931bdde24c079b2e7bf25a4395825de4e6e78340b4c2dca3b5ad263936f8",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "ef899d14706619bd04ba475f2c7a5a8275f9b886511325aeb7c669b75decd4a1"
+        },
+        {
+            "id": 577,
+            "status": "read",
+            "source_url": "https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-content/uploads/2020/10/artisan-handmade-tag.jpg",
+            "modified_gmt": "2025-08-17 10:06:39",
+            "title_raw": "Artisan Handmade Tag",
+            "caption_raw": "Each product comes with a handmade tag bearing the artisan's name, emphasizing the unique craftsmanship.",
+            "description_raw": "Our products are accompanied by a handmade tag featuring the artisan's name, underscoring the individual care and attention to detail invested in each piece.",
+            "alt_text_metadata": {
+                "exists": true,
+                "wordpress_values": [
+                    "Handmade tag with artisan's name, highlighting the unique craftsmanship behind the product."
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "2f3ead7ecb562586494bff4535f7dd1c463a18f403769f004d41b1866393fc2d",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "baseline_sha256": "d0067ee22da2fc71bd631c0fcfb68f8d5f4a98aba1b81b24e25a956adeadcaf8"
+        }
+    ],
+    "artisan_preservation_evidence": {
+        "expected_attachment_id": 577,
+        "attachment_type_matches": true,
+        "attachment_url_path_matches": true,
+        "raw_description_contains_tag_filename": true,
+        "raw_description_contains_artisan_heading": true
+    },
+    "yoast_evidence": {
+        "storage_contract_verified": false,
+        "write_adapter_present": false,
+        "registry_class_loaded": true,
+        "installed_registry_fields": {
+            "_yoast_wpseo_focuskw": {
+                "group": "general",
+                "field_name": "focuskw",
+                "selected_definition_properties": {
+                    "type": "hidden",
+                    "title": ""
+                }
+            },
+            "_yoast_wpseo_title": {
+                "group": "general",
+                "field_name": "title",
+                "selected_definition_properties": {
+                    "type": "hidden",
+                    "default_value": ""
+                }
+            },
+            "_yoast_wpseo_metadesc": {
+                "group": "general",
+                "field_name": "metadesc",
+                "selected_definition_properties": {
+                    "type": "hidden",
+                    "default_value": ""
+                }
+            }
+        },
+        "installed_registry_field_names": [
+            "focuskw",
+            "title",
+            "metadesc",
+            "linkdex",
+            "content_score",
+            "inclusive_language_score",
+            "seo_title_score",
+            "meta_description_score",
+            "is_cornerstone",
+            "meta-robots-noindex",
+            "meta-robots-nofollow",
+            "meta-robots-adv",
+            "bctitle",
+            "canonical",
+            "redirect",
+            "schema_page_type",
+            "schema_article_type",
+            "linkdex",
+            "is_content_planner_banner_rendered",
+            "is_content_planner_banner_dismissed"
+        ],
+        "value_read_alias_allowlist": [
+            "title",
+            "metadesc",
+            "focuskw",
+            "keywordsynonyms",
+            "focuskeywords"
+        ],
+        "observed_vendor_key_names": [
+            "_yoast_wpseo_content_score",
+            "_yoast_wpseo_estimated-reading-time-minutes",
+            "_yoast_wpseo_focuskeywords",
+            "_yoast_wpseo_focuskw",
+            "_yoast_wpseo_inclusive_language_score",
+            "_yoast_wpseo_keywordsynonyms",
+            "_yoast_wpseo_linkdex",
+            "_yoast_wpseo_meta_description_score",
+            "_yoast_wpseo_metadesc",
+            "_yoast_wpseo_primary_product_brand",
+            "_yoast_wpseo_primary_product_cat",
+            "_yoast_wpseo_seo_title_score",
+            "_yoast_wpseo_title",
+            "_yoast_wpseo_videositemap-rating"
+        ],
+        "content_metadata": {
+            "_yoast_wpseo_focuskeywords": {
+                "exists": true,
+                "wordpress_values": [
+                    "[{\"keyword\":\"handmade cotton bag\",\"score\":56},{\"keyword\":\"doll appliqué bag\",\"score\":56},{\"keyword\":\"knitted handbag with dolls\",\"score\":67},{\"keyword\":\"fair trade handbag\",\"score\":56}]"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "5b419f9117deb77002693f5038423759405d674885f4ce82034e9c58201d7376",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "_yoast_wpseo_focuskw": {
+                "exists": true,
+                "wordpress_values": [
+                    "knitted cotton handbag"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "22b1dc5a7559c0d2d70721de5a223a111ebe4e2db8e79065aa527c81a659b6d1",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "_yoast_wpseo_keywordsynonyms": {
+                "exists": true,
+                "wordpress_values": [
+                    "[\"cotton knit handbag, knitted cotton bag\",\"handcrafted cotton bag, cotton bag made by hand\",\"bag with doll appliqués, doll applique handbag\",\"knit bag with dolls, knitted doll handbag\",\"fair trade bag, fairly traded handbag\"]"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "ff61f3cc9d9464a11d4b5f910320c8a10bab56e8ce37b4c30ca859dc3f2058e2",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "_yoast_wpseo_metadesc": {
+                "exists": true,
+                "wordpress_values": [
+                    "Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans."
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "0554c5b56803dc855fb33c21a3834381e5a1c288af3c794b71a66ef053842144",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            },
+            "_yoast_wpseo_title": {
+                "exists": true,
+                "wordpress_values": [
+                    "Knitted Cotton Handbag with Doll Appliqué | BHcrafts"
+                ],
+                "value_types": [
+                    "string"
+                ],
+                "sha256": "a5ce5b1772bf7ca434f89d0174df4473169c8c079c71dd3655cb627f95f440fc",
+                "read_semantics": "WordPress metadata API values, including its normal type conversion; not raw database bytes."
+            }
+        },
+        "notes": [
+            "The five value-read aliases are candidates only. Their presence, absence and installed definitions are reported without assuming a Premium layout.",
+            "Unknown installed field names are listed without values and require explicit adapter review.",
+            "Scores, canonical values, robots values and social values are not exported.",
+            "No JSON or serialized content value is rewritten, default-filled or double-encoded."
+        ],
+        "runtime_prefix_matches_vendor": true,
+        "registry_source_file_basename": "class-wpseo-meta.php",
+        "registry_source_sha256": "9308ff747c3a2a1b958cf07c0077b6ae406f4c59c2b647642a256691b4829342"
+    },
+    "premium_schema_evidence": {
+        "purpose": "Read-only evidence for the selected Yoast reference product.",
+        "registered_post_meta": {
+            "all_post_subtypes": {
+                "_yoast_wpseo_title": {
+                    "type": "string",
+                    "single": false,
+                    "show_in_rest": false,
+                    "sanitize_callback": "WPSEO_Meta::sanitize_post_meta",
+                    "auth_callback": "__return_false"
+                },
+                "_yoast_wpseo_metadesc": {
+                    "type": "string",
+                    "single": false,
+                    "show_in_rest": false,
+                    "sanitize_callback": "WPSEO_Meta::sanitize_post_meta",
+                    "auth_callback": "__return_false"
+                },
+                "_yoast_wpseo_focuskw": {
+                    "type": "string",
+                    "single": false,
+                    "show_in_rest": false,
+                    "sanitize_callback": "WPSEO_Meta::sanitize_post_meta",
+                    "auth_callback": "__return_false"
+                }
+            },
+            "product": []
+        },
+        "phrase_text_values_exported": false,
+        "normal_editor_save_verified": false,
+        "storage_contract_verified": false,
+        "limits": {
+            "reference_products": 1,
+            "metadata_keys_sampled": 5,
+            "shape_nodes": 80
+        },
+        "selected_reference": {
+            "product_id": 616,
+            "slug": "christmas-stocking-personalized",
+            "fields": {
+                "_yoast_wpseo_title": {
+                    "exists": true,
+                    "row_count": 1,
+                    "first_row_empty": false,
+                    "structure": {
+                        "format": "plain_or_invalid_json_string",
+                        "nodes": [
+                            {
+                                "path": "$",
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "_yoast_wpseo_metadesc": {
+                    "exists": true,
+                    "row_count": 1,
+                    "first_row_empty": false,
+                    "structure": {
+                        "format": "plain_or_invalid_json_string",
+                        "nodes": [
+                            {
+                                "path": "$",
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "_yoast_wpseo_focuskw": {
+                    "exists": true,
+                    "row_count": 1,
+                    "first_row_empty": false,
+                    "structure": {
+                        "format": "plain_or_invalid_json_string",
+                        "nodes": [
+                            {
+                                "path": "$",
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "_yoast_wpseo_keywordsynonyms": {
+                    "exists": true,
+                    "row_count": 1,
+                    "first_row_empty": false,
+                    "structure": {
+                        "format": "json_string",
+                        "nodes": [
+                            {
+                                "path": "$",
+                                "type": "array",
+                                "count": 5
+                            },
+                            {
+                                "path": "$[0]",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[1]",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[2]",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[3]",
+                                "type": "string"
+                            }
+                        ],
+                        "shape_is_bounded": true
+                    }
+                },
+                "_yoast_wpseo_focuskeywords": {
+                    "exists": true,
+                    "row_count": 1,
+                    "first_row_empty": false,
+                    "structure": {
+                        "format": "json_string",
+                        "nodes": [
+                            {
+                                "path": "$",
+                                "type": "array",
+                                "count": 4
+                            },
+                            {
+                                "path": "$[0]",
+                                "type": "object",
+                                "count": 2
+                            },
+                            {
+                                "path": "$[0].keyword",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[0].score",
+                                "type": "integer"
+                            },
+                            {
+                                "path": "$[1]",
+                                "type": "object",
+                                "count": 2
+                            },
+                            {
+                                "path": "$[1].keyword",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[1].score",
+                                "type": "integer"
+                            },
+                            {
+                                "path": "$[2]",
+                                "type": "object",
+                                "count": 2
+                            },
+                            {
+                                "path": "$[2].keyword",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[2].score",
+                                "type": "integer"
+                            },
+                            {
+                                "path": "$[3]",
+                                "type": "object",
+                                "count": 2
+                            },
+                            {
+                                "path": "$[3].keyword",
+                                "type": "string"
+                            },
+                            {
+                                "path": "$[3].score",
+                                "type": "integer"
+                            }
+                        ],
+                        "shape_is_bounded": true
+                    }
+                }
+            },
+            "status": "read",
+            "modified_gmt": "2026-10-26 09:53:51"
+        }
+    },
+    "coverage": {
+        "selected_product_raw_fields_read": true,
+        "sitewide_media_usage_complete": false,
+        "yoast_field_mapping_verified": false,
+        "yoast_normal_editor_save_tested": false,
+        "yoast_writes_performed": false,
+        "any_content_writes_performed": false,
+        "cloud_authenticated_connection_established": false,
+        "protected_hashes_are_not_a_restore_payload": true,
+        "notes": [
+            "Fixed product only. No arbitrary ID/key/URL request inputs.",
+            "This report is not a full protected-field inventory or a full sitewide media audit.",
+            "A successful export does not prove Premium field mapping, save/indexation lifecycle or browser layout."
+        ]
+    },
+    "snapshot_sha256": "1bd94da31c9ca5b5eeb19d61c9232c486902a70388f9069a68363e0b5532fc86"
+}

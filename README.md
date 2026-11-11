@@ -11,12 +11,12 @@ The diagnostics plugin collects read-only product evidence. Work Bridge provides
 - [Plugin setup instructions](plugin/bhcrafts-seo-diagnostics/README.md)
 - [Plugin source](plugin/bhcrafts-seo-diagnostics/)
 - [Current installable ZIP: 0.3.1](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip)
-- [Yoast staging test ZIP: Work Bridge 0.1.2](releases/BHcrafts_SEO_Work_Bridge_0.1.2.zip)
+- [Yoast staging test ZIP: Work Bridge 0.1.3](releases/BHcrafts_SEO_Work_Bridge_0.1.3.zip)
 - [Change history](CHANGELOG.md)
 
 ## Current action on staging
 
-The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.2 repair corrected the derived row. The Yoast head API and storefront show the approved title and description, and the authenticated post-repair snapshot matches the protected-field baseline. See the [next staging test](docs/STATUS.md#draft-staging-title-and-description-test).
+The authenticated post-repair snapshot matches the protected-field baseline on product 2839. Work Bridge 0.1.3 is ready to preview and approve the [staging title and description test](plugin/bhcrafts-seo-work-bridge/README.md#test-the-staging-seo-title-and-description).
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 86 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The read-only report and the derived indexable repair ran on staging. The repair receipt, public API and rendered HTML all match the repair proposal.
+Current result: 78 diagnostics and 114 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The earlier repair receipt, public API and rendered HTML all match the repair proposal. The title and description test still needs its first staging database run.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: BHcrafts SEO Work Bridge
- * Description: Yoast indexable diagnostics and fixed-proposal staging repairs for product 2839.
- * Version: 0.1.2
+ * Description: Yoast diagnostics and fixed-proposal staging tests for product 2839.
+ * Version: 0.1.3
  * Requires at least: 6.2
  * Requires PHP: 8.0
  * Author: BHcrafts
@@ -24,6 +24,7 @@ const SYNONYMS_KEY = '_yoast_wpseo_keywordsynonyms';
 const PROPOSAL_SHA256 = '51894bdd9415e611dc4984cdf56389395aaa0b075e2866fe22407f9fa894d60d';
 
 require_once __DIR__ . '/indexable-repair.php';
+require_once __DIR__ . '/title-description-test.php';
 
 function stop_test( string $message, int $status = 409 ): void {
     wp_die( esc_html( $message ), '', array( 'response' => $status ) );
@@ -160,7 +161,9 @@ function render_page(): void {
     wp_nonce_field( INDEXABLE_ACTION );
     submit_button( 'Download Yoast indexable report', 'secondary' );
     echo '</form><hr>';
-    render_indexable_repair( $proposal );
+    $indexable_rows = read_indexable_rows();
+    render_title_description_test( $proposal, $indexable_rows );
+    render_indexable_repair( $proposal, $indexable_rows );
     echo '<p>Product 2839. The test changes one Yoast metadata field. Compare the values below before approving.</p>';
     echo '<p>Proposal <code>' . esc_html( $proposal['id'] ) . '</code> · SHA-256 <code>' . esc_html( PROPOSAL_SHA256 ) . '</code></p>';
     foreach ( array( 'apply' => 'Approve and remove trailing comma', 'restore' => 'Approve and restore original synonyms' ) as $operation => $label ) {

@@ -40,31 +40,42 @@ function indexable_repair_proposal( array $proposal ): array {
     );
 }
 
-function indexable_repair_hash( array $repair ): string {
-    $encoded = wp_json_encode( $repair, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+function staging_proposal_hash( array $proposal ): string {
+    $encoded = wp_json_encode( $proposal, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
     if ( ! is_string( $encoded ) ) {
         stop_test( 'The indexable proposal could not be encoded.' );
     }
     return hash( 'sha256', $encoded );
 }
 
-function indexable_repair_nonce( string $operation, string $hash ): string {
-    return INDEXABLE_REPAIR_ACTION . ':' . $operation . ':' . $hash;
+function staging_change_nonce( string $action, string $operation, string $hash ): string {
+    return $action . ':' . $operation . ':' . $hash;
 }
 
-function check_indexable_baseline( array $repair, array $expected, ?array $rows ): bool {
+function check_indexable_baseline( array $proposal, array $expected, ?array $rows, ?array $saved = null ): bool {
+    $saved = $saved ?? $proposal['after'];
     return is_array( $rows ) && count( $rows ) === 1 && (int) $rows[0]['id'] > 0
-        && $rows[0]['object_sub_type'] === 'product' && $rows[0]['permalink'] === $repair['permalink']
-        && get_permalink( PRODUCT_ID ) === $repair['permalink']
+        && $rows[0]['object_sub_type'] === 'product' && $rows[0]['permalink'] === $proposal['permalink']
+        && get_permalink( PRODUCT_ID ) === $proposal['permalink']
         && array_intersect_key( $rows[0], $expected ) === $expected
-        && get_post_meta( PRODUCT_ID, '_yoast_wpseo_title', false ) === array( $repair['after']['title'] )
-        && get_post_meta( PRODUCT_ID, '_yoast_wpseo_metadesc', false ) === array( $repair['after']['description'] );
+        && get_post_meta( PRODUCT_ID, '_yoast_wpseo_title', false ) === array( $saved['title'] )
+        && get_post_meta( PRODUCT_ID, '_yoast_wpseo_metadesc', false ) === array( $saved['description'] );
 }
 
-function render_indexable_repair( array $proposal ): void {
+function render_staging_approval( string $action, string $operation, string $hash, string $label ): void {
+    echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
+    echo '<input type="hidden" name="action" value="' . esc_attr( $action ) . '">';
+    echo '<input type="hidden" name="operation" value="' . esc_attr( $operation ) . '">';
+    wp_nonce_field( staging_change_nonce( $action, $operation, $hash ) );
+    echo '<p><label>Verified Kinsta staging backup reference <input type="text" name="backup_reference" maxlength="120" required></label></p>';
+    echo '<p><label><input type="checkbox" name="staging_checked" value="yes" required> I verified the staging backup and outbound integration isolation.</label></p>';
+    submit_button( $label );
+    echo '</form>';
+}
+
+function render_indexable_repair( array $proposal, ?array $rows ): void {
     $repair = indexable_repair_proposal( $proposal );
-    $hash = indexable_repair_hash( $repair );
-    $rows = read_indexable_rows();
+    $hash = staging_proposal_hash( $repair );
     echo '<h2>Staging indexable repair</h2><p>Product 2839. Review the three changes to the existing Yoast indexable.</p>';
     echo '<p>Proposal <code>' . esc_html( $repair['id'] ) . '</code> · SHA-256 <code>' . esc_html( $hash ) . '</code></p>';
     foreach ( array( 'repair' => 'Approve and repair staging indexable', 'restore' => 'Approve and restore original indexable' ) as $operation => $label ) {
@@ -80,14 +91,7 @@ function render_indexable_repair( array $proposal ): void {
             echo '<p>Unavailable for the current baseline. Download the read-only indexable report to review the saved values.</p>';
             continue;
         }
-        echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
-        echo '<input type="hidden" name="action" value="' . esc_attr( INDEXABLE_REPAIR_ACTION ) . '">';
-        echo '<input type="hidden" name="operation" value="' . esc_attr( $operation ) . '">';
-        wp_nonce_field( indexable_repair_nonce( $operation, $hash ) );
-        echo '<p><label>Verified Kinsta staging backup reference <input type="text" name="backup_reference" maxlength="120" required></label></p>';
-        echo '<p><label><input type="checkbox" name="staging_checked" value="yes" required> I verified the staging backup and outbound integration isolation.</label></p>';
-        submit_button( $label );
-        echo '</form>';
+        render_staging_approval( INDEXABLE_REPAIR_ACTION, $operation, $hash, $label );
     }
     echo '<hr>';
 }
@@ -126,27 +130,32 @@ function update_indexable_row( int $id, array $repair, array $from, array $to ) 
     }
 }
 
-function submit_indexable_repair(): void {
-    $proposal = proposal();
-    assert_staging( $proposal );
+function read_staging_approval( string $action, string $apply_operation, string $hash ): array {
     if ( ( $_SERVER['REQUEST_METHOD'] ?? '' ) !== 'POST' ) {
-        stop_test( 'Submit the staging indexable repair form.', 405 );
+        stop_test( 'Submit the staging approval form.', 405 );
     }
     $fields = array( 'action', 'operation', '_wpnonce', '_wp_http_referer', 'backup_reference', 'staging_checked', 'submit' );
     if ( ! empty( $_GET ) || array_diff( array_keys( $_POST ), $fields ) || count( array_filter( $_POST, 'is_string' ) ) !== count( $_POST ) ) {
-        stop_test( 'Unexpected form input. The indexable proposal is fixed.', 400 );
+        stop_test( 'Unexpected form input. The staging proposal is fixed.', 400 );
     }
     $operation = $_POST['operation'] ?? '';
     $backup = trim( wp_unslash( $_POST['backup_reference'] ?? '' ) );
-    if ( ( $_POST['action'] ?? '' ) !== INDEXABLE_REPAIR_ACTION || ! in_array( $operation, array( 'repair', 'restore' ), true )
+    if ( ( $_POST['action'] ?? '' ) !== $action || ! in_array( $operation, array( $apply_operation, 'restore' ), true )
         || ( $_POST['staging_checked'] ?? '' ) !== 'yes' || ! preg_match( '/\A[A-Za-z0-9][A-Za-z0-9 .:_-]{0,119}\z/', $backup ) ) {
         stop_test( 'Confirm staging isolation and enter the verified backup reference.', 400 );
     }
-    $repair = indexable_repair_proposal( $proposal );
-    $hash = indexable_repair_hash( $repair );
-    if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', indexable_repair_nonce( $operation, $hash ) ) ) {
-        stop_test( 'Refresh the preview and approve the exact indexable proposal again.', 403 );
+    if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', staging_change_nonce( $action, $operation, $hash ) ) ) {
+        stop_test( 'Refresh the preview and approve the exact staging proposal again.', 403 );
     }
+    return array( $operation, $backup );
+}
+
+function submit_indexable_repair(): void {
+    $proposal = proposal();
+    assert_staging( $proposal );
+    $repair = indexable_repair_proposal( $proposal );
+    $hash = staging_proposal_hash( $repair );
+    [ $operation, $backup ] = read_staging_approval( INDEXABLE_REPAIR_ACTION, 'repair', $hash );
     $from = $repair[$operation === 'repair' ? 'before' : 'after'];
     $to = $repair[$operation === 'repair' ? 'after' : 'before'];
     $rows = read_indexable_rows();

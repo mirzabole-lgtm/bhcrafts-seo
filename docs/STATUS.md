@@ -54,7 +54,7 @@ The authenticated [post-repair Diagnostics snapshot](product-2839/baseline/BHcra
 
 ## Next required step
 
-Use the verified post-repair baseline to implement the [staging title and description test](#draft-staging-title-and-description-test). Review and approve the exact test once the implementation and rollback are ready.
+Install Work Bridge 0.1.3 on staging, then [review and approve the exact title and description test](../plugin/bhcrafts-seo-work-bridge/README.md#test-the-staging-seo-title-and-description). The package passed 114 isolated fixture checks. Its first staging database run is pending.
 
 ## Proposed staging indexable repair
 
@@ -72,6 +72,8 @@ Verify the same row with the read-only report, retest the Yoast URL response and
 
 ## Draft staging title and description test
 
+Work Bridge 0.1.3 implements `bhcrafts-stg-2839-yoast-title-description-test-v0.1` with proposal SHA-256 `f6d660124c87a1ea346f8b6a029a8225d66c347387b2942407b1561c67889b5c`.
+
 Scope is product 2839 on the designated Kinsta staging host. The two distinct proposed values use product facts already recorded in the saved copy. The test targets the saved Yoast title and description and their matching derived fields. Verify the current staging URL, URL hash and both before-values in a fresh read before approval. The protected-field baseline is the post-repair Diagnostics snapshot.
 
 | Field | Verified before | Proposed test value |
@@ -79,7 +81,7 @@ Scope is product 2839 on the designated Kinsta staging host. The two distinct pr
 | SEO title | Knitted Cotton Handbag with Doll Appliqué &#124; BHcrafts | Knitted Cotton Handbag with Three Doll Appliqués &#124; BHcrafts |
 | Meta description | Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans. | This knitted cotton handbag has three doll appliqués and striped handles. Handmade by BHcrafts women artisans and available in black or green. |
 
-Preview both saved fields and the derived output. Check stale values and ensure a failed write cannot leave mismatched saved and derived metadata. Verify the exact values in the WordPress editor, Yoast head response and ordinary storefront HTML. Resave through the editor and check again. Verify `noindex` and the protected-field snapshots. Prepare a separately approved rollback to the exact before-values in both locations, with drift checks. This draft is for implementation and review. Approval and staging execution remain pending.
+The preview covers both saved fields and the derived output. Apply and restore use a single guarded statement against two existing postmeta rows and one indexable row, with exact before-values, source and URL collision checks, and a verified InnoDB and autocommit preflight. Verify the exact values in the WordPress editor, Yoast head response and ordinary storefront HTML. Resave through the editor and check again. Verify `noindex` and the protected-field snapshots. The separate rollback restores the exact before-values in both locations after its own drift checks and approval. Staging approval and execution remain pending.
 
 ## Still open
 
@@ -90,4 +92,4 @@ Preview both saved fields and the derived output. Check stale values and ensure 
 - Establish secure cloud access and a trusted human-approval mechanism before an automated apply route.
 - Obtain exact staging test and production pilot approvals when concrete proposals exist.
 
-Diagnostics 0.3.1 remains read-only. Work Bridge 0.1.2 contains the read-only report and the separately approved staging repair and synonym actions. The full content draft remains pending review and apply.
+Diagnostics 0.3.1 remains read-only. Work Bridge 0.1.3 contains the read-only report and separate approval forms for the staging tests. The full content draft remains pending review and apply.

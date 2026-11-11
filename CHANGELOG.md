@@ -1,5 +1,11 @@
 # Change history
 
+## Work Bridge 0.1.3: saved Yoast title and description test
+
+- Preview exact title and description changes for staging product 2839 and require a separate approval for apply and restore.
+- Synchronize two existing postmeta rows and the corresponding derived fields in one guarded InnoDB statement.
+- Pass 114 Work Bridge fixture checks. The first staging database run remains pending.
+
 ## Work Bridge 0.1.2: staged indexable repair
 
 - Preview and approve the exact permalink hash, title and description repair for staging product 2839.

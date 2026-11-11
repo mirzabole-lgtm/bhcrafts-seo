@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. A separate staging a
 
 ## Current action on staging
 
-The corrected 0.3.1 export confirms the primary synonym slot followed by the four related slots. The first Work Bridge test proposes removing one trailing comma in the primary synonyms. Review the [exact proposal and staging instructions](plugin/bhcrafts-seo-work-bridge/README.md).
+The Work Bridge receipt confirms that the first staging write removed the extra comma from the primary synonyms. Next, download the post-apply product snapshot before resaving or restoring the field. See the [staging verification steps](plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging).
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. WordPress staging validation remains pending.
+Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The staging apply receipt reports an exact read-back. The independent post-apply export, normal editor resave, rendered metadata and rollback remain open.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

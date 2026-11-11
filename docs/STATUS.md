@@ -12,6 +12,8 @@ The [first editor save export](product-2839/baseline/BHcrafts_Product_2839_Yoast
 
 The [corrected export](product-2839/yoast_editor_test_v0.1.md#corrected-editor-save) confirms the primary synonym pair in the first slot and the four related pairs in order. The only exact-text difference from the proposal is a trailing comma in the primary synonyms. The baseline comparisons still pass for descriptions, protected-field hashes, variation, image records and artisan checks.
 
+The administrator supplied the Work Bridge 0.1.0 apply receipt from 11 November 2026 at 08:50:47 Europe/Sarajevo. It matches the bundled proposal and reports a successful write and exact read-back of all five Yoast rows. The primary synonyms now read `cotton knit handbag, knitted cotton bag`. The administrator attested to the staging backup and outbound isolation. This record omits account identifiers and the private backup reference.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -28,7 +30,7 @@ The [corrected export](product-2839/yoast_editor_test_v0.1.md#corrected-editor-s
 
 ## Next required step
 
-Run the [first Work Bridge staging test](../plugin/bhcrafts-seo-work-bridge/README.md). Version 0.1.0 previews a single change on product 2839. An authorized staging administrator approves the trailing comma removal and the separate field-level rollback. The test records read-back, normal Yoast resave and rendered metadata. The package passes 39 isolated checks. Installation and execution on staging remain pending.
+Export the post-apply product 2839 snapshot through Diagnostics 0.3.1. Then complete the [editor resave, storefront and separate rollback checks](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging). The apply receipt covers the five Yoast rows. The independent diagnostic export covers the recorded protected fields. A background request to the staging storefront timed out, so the storefront check remains open.
 
 ## Still open
 

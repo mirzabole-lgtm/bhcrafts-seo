@@ -30,6 +30,12 @@ In Yoast 28.8, the URL surface looks up a stored indexable by the exact permalin
 
 The [first staging indexable report](product-2839/baseline/BHcrafts_Yoast_Indexable_2839.json) at 11:48:47 Europe/Sarajevo found one row for product 2839. Its stored permalink equals the current staging permalink, but its hash `63:db0d112a7674b4ec88ad6862008d062a` exactly matches the equivalent live `bhcrafts.shop` URL. The staging permalink hashes to `89:8f4f7009daffbd9e477791a629563f18` under Yoast 28.8's algorithm. This row cannot satisfy the staging URL lookup. Its title and description are both `null`, while the saved WordPress Yoast fields still contain the approved text. Yoast's post presentation uses template values when the indexable has no title or description. The report explains the URL lookup failure and provides a credible explanation for the earlier rendered title. The rendered output still needs verification after repair. See [Yoast 28.8 permalink hash calculation](https://github.com/Yoast/wordpress-seo/blob/28.8/src/models/indexable.php#L174-L178) and [post presentation fallbacks](https://github.com/Yoast/wordpress-seo/blob/28.8/src/presentations/indexable-post-type-presentation.php#L147-L187).
 
+On 11 November 2026 at 12:19:41 Europe/Sarajevo, the supplied repair receipt reports `verified` and one affected staging row. Its before-values, proposal hash, resulting hash, title and description match the exact proposal below. The receipt read-back preserves the staging permalink. The receipt remains private because it contains administrator and backup details.
+
+Independent GET requests after the repair returned HTTP 200 from the Yoast head endpoint and the staging storefront. The response body reports Yoast status 200, replacing the earlier 404. Both storefront responses, with and without a query parameter, contain one title and one meta description matching the approved values exactly. The page robots tag remains `noindex, nofollow`. Both responses also include the Kinsta `X-Robots-Tag` header with `noindex`. The ordinary storefront response is dated 12:21:07 Europe/Sarajevo. The repair rollback remains available and has only fixture coverage. The authenticated product snapshot after this repair remains pending.
+
+A separate public WooCommerce Store API read returned HTTP 200. All 23 compared fields match the earlier public product capture, including identity, SKU, long and short descriptions, prices, stock signals, variations, image records, dimensions and taxonomy assignments. This comparison covers public fields. The full protected-field comparison uses the authenticated Diagnostics export.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -46,7 +52,7 @@ The [first staging indexable report](product-2839/baseline/BHcrafts_Yoast_Indexa
 
 ## Next required step
 
-Install [Work Bridge 0.1.2](../releases/BHcrafts_SEO_Work_Bridge_0.1.2.zip) on staging, then [review and approve the exact repair](../plugin/bhcrafts-seo-work-bridge/README.md#repair-the-staging-indexable). The package passed 86 isolated fixture checks. Its first staging database run is pending.
+Capture an authenticated post-repair Diagnostics snapshot for the full protected-field comparison before using this product as a baseline for further writes. Prepare the next staging proposal for testing changes to the remaining saved Yoast fields and their rendered output.
 
 ## Proposed staging indexable repair
 
@@ -64,7 +70,7 @@ Verify the same row with the read-only report, retest the Yoast URL response and
 
 ## Still open
 
-- Diagnose the staging storefront metadata mismatch and test writes to the remaining Yoast fields.
+- Test writes to the remaining saved Yoast fields and verify their rendered output on staging.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.
 - Verify backups, staging outbound isolation, protected fields and rollback for subsequent write types.

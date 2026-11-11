@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. Work Bridge provides
 
 ## Current action on staging
 
-The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.1 report found a live-domain hash and empty title and description in the staging indexable. Work Bridge 0.1.2 is ready to preview and approve the [single-row staging repair](plugin/bhcrafts-seo-work-bridge/README.md#repair-the-staging-indexable).
+The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The Work Bridge 0.1.2 repair corrected the derived row. The Yoast head API and storefront now show the approved title and description, and staging remains `noindex`. See the [verification and remaining checks](docs/STATUS.md#current-result).
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 86 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The read-only indexable report ran on staging. The derived indexable repair still needs its first staging database run.
+Current result: 78 diagnostics and 86 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The read-only report and the derived indexable repair ran on staging. The repair receipt, public API and rendered HTML all match the repair proposal.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

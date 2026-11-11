@@ -20,6 +20,10 @@ The [post-resave export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_
 
 The [post-rollback export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Rollback_2026-11-11.json) from 10:15:29 Europe/Sarajevo confirms that the original synonym row was restored, including the trailing comma. All five Yoast rows match the corrected pre-apply baseline exactly. The synonyms row is the only captured content change since the resave. The product modification time and the captured product, variation, attachment and artisan records match the post-resave export. The strict apply comparator now flags only the restored comma, as expected.
 
+The administrator supplied the staging product’s HTML head lines on 11 November 2026. The rendered title is `Knitted Bag with Three-Doll Applique - BHcrafts`. The rendered description starts `This unique handmade bag with its doll applique can be your ideal everyday bag.` Both match the pre-test storefront output. Both differ from the saved Yoast title and description. The robots tag is `noindex, nofollow`, consistent with the recorded WordPress `blog_public=0` and [Kinsta staging behavior](https://kinsta.com/docs/wordpress-hosting/staging-environment/#3-seo). The robots check passes. The storefront comparison confirms a mismatch between the current rendered and saved metadata.
+
+The administrator also reported Yoast errors on staging. The exact messages and where they occur are pending. The earlier public Yoast head API check returned HTTP 404, and later background storefront requests timed out. Yoast documents limits on its indexables on non-production sites. The specific cause of this staging mismatch remains open. See [Yoast indexables guidance](https://yoast.com/help/how-to-reset-yoast-indexables/#i-have-a-problem-with-resetting-the-yoast-indexables).
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -36,11 +40,11 @@ The [post-rollback export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Pos
 
 ## Next required step
 
-Check the rendered title, meta description and noindex directive on the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/). Background requests to this page timed out. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies indexation behavior.
+Review the exact staging Yoast error and any HTTP status or technical detail it includes. Trace why the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/) still renders the earlier metadata. Preserve the staging visibility setting during diagnosis. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies their rendered output.
 
 ## Still open
 
-- Verify rendered metadata for the Yoast Premium 28.8 synonym test on staging and test writes to the remaining Yoast fields.
+- Diagnose the staging storefront metadata mismatch and test writes to the remaining Yoast fields.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.
 - Verify backups, staging outbound isolation, protected fields and rollback for subsequent write types.

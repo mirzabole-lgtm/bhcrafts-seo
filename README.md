@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. A separate staging a
 
 ## Current action on staging
 
-The staging snapshots confirm the synonym correction survived the normal editor resave on product 2839 and the rollback restored the exact original value. The rendered storefront metadata check remains open. See the [latest test evidence](docs/STATUS.md#current-result).
+The staging snapshots confirm the synonym correction survived the normal editor resave on product 2839 and the rollback restored the exact original value. The page source confirms the expected staging robots directive. Its rendered title and description still match the earlier storefront output and differ from the saved Yoast values. See the [latest test evidence](docs/STATUS.md#current-result).
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The staging exports confirm the apply, editor resave and rollback for the synonym field. Rendered metadata and the remaining Yoast write types still need staging validation.
+Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The staging exports confirm apply, editor resave and rollback for the synonym field. The rendered metadata mismatch and the remaining Yoast write types still need investigation on staging.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

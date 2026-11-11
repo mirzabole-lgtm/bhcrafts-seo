@@ -28,7 +28,7 @@ The [corrected export](product-2839/yoast_editor_test_v0.1.md#corrected-editor-s
 
 ## Next required step
 
-Prepare the version-specific adapter and [staging test proposal](product-2839/yoast_editor_test_v0.1.md#next-adapter-test) using the verified slot order. The next staging validation covers the adapter write, reload and resave, rendered metadata and rollback.
+Run the [first Work Bridge staging test](../plugin/bhcrafts-seo-work-bridge/README.md). Version 0.1.0 previews a single change on product 2839. An authorized staging administrator approves the trailing comma removal and the separate field-level rollback. The test records read-back, normal Yoast resave and rendered metadata. The package passes 39 isolated checks. Installation and execution on staging remain pending.
 
 ## Still open
 
@@ -39,4 +39,4 @@ Prepare the version-specific adapter and [staging test proposal](product-2839/yo
 - Establish secure cloud access and a trusted human-approval mechanism before an automated apply route.
 - Obtain exact staging test and production pilot approvals when concrete proposals exist.
 
-The current plugin has no content writer, restore operation, public REST route, media deletion or remote HTTP function. The content draft has not been applied.
+Diagnostics 0.3.1 remains read-only. Work Bridge 0.1.0 implements the fixed staging test through WordPress admin. The full content draft remains pending review and apply.

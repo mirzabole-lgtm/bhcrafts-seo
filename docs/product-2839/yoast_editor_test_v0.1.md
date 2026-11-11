@@ -79,4 +79,4 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 
 ## Next adapter test
 
-Use the observed slot order to prepare the Yoast 28.8 adapter. The staging test needs an exact proposal against a fresh baseline, a verified backup, and explicit approval. The test must check the adapter’s write, exact read-back, editor reload and resave, rendered title and description, and field-level rollback. Capture the existing raw synonyms as part of the rollback baseline.
+[Work Bridge 0.1.0](../../plugin/bhcrafts-seo-work-bridge/README.md) implements the first Yoast 28.8 write test. Its fixed proposal removes the primary synonym's trailing comma. The staging checklist covers preview, approval, write and exact read-back, editor reload and resave, rendered title and description, and rollback to the exact prior value. The other four Yoast writes remain for subsequent testing.

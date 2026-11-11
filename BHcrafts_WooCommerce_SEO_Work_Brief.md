@@ -5,7 +5,7 @@
 **Website:** https://bhcrafts.shop/  
 **Working environment:** ChatGPT Work Cloud, with background execution  
 **Source repository:** https://github.com/mirzabole-lgtm/bhcrafts-seo  
-**Current stage:** Raw staging baseline and Yoast synonym slot order verified. Adapter staging tests pending. No live product changes authorized.  
+**Current stage:** First Yoast staging writer and test proposal ready for review. No live product changes authorized.  
 **Source conversation:** [Connect ChatGPT WooCommerce](https://chatgpt.com/c/6af0b60e-e7f0-83eb-a17f-58a0d05e52a8)
 
 ## 1. Project mandate and immediate next steps
@@ -577,6 +577,8 @@ On 11 November 2026, the user selected Christmas Stocking Personalized as a popu
 The next product 2839 export verified the first manual editor save. The title, meta description and all five keyphrases match. The first synonym slot repeats the value in the second slot. The remaining four slots match their proposed positions. The raw descriptions, recorded protected-field hashes, variation, image records and artisan checks match the pre-test export. The [editor test result](docs/product-2839/yoast_editor_test_v0.1.md#first-editor-save-result) records the exact saved values and the primary synonym check. Adapter writes, frontend verification and rollback still need staging tests.
 
 The [corrected editor export](docs/product-2839/yoast_editor_test_v0.1.md#corrected-editor-save) confirms five distinct synonym slots in Yoast Premium 28.8, with the primary pair first and the four related pairs in phrase order. The primary pair contains one extra trailing comma, which remains in the exact stored evidence. The title, meta description and all five keyphrases still match the proposal. The raw descriptions, variation, attachment records and recorded protected fields still match the baseline.
+
+[Work Bridge 0.1.0](plugin/bhcrafts-seo-work-bridge/README.md) packages the first Yoast staging write test for product 2839. The fixed proposal removes one trailing comma from the primary synonym slot. An authorized staging administrator reviews the exact diff and approves apply and rollback separately. The 39 isolated fixture checks passed. Execution on Kinsta, editor resave, rendered output and field-level rollback still need staging evidence.
 
 ### Before integration testing or live optimization
 

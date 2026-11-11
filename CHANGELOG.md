@@ -1,5 +1,11 @@
 # Change history
 
+## Work Bridge 0.1.0: first Yoast staging write test
+
+- Add a separate staging-only WordPress plugin for the exact product 2839 synonym correction and field-level restore.
+- Bind approval to the fixed proposal, operation, environment, product and saved baseline. Export an approval and read-back receipt.
+- Pass 39 isolated fixture checks. Kinsta staging execution remains pending.
+
 ## 11 November 2026: first staging editor save
 
 - Preserve the product 2839 post-save export and document the primary synonym mismatch.

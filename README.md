@@ -2,7 +2,7 @@
 
 Background development and review for bhcrafts.shop. Current installable diagnostics version: **0.3.1**.
 
-The staging-only plugin collects read-only product evidence. The SEO writer is pending. The first manual staging test saved the proposed Yoast fields for product 2839. Its descriptions and attachment metadata still match the pre-test snapshot.
+The diagnostics plugin collects read-only product evidence. A separate staging add-on is ready for its first Yoast write test. The first manual editor test saved the proposed Yoast fields for product 2839. Its descriptions and attachment metadata match the pre-test snapshot.
 
 ## Start here
 
@@ -11,11 +11,12 @@ The staging-only plugin collects read-only product evidence. The SEO writer is p
 - [Plugin setup instructions](plugin/bhcrafts-seo-diagnostics/README.md)
 - [Plugin source](plugin/bhcrafts-seo-diagnostics/)
 - [Current installable ZIP: 0.3.1](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip)
+- [Yoast staging test ZIP: Work Bridge 0.1.0](releases/BHcrafts_SEO_Work_Bridge_0.1.0.zip)
 - [Change history](CHANGELOG.md)
 
 ## Current action on staging
 
-The corrected 0.3.1 export confirms the primary synonym slot followed by the four related slots. The exact-text check flags one trailing comma in the primary synonyms. The next phase is to prepare the [Yoast adapter and staging test](docs/product-2839/yoast_editor_test_v0.1.md#next-adapter-test).
+The corrected 0.3.1 export confirms the primary synonym slot followed by the four related slots. The first Work Bridge test proposes removing one trailing comma in the primary synonyms. Review the [exact proposal and staging instructions](plugin/bhcrafts-seo-work-bridge/README.md).
 
 ## Documents and evidence
 
@@ -55,8 +56,9 @@ php -n -l plugin/bhcrafts-seo-diagnostics/includes/premium-evidence.php
 php -n plugin/bhcrafts-seo-diagnostics/tests/security-test.php
 php -n plugin/bhcrafts-seo-diagnostics/tests/security-test.php export
 php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2839_ReadOnly_Snapshot_2026-11-10.json
+php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 isolated checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. These are fixture tests, not a full WordPress integration run.
+Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. WordPress staging validation remains pending.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

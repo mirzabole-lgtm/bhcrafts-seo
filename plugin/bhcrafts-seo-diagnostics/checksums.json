@@ -1,10 +1,10 @@
 {
-  "README.md": "f4d13f49ea3510e3921014c76438210cd09ac6ddc744e48356aae79e7b851818",
+  "README.md": "7c377ccdb989dfcc15d0c72c631d0c7c81a503c4a7fe11c13e82e24ea4af1c2d",
   "STAGING_CHECK.md": "ba815876befa004ab6a1501a5ad46b1581cc8709866c81e67479558e886b7347",
-  "VALIDATION.md": "dbbfe5a41613767145297b67a6c4e96c4c9abfa534c85aefa462c5e6add562db",
-  "bhcrafts-seo-diagnostics.php": "6c440d61ffed705750ef4c5450a7ecbf42d15ccc321b8097552fedc031550ac1",
-  "includes/premium-evidence.php": "fc6f8a6faf427dd5dc3a50e2964c9c966f9e5a3d8246bf9add78d30d477ce93c",
+  "VALIDATION.md": "716760f481b315bbcb536f54c95972281bbacf52ddfc69572e0ffb722bec4e78",
+  "bhcrafts-seo-diagnostics.php": "f370b54304874006c28ac788ff64d929378c7b95912bba24e2932ab421999ad1",
+  "includes/premium-evidence.php": "7ab1bc721d7d067fed31f70008c02e14aa00c06cbd0f9752544f25ac4cc7ad57",
   "includes/product-export.php": "bfc8a76ff2729a253917dc96a55ac73499867a9bef4a3251376c2afb3bb1c58c",
   "staging-evidence.json": "300dbd5f9847653a43b463153368eddc2e957ce352e35a7d9b2d7c68a9a9ea7f",
-  "tests/security-test.php": "0aa222d63d785ef52c939af5712d5ce5983eab1a2e5a1b7bfe1b0156b1be1f4f"
+  "tests/security-test.php": "b2c47f4ef157a15d74050311906be65836966d3ef3fc4f0a00e1cf57e7802381"
 }

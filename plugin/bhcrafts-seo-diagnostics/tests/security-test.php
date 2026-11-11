@@ -126,18 +126,16 @@ function get_registered_meta_keys($type,$subtype=''){
  if($type!=='post'||!in_array($subtype,array('','product'),true)){throw new RuntimeException('Unexpected registry scope');}
  return array('_yoast_wpseo_focuskeywords'=>array('type'=>'string','single'=>true,'show_in_rest'=>false,'default'=>'SECRET-SENTINEL','sanitize_callback'=>array('ExamplePlugin','sanitize')));
 }
-class WP_Query {
- public $posts;
- function __construct($args){
-  if($args['post_type']!=='product'||$args['post_status']!=='publish'||$args['posts_per_page']!==5||$args['fields']!=='ids'||!$args['no_found_rows']){throw new RuntimeException('Unexpected sample query scope');}
-  if(!in_array($args['meta_query'][0]['key'],array('_yoast_wpseo_keywordsynonyms','_yoast_wpseo_focuskeywords'),true)){throw new RuntimeException('Unexpected sample metadata key');}
-  $this->posts=array(5001,5002);
- }
-}
-foreach(array(5001,5002) as $id){$GLOBALS['posts'][$id]=clone $GLOBALS['posts'][2839];$GLOBALS['posts'][$id]->ID=$id;}
-$GLOBALS['posts'][5002]->post_status='draft';
-$GLOBALS['meta'][5001]=array('_yoast_wpseo_keywordsynonyms'=>array('PHRASE-SECRET-SENTINEL'),'_yoast_wpseo_focuskeywords'=>array('[{"keyword":"PHRASE-SECRET-SENTINEL","score":99,"synonyms":"PRIVATE-SYNONYMS"}]'));
-$GLOBALS['meta'][5002]=$GLOBALS['meta'][5001];
+$GLOBALS['posts'][616] = clone $GLOBALS['posts'][2839];
+$GLOBALS['posts'][616]->ID = 616;
+$GLOBALS['posts'][616]->post_name = 'christmas-stocking-personalized';
+$GLOBALS['meta'][616] = array(
+    '_yoast_wpseo_focuskw' => array( 'PHRASE-SECRET-SENTINEL' ),
+    '_yoast_wpseo_keywordsynonyms' => array( 'PRIVATE-SYNONYMS' ),
+    '_yoast_wpseo_focuskeywords' => array( json_encode( array_fill( 0, 4, array(
+        'keyword' => 'PHRASE-SECRET-SENTINEL', 'score' => 99, 'synonyms' => 'PRIVATE-SYNONYMS',
+    ) ) ) ),
+);
 require dirname(__DIR__).'/bhcrafts-seo-diagnostics.php';
 function check($condition,$label){if(!$condition){throw new RuntimeException('FAIL: '.$label);}++$GLOBALS['tests'];}
 function denies($callback,$status,$label){try{$callback();}catch(TestDenied $e){check($e->getCode()===$status,$label);return;}throw new RuntimeException('FAIL: expected denial for '.$label);}
@@ -234,12 +232,13 @@ $unknown=($ns.'collect_product_snapshot')();
 check(isset($unknown['yoast_evidence']['content_metadata']['_yoast_wpseo_focuskeywords']),'stored allowed content key found without registered definition');
 WPSEO_Meta::$meta_fields=$registry;
 $schema=($ns.'collect_premium_schema_evidence')();
-$sample=$schema['populated_structure_samples']['_yoast_wpseo_focuskeywords'];
-check(count($sample['samples'])===1&&$sample['skipped']===1,'only permitted published source sampled');
-check($sample['samples'][0]['reference_product_id']===5001,'schema source ID labelled separately from target selection');
-check($sample['samples'][0]['structure']['format']==='json_string','existing JSON representation identified');
-$paths=array_column($sample['samples'][0]['structure']['nodes'],'path');
-check(in_array('$[0].keyword',$paths,true)&&in_array('$[0].score',$paths,true)&&in_array('$[0].synonyms',$paths,true),'actual field names retained as structure evidence');
+$reference = $schema['selected_reference'];
+$sample = $reference['fields']['_yoast_wpseo_focuskeywords'];
+check($reference['product_id'] === 616 && $reference['status'] === 'read', 'selected reference is read');
+check($reference['fields']['_yoast_wpseo_focuskw']['exists'] && !$reference['fields']['_yoast_wpseo_metadesc']['exists'], 'saved and absent reference fields distinguished');
+check($sample['structure']['format'] === 'json_string', 'existing JSON representation identified');
+$paths = array_column($sample['structure']['nodes'], 'path');
+check(in_array('$[0].keyword', $paths, true) && in_array('$[0].score', $paths, true) && in_array('$[3].synonyms', $paths, true), 'structure covers all four related entries');
 check(strpos(json_encode($schema),'PHRASE-SECRET-SENTINEL')===false&&strpos(json_encode($schema),'PRIVATE-SYNONYMS')===false,'reference phrases and synonyms excluded');
 check(strpos(json_encode($schema),'SECRET-SENTINEL')===false,'registered defaults excluded');
 check($schema['registered_post_meta']['product']['_yoast_wpseo_focuskeywords']['type']==='string','actual registration type retained');
@@ -251,10 +250,19 @@ $native=($ns.'describe_content_structure')(array('keyword'=>'PRIVATE-PHRASE','sy
 check($native['nodes'][0]['type']==='associative_array'&&in_array('$.keyword',array_column($native['nodes'],'path'),true)&&strpos(json_encode($native),'PRIVATE-')===false,'native associative-array field names retained without values');
 $invalid=($ns.'describe_content_structure')('non-JSON private phrase');
 check($invalid['format']==='plain_or_invalid_json_string'&&strpos(json_encode($invalid),'private phrase')===false,'non-JSON values remain redacted');
-$GLOBALS['denied_objects']=array(5001);
-$none=($ns.'collect_premium_schema_evidence')();
-check($none['populated_structure_samples']['_yoast_wpseo_focuskeywords']['status']==='no_nonempty_sample_observed_within_limits','inaccessible sources skipped without guessing');
-$GLOBALS['denied_objects']=array();
+$GLOBALS['denied_objects'] = array(616);
+$reads_before = count($GLOBALS['reads']);
+$none = ($ns.'collect_premium_schema_evidence')();
+check($none['selected_reference']['status'] === 'access_denied' && count($GLOBALS['reads']) === $reads_before, 'denied reference metadata is never read');
+$GLOBALS['denied_objects'] = array();
+$GLOBALS['posts'][616]->post_name = 'different-product';
+$none = ($ns.'collect_premium_schema_evidence')();
+check($none['selected_reference']['status'] === 'product_identity_not_verified' && count($GLOBALS['reads']) === $reads_before, 'wrong reference slug blocks metadata reads');
+$GLOBALS['posts'][616]->post_name = 'christmas-stocking-personalized';
+$GLOBALS['bad_scalar_metadata'] = true;
+$bad = ($ns.'collect_premium_schema_evidence')();
+check($bad['selected_reference']['fields']['_yoast_wpseo_focuskw']['status'] === 'unexpected_metadata_response', 'unexpected reference metadata response is reported');
+$GLOBALS['bad_scalar_metadata'] = false;
 $source=file_get_contents(dirname(__DIR__).'/bhcrafts-seo-diagnostics.php').file_get_contents(dirname(__DIR__).'/includes/product-export.php');
 $source.=file_get_contents(dirname(__DIR__).'/includes/premium-evidence.php');
 check(!preg_match('/\\b(update_option|add_option|delete_option|wp_update_post|wp_insert_post|update_post_meta|delete_post_meta|wp_remote_get|wp_remote_post|wp_remote_request|register_rest_route|register_activation_hook|wp_delete_attachment)\\s*\\(/',$source),'no persistence, HTTP, public REST, activation or delete calls');

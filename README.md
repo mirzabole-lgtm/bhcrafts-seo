@@ -1,6 +1,6 @@
 # BHcrafts WooCommerce and Yoast SEO Work
 
-Background development and review for bhcrafts.shop. Current installable diagnostics version: **0.3.0**.
+Background development and review for bhcrafts.shop. Current installable diagnostics version: **0.3.1**.
 
 The staging-only plugin collects read-only product evidence. The SEO writer is not implemented. No product or image metadata changes have been applied by this project.
 
@@ -10,16 +10,16 @@ The staging-only plugin collects read-only product evidence. The SEO writer is n
 - [Current status and next action](docs/STATUS.md)
 - [Plugin setup instructions](plugin/bhcrafts-seo-diagnostics/README.md)
 - [Plugin source](plugin/bhcrafts-seo-diagnostics/)
-- [Current installable ZIP: 0.3.0](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.0.zip)
+- [Current installable ZIP: 0.3.1](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip)
 - [Change history](CHANGELOG.md)
 
 ## Current action on staging
 
-In staging WordPress, upload the 0.3.0 ZIP and choose **Replace current with uploaded**. Open **Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot**. Attach the downloaded JSON in the existing Work chat.
+In staging WordPress, upload the 0.3.1 ZIP and choose **Replace current with uploaded**. Open **Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot**. Attach the downloaded JSON in the existing Work chat.
 
 Version 0.2.1 fixes the unexpected-form-field error reported with 0.2.0. It accepts WordPress's default submit field while retaining the fixed product, staging-host, permission and nonce checks.
 
-The 0.2.1 export succeeded. Version 0.3.0 adds registration and redacted structure evidence because this product's saved Premium fields are empty. It does not write test values.
+The 0.2.1 export succeeded. Version 0.3.1 reads registered metadata definitions and the structure of five saved Yoast fields from the selected reference, Christmas Stocking Personalized (616). The snapshot retains product 2839 as the test target.
 
 ## Documents and evidence
 
@@ -39,7 +39,7 @@ The 0.2.1 export succeeded. Version 0.3.0 adds registration and redacted structu
 | Public staging access checks | [Staging check](plugin/bhcrafts-seo-diagnostics/STAGING_CHECK.md) |
 | Exporter validation | [Validation record](plugin/bhcrafts-seo-diagnostics/VALIDATION.md) |
 
-Older diagnostic ZIPs remain in releases for history. Use 0.3.0 for the next export.
+Older diagnostic ZIPs remain in releases for history. Use 0.3.1 for the next export.
 
 ## Scope and environment
 
@@ -60,6 +60,6 @@ php -n plugin/bhcrafts-seo-diagnostics/tests/security-test.php export
 php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2839_ReadOnly_Snapshot_2026-11-10.json
 ```
 
-Current result: 76 isolated checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. These are fixture tests, not a full WordPress integration run.
+Current result: 78 isolated checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. These are fixture tests, not a full WordPress integration run.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

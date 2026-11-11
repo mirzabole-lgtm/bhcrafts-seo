@@ -1,6 +1,6 @@
-# BHcrafts SEO Staging Diagnostics 0.3.0
+# BHcrafts SEO Staging Diagnostics 0.3.1
 
-Prepared 10 November 2026, Europe/Sarajevo.
+Prepared 11 November 2026, Europe/Sarajevo.
 
 This update retains the environment report and adds a fixed-scope, administrator-only raw snapshot for the selected handbag. It contains no content writer, public REST endpoint or cloud credentials.
 
@@ -9,7 +9,7 @@ This update retains the environment report and adds a fixed-scope, administrator
 Target: https://stg-bhcraftsshop-affiliate.kinsta.cloud/
 
 1. In staging WordPress, open Plugins > Add New Plugin > Upload Plugin.
-2. Upload BHcrafts_SEO_Staging_Diagnostics_0.3.0.zip.
+2. Upload BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip.
 3. When WordPress identifies the existing diagnostics plugin, choose Replace current with uploaded. The folder and plugin basename are unchanged from 0.1.0.
 4. Confirm BHcrafts SEO Staging Diagnostics is active. Open Tools > BHcrafts SEO Diagnostics.
 5. Select Download product 2839 snapshot.
@@ -19,11 +19,11 @@ The environment-report button remains available. For the next step, use the new 
 
 The cloud task has not installed this update. Installation requires a staging administrator because an authenticated cloud connection has not been established. Installing or replacing the plugin changes its files and activation state on staging. The export itself performs no explicit product, attachment or settings update.
 
-## New in 0.3.0
+## New in 0.3.1
 
 The user supplied a successful 0.2.1 snapshot for product 2839 on PHP 8.3.36. Its saved primary phrase, title and description keys are absent. The Premium synonym and related-keyphrase candidates contain empty strings, so this record does not demonstrate their nonempty encoding.
 
-The same download button now adds WordPress post-meta registration details and a bounded shape-only scan for keywordsynonyms and focuskeywords. Each fixed key queries at most five published product IDs in ascending order. Object permissions and publication status are rechecked. Reference product IDs and modification dates identify the evidence, but phrase/synonym text, numeric scores, defaults and unknown field-key text are omitted. These reference products do not enter the edit manifest.
+The download includes WordPress post-meta registration details and the saved field structure from Christmas Stocking Personalized (616), the reference product selected by the user. It checks the reference ID, slug, publication status and administrator's object permission before reading five fixed Yoast fields. The report records field presence, row count and data types, including up to four entries in a list. It redacts phrase and synonym values and scores.
 
 The structure summary has limits on depth, array examples and node count. Empty, inaccessible or malformed samples are labelled. The report does not claim completeness, current writer compatibility or normal editor-save verification. It adds no writes or endpoints. Invalid UTF-8 is rejected before WordPress JSON encoding can sanitize it.
 
@@ -69,9 +69,9 @@ A successful export does not establish cloud API authentication, validate Yoast 
 
 ## Validation
 
-All four PHP files passed syntax checks with PHP 8.4.27. Seventy-six isolated checks passed. The real product-download handler returned valid UTF-8 JSON in a fixture test, with product 2839, eight images, an absent meta-description key, a present empty title, unchanged Premium JSON and no unrelated secret or commercial sentinel values.
+All four PHP files passed syntax checks with PHP 8.4.27. Seventy-eight isolated checks passed. The real product-download handler returned valid UTF-8 JSON in a fixture test, with product 2839, eight images, an absent meta-description key, a present empty title, unchanged Premium JSON and no unrelated secret or commercial sentinel values.
 
-These tests use controlled fixtures. Version 0.2.1 successfully exported on the user's PHP 8.3.36 staging runtime. The new 0.3.0 schema-evidence addition still needs execution there. The PHP 7.4 minimum reflects the syntax used, not a separate tested runtime.
+These tests use controlled fixtures. Version 0.2.1 successfully exported on the user's PHP 8.3.36 staging runtime. The new 0.3.1 schema-evidence addition still needs execution there. The PHP 7.4 minimum reflects the syntax used, not a separate tested runtime.
 
 The CLI-only test file is included for review:
 

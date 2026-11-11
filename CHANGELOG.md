@@ -1,5 +1,11 @@
 # Change history
 
+## 0.3.1: selected Yoast reference
+
+- Read field structure from the selected staging stocking (616) alongside the product 2839 baseline.
+- Include the fourth related keyphrase entry in the structure report.
+- PHP syntax, 78 fixture checks and the form export passed. The staging export is pending.
+
 ## 0.3.0: read-only Premium schema evidence
 
 - Preserve and validate the successful administrator-exported 0.2.1 raw baseline.

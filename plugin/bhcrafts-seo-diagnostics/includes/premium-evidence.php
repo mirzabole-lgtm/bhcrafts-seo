@@ -34,7 +34,7 @@ function schema_shape_nodes( $value, $path = '$', $depth = 0, &$nodes = array() 
     } else {
         $index = 0;
         foreach ( $value as $item ) {
-            if ( $index >= 3 ) { break; }
+            if ( $index >= 4 ) { break; }
             schema_shape_nodes( $item, $path . '[' . $index . ']', $depth + 1, $nodes );
             $index++;
         }
@@ -62,11 +62,11 @@ function collect_premium_schema_evidence() {
     $aliases = array( 'title', 'metadesc', 'focuskw', 'keywordsynonyms', 'focuskeywords' );
     $prefix = '_yoast_wpseo_';
     $out = array(
-        'purpose' => 'Read-only schema evidence; not a target selection or write contract.',
-        'registered_post_meta' => array(), 'populated_structure_samples' => array(),
+        'purpose' => 'Read-only evidence for the selected Yoast reference product.',
+        'registered_post_meta' => array(),
         'phrase_text_values_exported' => false, 'normal_editor_save_verified' => false,
         'storage_contract_verified' => false,
-        'limits' => array( 'published_candidates_per_key' => 5, 'metadata_keys_sampled' => 2, 'shape_nodes' => 80 ),
+        'limits' => array( 'reference_products' => 1, 'metadata_keys_sampled' => 5, 'shape_nodes' => 80 ),
     );
     if ( function_exists( 'get_registered_meta_keys' ) ) {
         foreach ( array( '', 'product' ) as $subtype ) {
@@ -94,33 +94,36 @@ function collect_premium_schema_evidence() {
             $out['registered_post_meta'][ $subtype === '' ? 'all_post_subtypes' : $subtype ] = $selected;
         }
     } else { $out['registration_api_available'] = false; }
-    if ( ! class_exists( 'WP_Query' ) ) {
-        $out['sample_status'] = 'WordPress query API unavailable'; return $out;
-    }
-    foreach ( array( 'keywordsynonyms', 'focuskeywords' ) as $alias ) {
-        $key = $prefix . $alias;
-        $query = new \WP_Query( array(
-            'post_type' => 'product', 'post_status' => 'publish', 'posts_per_page' => 5,
-            'fields' => 'ids', 'orderby' => 'ID', 'order' => 'ASC', 'no_found_rows' => true,
-            'update_post_meta_cache' => false, 'update_post_term_cache' => false, 'cache_results' => false,
-            'meta_query' => array( array( 'key' => $key, 'value' => '', 'compare' => '!=' ) ),
-        ) );
-        $ids = array_slice( array_map( 'intval', $query->posts ), 0, 5 );
-        $samples = array(); $skipped = 0;
-        foreach ( $ids as $id ) {
-            $post = get_post( $id );
-            if ( ! current_user_can( 'edit_post', $id ) || ! $post || $post->post_type !== 'product' || $post->post_status !== 'publish' ) { $skipped++; continue; }
-            $values = checked_value( get_post_meta( $id, $key, false ) );
-            if ( ! is_array( $values ) ) { $skipped++; continue; }
-            foreach ( array_slice( $values, 0, 1 ) as $value ) {
-                if ( $value === '' || $value === null ) { continue; }
-                $samples[] = array( 'reference_product_id' => $id, 'modified_gmt' => $post->post_modified_gmt,
-                    'metadata_row_count' => count( $values ), 'structure' => describe_content_structure( $value ) );
+    $reference_id = 616;
+    $reference_slug = 'christmas-stocking-personalized';
+    $reference = array( 'product_id' => $reference_id, 'slug' => $reference_slug, 'fields' => array() );
+    if ( ! current_user_can( 'edit_post', $reference_id ) ) {
+        $reference['status'] = 'access_denied';
+    } else {
+        $post = get_post( $reference_id );
+        if ( ! $post || $post->post_type !== 'product' || $post->post_status !== 'publish' || $post->post_name !== $reference_slug ) {
+            $reference['status'] = 'product_identity_not_verified';
+        } else {
+            $reference['status'] = 'read';
+            $reference['modified_gmt'] = $post->post_modified_gmt;
+            foreach ( $aliases as $alias ) {
+                $key = $prefix . $alias;
+                $exists = metadata_exists( 'post', $reference_id, $key );
+                $values = $exists ? checked_value( get_post_meta( $reference_id, $key, false ) ) : array();
+                if ( ! is_array( $values ) ) {
+                    $reference['fields'][ $key ] = array( 'exists' => $exists, 'status' => 'unexpected_metadata_response' );
+                    continue;
+                }
+                $field = array( 'exists' => $exists, 'row_count' => count( $values ) );
+                if ( $values ) {
+                    $value = reset( $values );
+                    $field['first_row_empty'] = $value === '' || $value === null || $value === array();
+                    $field['structure'] = describe_content_structure( $value );
+                }
+                $reference['fields'][ $key ] = $field;
             }
         }
-        $out['populated_structure_samples'][ $key ] = array( 'candidates_returned' => count( $ids ),
-            'skipped' => $skipped, 'samples' => $samples,
-            'status' => $samples ? 'bounded_samples_found' : 'no_nonempty_sample_observed_within_limits' );
     }
+    $out['selected_reference'] = $reference;
     return $out;
 }

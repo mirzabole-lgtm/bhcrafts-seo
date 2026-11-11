@@ -1,4 +1,4 @@
-# Project status: 10 November 2026
+# Project status: 11 November 2026
 
 ## Current result
 
@@ -6,7 +6,7 @@ The user supplied the 0.2.1 product snapshot, generated 10 November 2026 at 19:0
 
 Product 2839 has no saved primary phrase, SEO title or meta-description key. The two Premium candidate fields exist as empty strings. Variation 2840 has own image ID 0 and inherits the parent image on the frontend. The exact raw artisan block, image markup and CRLF descriptions are preserved in the baseline directory and registry.
 
-Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.0 adds a read-only, published-product schema sample without phrase text, plus WordPress metadata registration evidence. Four PHP files and 76 isolated checks pass. Real execution of 0.3.0 is pending.
+Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 adds read-only Yoast field structure from the selected reference product 616 without phrase text, plus WordPress metadata registration evidence. Four PHP files and 78 isolated checks pass. Real execution of 0.3.1 is pending.
 
 ## Completed
 
@@ -20,11 +20,11 @@ Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.0 add
 - Diagnostics 0.2.1 corrects the form bug and adds the relevant regression coverage.
 
 - The 0.2.1 raw snapshot was received and validated. A preservation registry and updated draft v0.2 record actual before-values.
-- The schema-only 0.3.0 exporter is prepared without adding a writer.
+- The user selected Christmas Stocking Personalized. The staging Store API confirmed product ID 616, and the 0.3.1 exporter targets this reference.
 
 ## Next required step
 
-Replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.3.0.zip. Use Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot. Attach BHcrafts_Product_2839_ReadOnly_Snapshot.json to the existing chat.
+Replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip. Use Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot. Attach BHcrafts_Product_2839_ReadOnly_Snapshot.json to the existing chat.
 
 This manual administrator action remains necessary because no authenticated cloud WordPress connection has been established. No password or API key belongs in a chat message or this repository.
 

@@ -1,10 +1,10 @@
-# Validation record: 0.3.0
+# Validation record: 0.3.1
 
 Date: 10 November 2026.
 Execution: Background cloud PHP CLI 8.4.27, isolated WordPress/WooCommerce fixtures.
 
 - Main plugin, product export and CLI test files: syntax passed.
-- Policy/value checks: 76 passed.
+- Policy/value checks: 78 passed.
 - Product export handler: valid UTF-8 JSON, expected fixed product and image scope, no stderr.
 - Absent versus empty Yoast values: retained distinctly.
 - Duplicate metadata rows, Unicode, apostrophes and JSON string contents: retained.
@@ -22,6 +22,6 @@ No actual WordPress site, product, media record, Yoast editor or staging plugin 
 
 Regression: the authorized download test submits action, _wpnonce, _wp_http_referer and WordPress’s default submit field. Valid product JSON is returned. An array-valued submit field is rejected.
 
-Additional schema evidence checks: fixed published-product query limits, object permission rechecks, draft-source exclusion, registered type and callback-name inspection without callback invocation, preservation of actual JSON structural keys, omission of phrase/synonym values and defaults, masking of unknown keys, handling of non-JSON content and missing/inaccessible samples. Invalid UTF-8 is rejected explicitly.
+Additional schema evidence checks: fixed reference ID and slug, four related entries, object permission checks, unexpected metadata responses, registered type and callback-name inspection without callback invocation, preservation of actual JSON structural keys, omission of phrase/synonym values and defaults, masking of unknown keys, handling of non-JSON content and missing/inaccessible samples. Invalid UTF-8 is rejected explicitly.
 
-Staging evidence received: diagnostics 0.2.1 exported product 2839 successfully on PHP 8.3.36. The uploaded original is retained under docs/product-2839/baseline. Its content, metadata and attachment checksums verify. This does not substitute for real execution of the new 0.3.0 additions.
+Staging evidence received: diagnostics 0.2.1 exported product 2839 successfully on PHP 8.3.36. The uploaded original is retained under docs/product-2839/baseline. Its content, metadata and attachment checksums verify. This does not substitute for real execution of the new 0.3.1 additions.

@@ -28,6 +28,8 @@ The administrator repeated the Yoast head request after the rollback. The respon
 
 In Yoast 28.8, the URL surface looks up a stored indexable by the exact permalink and hash. The product-ID path looks up the post object and can build a model when a row is missing. The public API response cannot distinguish a missing row from an old permalink or another lookup or presentation problem. Yoast disables new stored indexables by default outside production. See [the 28.8 URL surface](https://github.com/Yoast/wordpress-seo/blob/28.8/src/surfaces/meta-surface.php#L309-L342), [the 28.8 repository](https://github.com/Yoast/wordpress-seo/blob/28.8/src/repositories/indexable-repository.php#L181-L189), and [Yoast indexables guidance](https://developer.yoast.com/features/indexables/indexables-filters/#disabling-indexables-completely).
 
+The [first staging indexable report](product-2839/baseline/BHcrafts_Yoast_Indexable_2839.json) at 11:48:47 Europe/Sarajevo found one row for product 2839. Its stored permalink equals the current staging permalink, but its hash `63:db0d112a7674b4ec88ad6862008d062a` exactly matches the equivalent live `bhcrafts.shop` URL. The staging permalink hashes to `89:8f4f7009daffbd9e477791a629563f18` under Yoast 28.8's algorithm. This row cannot satisfy the staging URL lookup. Its title and description are both `null`, while the saved WordPress Yoast fields still contain the approved text. Yoast's post presentation uses template values when the indexable has no title or description. The report explains the URL lookup failure and provides a credible explanation for the earlier rendered title. The rendered output still needs verification after repair. See [Yoast 28.8 permalink hash calculation](https://github.com/Yoast/wordpress-seo/blob/28.8/src/models/indexable.php#L174-L178) and [post presentation fallbacks](https://github.com/Yoast/wordpress-seo/blob/28.8/src/presentations/indexable-post-type-presentation.php#L147-L187).
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -44,7 +46,19 @@ In Yoast 28.8, the URL surface looks up a stored indexable by the exact permalin
 
 ## Next required step
 
-The administrator confirmed the storefront still shows the old title. Install Work Bridge 0.1.1 on staging and [download its read-only report](../plugin/bhcrafts-seo-work-bridge/README.md#download-the-read-only-indexable-report) for product 2839. Compare its stored permalink, title and description with the current WordPress permalink, saved Yoast values and storefront source. A row with a different permalink would explain the exact URL miss. If the row is absent or matches the saved values, investigate the current product page response and any metadata overrides. Keep staging visibility and the live subscription in place during diagnosis. The report passed local fixtures and still needs its first staging run.
+Review the scoped staging repair below. The read-only report has completed its first staging run. The repair has not been applied.
+
+## Proposed staging indexable repair
+
+Repair only the existing derived Yoast row for post object 2839 on the designated Kinsta staging host. Use a fresh read to confirm exactly one row, the expected staging permalink, all three before-values and both saved source fields. Check for any conflicting row at the staging permalink and hash. Reject drift and require separate approval of the exact change. Retain the before-values as the rollback baseline.
+
+| Derived field | Before | Proposed |
+| --- | --- | --- |
+| Permalink hash | `63:db0d112a7674b4ec88ad6862008d062a` | `89:8f4f7009daffbd9e477791a629563f18` |
+| SEO title | `null` | Knitted Cotton Handbag with Doll Appliqué &#124; BHcrafts |
+| Meta description | `null` | Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans. |
+
+Verify the same row with the read-only report, retest the Yoast URL response and compare the rendered title and description on staging. Verify `noindex` and compare the protected product fields with the baseline. If rollback is approved, restore the exact three prior values only if the row still matches the applied state. Keep the repair scoped to the derived row, with product metadata, the current permalink, search visibility and the live subscription outside the write scope. Yoast's general post rebuild also touches related indexable data, so review the selected implementation's write footprint before applying it. See [the Yoast 28.8 builder](https://github.com/Yoast/wordpress-seo/blob/28.8/src/builders/indexable-builder.php#L328-L357).
 
 ## Still open
 

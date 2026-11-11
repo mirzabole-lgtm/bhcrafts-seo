@@ -1,10 +1,15 @@
 # Change history
 
+## 11 November 2026: first staging editor save
+
+- Preserve the product 2839 post-save export and document the primary synonym mismatch.
+- Add an optional offline comparison of the title, meta description, keyphrases and synonyms against the proposed values.
+
 ## 0.3.1: selected Yoast reference
 
 - Read field structure from the selected staging stocking (616) alongside the product 2839 baseline.
 - Include the fourth related keyphrase entry in the structure report.
-- PHP syntax, 78 fixture checks and the form export passed. The staging export is pending.
+- PHP syntax, 78 fixture checks and the form export passed. Staging exports verified on 11 November 2026.
 
 ## 0.3.0: read-only Premium schema evidence
 

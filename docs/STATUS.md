@@ -4,9 +4,11 @@
 
 The user supplied the 0.2.1 product snapshot, generated 10 November 2026 at 19:05:23 UTC / 20:05:23 Europe/Sarajevo. It verifies the fixed form exported on staging PHP 8.3.36. The snapshot, raw-content, eight attachment and five Yoast metadata checksums match.
 
-Product 2839 has no saved primary phrase, SEO title or meta-description key. The two Premium candidate fields exist as empty strings. Variation 2840 has own image ID 0 and inherits the parent image on the frontend. The exact raw artisan block, image markup and CRLF descriptions are preserved in the baseline directory and registry.
+In the original baseline, product 2839 had no saved primary phrase, SEO title or meta-description key, and the two Premium fields held empty strings. Variation 2840 has own image ID 0 and inherits the parent image on the frontend. The baseline directory and registry preserve the exact raw artisan block, image markup and CRLF descriptions.
 
 Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 adds read-only Yoast field structure from the selected reference product 616 without phrase text, plus WordPress metadata registration evidence. Four PHP files and 78 isolated checks pass. The 0.3.1 staging export succeeded on 11 November at 06:40:11 Europe/Sarajevo. The product baseline matches the earlier export. Reference 616 shows four related-keyphrase objects with keyword and score fields, and a separate array with five synonym entries.
+
+The [first editor save export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Save_2026-11-11.json) verifies the saved title, description and five keyphrases. The first synonym slot duplicates the second. The other four slots match the expected values. The saved descriptions, recorded protected-field hashes, variation, attachment records and artisan checks match the pre-test export. Any future Yoast apply proposal needs a fresh baseline.
 
 ## Completed
 
@@ -24,12 +26,12 @@ Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 add
 
 ## Next required step
 
-Review the [exact Yoast editor test for product 2839](product-2839/yoast_editor_test_v0.1.md). After recording a staging backup, the administrator can approve and save the listed fields in Yoast Premium. Reopen the editor, check all five entries, then attach the new 0.3.1 snapshot. The populated 2839 export will establish the synonym ordering and editor-save representation.
+Follow the [primary synonym check](product-2839/yoast_editor_test_v0.1.md#verify-the-primary-synonyms) for product 2839. Export again with 0.3.1. The optional offline proposal comparison checks all five synonym strings and their expected order.
 
 ## Still open
 
-- Determine the order of the five synonym slots from the approved editor test.
-- Establish actual Yoast Premium 28.8 field representation and normal editor-save/indexation behavior.
+- Verify the two distinct synonym strings in the first two slots after an editor save and reload.
+- Validate the Yoast Premium 28.8 adapter, normal resave, frontend output and rollback on staging.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.
 - Verify backups, staging outbound isolation, protected fields and rollback.

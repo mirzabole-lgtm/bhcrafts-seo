@@ -22,9 +22,9 @@ The [post-rollback export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Pos
 
 The administrator supplied the staging product’s HTML head lines on 11 November 2026. The rendered title is `Knitted Bag with Three-Doll Applique - BHcrafts`. The rendered description starts `This unique handmade bag with its doll applique can be your ideal everyday bag.` Both match the pre-test storefront output. Both differ from the saved Yoast title and description. The robots tag is `noindex, nofollow`, consistent with the recorded WordPress `blog_public=0` and [Kinsta staging behavior](https://kinsta.com/docs/wordpress-hosting/staging-environment/#3-seo). The robots check passes. The storefront comparison confirms a mismatch between the current rendered and saved metadata.
 
-The administrator supplied a screenshot of four Yoast notices. One flags the expected staging visibility setting. The other three report subscription activation or verification problems for Yoast SEO Premium, Yoast WooCommerce SEO and Yoast Local SEO. The screenshot contains no technical status code for those notices. Their exact account state and any relationship to the storefront mismatch remain unverified. See [Yoast subscription guidance](https://yoast.com/help/not-receiving-updates-support/) and [MyYoast site assignments](https://yoast.com/help/add-remove-site-yoast/).
+The administrator supplied a screenshot of four Yoast notices. One flags the expected staging visibility setting. The other three report subscription activation or verification problems for Yoast SEO Premium, Yoast WooCommerce SEO and Yoast Local SEO. The administrator confirmed the Yoast license covers one URL, `bhcrafts.shop`. Keep the assignment on the live domain. The staging notices are consistent with that domain scope. They do not establish the cause of the storefront mismatch. See [Yoast subscription scope](https://yoast.com/help/yoast-subscriptions-faq/#what-are-different-domains-in-a-yoast-subscription).
 
-The earlier public Yoast head API check returned HTTP 404. This was a frontend metadata lookup, separate from subscription verification. Later background storefront requests timed out. Yoast documents limits on its indexables on non-production sites. See [Yoast indexables guidance](https://yoast.com/help/how-to-reset-yoast-indexables/#i-have-a-problem-with-resetting-the-yoast-indexables).
+The earlier public Yoast head API check returned HTTP 404. This was a frontend metadata lookup, separate from subscription verification. Later background storefront requests timed out. Yoast disables new stored indexables by default outside production. The 28.8 repository can read an existing indexable and builds one when the row is missing. A stale indexable is a plausible lead, but the current staging record has not been inspected. See [Yoast indexables guidance](https://developer.yoast.com/features/indexables/indexables-filters/#disabling-indexables-completely) and [the 28.8 repository lookup](https://github.com/Yoast/wordpress-seo/blob/28.8/src/repositories/indexable-repository.php#L368-L380).
 
 ## Completed
 
@@ -42,7 +42,7 @@ The earlier public Yoast head API check returned HTTP 404. This was a frontend m
 
 ## Next required step
 
-Check the staging and live site assignments in MyYoast without moving any subscription. Trace why the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/) still renders the earlier metadata. Preserve the staging visibility setting during diagnosis. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies their rendered output.
+Compare the current read-only Yoast head API status, title and description with the saved rows and the HTML from the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/). Preserve the staging visibility setting and live subscription during diagnosis. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies their rendered output.
 
 ## Still open
 

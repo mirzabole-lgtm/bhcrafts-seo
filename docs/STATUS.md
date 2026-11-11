@@ -18,6 +18,8 @@ The [post-apply Diagnostics 0.3.1 export](product-2839/baseline/BHcrafts_Product
 
 The [post-resave export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Resave_2026-11-11.json) from 10:10:21 Europe/Sarajevo matches the exact proposal and all five saved Yoast rows, including the recorded related keyphrase scores. The product modification time advanced to 10:09:58. The remaining captured product fields, variation, eight attachments and artisan checks match the post-apply snapshot.
 
+The [post-rollback export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_Rollback_2026-11-11.json) from 10:15:29 Europe/Sarajevo confirms that the original synonym row was restored, including the trailing comma. All five Yoast rows match the corrected pre-apply baseline exactly. The synonyms row is the only captured content change since the resave. The product modification time and the captured product, variation, attachment and artisan records match the post-resave export. The strict apply comparator now flags only the restored comma, as expected.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -34,14 +36,14 @@ The [post-resave export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Post_
 
 ## Next required step
 
-Complete the storefront and separate rollback checks in the [staging checklist](../plugin/bhcrafts-seo-work-bridge/README.md#run-on-kinsta-staging). Review the reverse diff and use **Approve and restore original synonyms** in the staging test page. Keep the receipt private and export a fresh Diagnostics 0.3.1 snapshot to verify the original string and the captured product fields.
+Check the rendered title, meta description and noindex directive on the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/). Background requests to this page timed out. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies indexation behavior.
 
 ## Still open
 
-- Verify rendered metadata and rollback for the Yoast Premium 28.8 synonym test on staging.
+- Verify rendered metadata for the Yoast Premium 28.8 synonym test on staging and test writes to the remaining Yoast fields.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.
-- Verify backups, staging outbound isolation, protected fields and rollback.
+- Verify backups, staging outbound isolation, protected fields and rollback for subsequent write types.
 - Establish secure cloud access and a trusted human-approval mechanism before an automated apply route.
 - Obtain exact staging test and production pilot approvals when concrete proposals exist.
 

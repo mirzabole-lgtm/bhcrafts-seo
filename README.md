@@ -15,11 +15,7 @@ The staging-only plugin collects read-only product evidence. The SEO writer is n
 
 ## Current action on staging
 
-In staging WordPress, upload the 0.3.1 ZIP and choose **Replace current with uploaded**. Open **Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot**. Attach the downloaded JSON in the existing Work chat.
-
-Version 0.2.1 fixes the unexpected-form-field error reported with 0.2.0. It accepts WordPress's default submit field while retaining the fixed product, staging-host, permission and nonce checks.
-
-The 0.2.1 export succeeded. Version 0.3.1 reads registered metadata definitions and the structure of five saved Yoast fields from the selected reference, Christmas Stocking Personalized (616). The snapshot retains product 2839 as the test target.
+The 0.3.1 staging export verified product 2839’s baseline and the five saved Yoast field structures on reference product 616. Review the [Yoast editor test proposal](docs/product-2839/yoast_editor_test_v0.1.md), then use the installed diagnostics plugin to capture the editor save after approval.
 
 ## Documents and evidence
 

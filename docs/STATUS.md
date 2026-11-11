@@ -6,7 +6,7 @@ The user supplied the 0.2.1 product snapshot, generated 10 November 2026 at 19:0
 
 Product 2839 has no saved primary phrase, SEO title or meta-description key. The two Premium candidate fields exist as empty strings. Variation 2840 has own image ID 0 and inherits the parent image on the frontend. The exact raw artisan block, image markup and CRLF descriptions are preserved in the baseline directory and registry.
 
-Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 adds read-only Yoast field structure from the selected reference product 616 without phrase text, plus WordPress metadata registration evidence. Four PHP files and 78 isolated checks pass. Real execution of 0.3.1 is pending.
+Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 adds read-only Yoast field structure from the selected reference product 616 without phrase text, plus WordPress metadata registration evidence. Four PHP files and 78 isolated checks pass. The 0.3.1 staging export succeeded on 11 November at 06:40:11 Europe/Sarajevo. The product baseline matches the earlier export. Reference 616 shows four related-keyphrase objects with keyword and score fields, and a separate array with five synonym entries.
 
 ## Completed
 
@@ -24,13 +24,11 @@ Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 add
 
 ## Next required step
 
-Replace the staging diagnostics plugin with releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip. Use Tools > BHcrafts SEO Diagnostics > Download product 2839 snapshot. Attach BHcrafts_Product_2839_ReadOnly_Snapshot.json to the existing chat.
-
-This manual administrator action remains necessary because no authenticated cloud WordPress connection has been established. No password or API key belongs in a chat message or this repository.
+Review the [exact Yoast editor test for product 2839](product-2839/yoast_editor_test_v0.1.md). After recording a staging backup, the administrator can approve and save the listed fields in Yoast Premium. Reopen the editor, check all five entries, then attach the new 0.3.1 snapshot. The populated 2839 export will establish the synonym ordering and editor-save representation.
 
 ## Still open
 
-- Obtain nonempty Premium structure evidence and reconcile it with the installed registration. The selected product’s raw fields are already captured.
+- Determine the order of the five synonym slots from the approved editor test.
 - Establish actual Yoast Premium 28.8 field representation and normal editor-save/indexation behavior.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.

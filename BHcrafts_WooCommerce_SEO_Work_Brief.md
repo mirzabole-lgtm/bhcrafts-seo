@@ -5,7 +5,7 @@
 **Website:** https://bhcrafts.shop/  
 **Working environment:** ChatGPT Work Cloud, with background execution  
 **Source repository:** https://github.com/mirzabole-lgtm/bhcrafts-seo  
-**Current stage:** Raw staging baseline validated; selected-reference diagnostics 0.3.1 prepared; no live product changes authorized  
+**Current stage:** Raw staging baseline validated; selected-reference diagnostics verified; Yoast editor test prepared; no live product changes authorized  
 **Source conversation:** [Connect ChatGPT WooCommerce](https://chatgpt.com/c/6af0b60e-e7f0-83eb-a17f-58a0d05e52a8)
 
 ## 1. Project mandate and immediate next steps
@@ -572,7 +572,7 @@ Variation 2840 has own image ID 0. Earlier frontend image 2841 was inherited fro
 
 Diagnostics 0.3.0 adds actual WordPress post-meta registration descriptors and structure-only samples for the two fixed Premium candidates from at most five published product candidates per key. It rechecks object permissions and publication status, omits phrase/synonym text and numeric scores, masks unknown field-name text, and leaves source IDs outside the edit manifest. It adds no writer or public endpoint. Invalid UTF-8 is rejected explicitly before JSON sanitization. Four PHP syntax checks, 76 isolated checks and an authorized standard-form export fixture pass. New 0.3.0 execution and normal editor-save/write compatibility remain unverified.
 
-On 11 November 2026, the user selected Christmas Stocking Personalized as a populated Yoast reference. The staging Store API confirmed product 616. Diagnostics 0.3.1 reads the structure of its five saved Yoast fields and covers up to four related entries. Install the 0.3.1 ZIP on staging and use the same product 2839 snapshot button. The staging output and normal editor save verification are pending.
+On 11 November 2026, the user selected Christmas Stocking Personalized as a populated Yoast reference. The staging Store API confirmed product 616. Diagnostics 0.3.1 reads the structure of its five saved Yoast fields and covers up to four related entries. Install the 0.3.1 ZIP on staging and use the same product 2839 snapshot button. The received 0.3.1 export verifies the target baseline and confirms four related-keyphrase objects with keyword and score fields. It also shows a separate five-entry synonym array. The reference export masks phrase values and shows four of the five synonym element types, so slot order requires the prepared product 2839 editor test. See docs/product-2839/yoast_editor_test_v0.1.md.
 
 ### Before integration testing or live optimization
 
@@ -581,7 +581,7 @@ On 11 November 2026, the user selected Christmas Stocking Personalized as a popu
 - [ ] Establish authenticated read-only staging access from Work Cloud; the manual report does not establish this connection.
 - [x] Record current staging WordPress/WooCommerce/Flatsome/Yoast SEO and Premium versions from the supplied administrator report.
 - [x] Receive and validate the fixed-scope product 2839 raw snapshot; inspect saved markup, all eight attachment records and current installed Yoast evidence.
-- [ ] Obtain nonempty Premium structural evidence from selected reference 616 using diagnostics 0.3.1.
+- [x] Obtain nonempty Premium structural evidence from selected reference 616 using diagnostics 0.3.1.
 - [ ] Verify Yoast Premium 28.8 storage format, compatible write behavior, save lifecycle, and all five phrase/synonym round-trips on staging.
 - [ ] Establish a secure cloud-compatible connection with separate staging/live credentials.
 - [ ] Identify the existing hang-tag attachment(s), preserved blocks, and any existing product-specific deviations.

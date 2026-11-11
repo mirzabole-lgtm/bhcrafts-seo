@@ -24,7 +24,9 @@ The administrator supplied the staging product’s HTML head lines on 11 Novembe
 
 The administrator supplied a screenshot of four Yoast notices. One flags the expected staging visibility setting. The other three report subscription activation or verification problems for Yoast SEO Premium, Yoast WooCommerce SEO and Yoast Local SEO. The administrator confirmed the Yoast license covers one URL, `bhcrafts.shop`. Keep the assignment on the live domain. The staging notices are consistent with that domain scope. They do not establish the cause of the storefront mismatch. See [Yoast subscription scope](https://yoast.com/help/yoast-subscriptions-faq/#what-are-different-domains-in-a-yoast-subscription).
 
-The earlier public Yoast head API check returned HTTP 404. This was a frontend metadata lookup, separate from subscription verification. Later background storefront requests timed out. Yoast disables new stored indexables by default outside production. The 28.8 repository can read an existing indexable and builds one when the row is missing. A stale indexable is a plausible lead, but the current staging record has not been inspected. See [Yoast indexables guidance](https://developer.yoast.com/features/indexables/indexables-filters/#disabling-indexables-completely) and [the 28.8 repository lookup](https://github.com/Yoast/wordpress-seo/blob/28.8/src/repositories/indexable-repository.php#L368-L380).
+The administrator repeated the Yoast head request after the rollback. The response reported `status: 404`, title `Page not found - BHcrafts`, no product meta description, and robots `noindex, follow`. The product page itself loads and its HTML showed `noindex, nofollow`. These values come from different responses. The API returned the Yoast 28.8 error-page metadata and site schema. This was a frontend metadata lookup, separate from subscription verification. See [Yoast's REST API status guidance](https://developer.yoast.com/customization/apis/rest-api/#why-does-the-api-return-a-404-status-for-an-existing-page).
+
+In Yoast 28.8, the URL surface looks up a stored indexable by the exact permalink and hash. The product-ID path looks up the post object and can build a model when a row is missing. The public API response cannot distinguish a missing row from an old permalink or another lookup or presentation problem. Yoast disables new stored indexables by default outside production. See [the 28.8 URL surface](https://github.com/Yoast/wordpress-seo/blob/28.8/src/surfaces/meta-surface.php#L309-L342), [the 28.8 repository](https://github.com/Yoast/wordpress-seo/blob/28.8/src/repositories/indexable-repository.php#L181-L189), and [Yoast indexables guidance](https://developer.yoast.com/features/indexables/indexables-filters/#disabling-indexables-completely).
 
 ## Completed
 
@@ -42,7 +44,7 @@ The earlier public Yoast head API check returned HTTP 404. This was a frontend m
 
 ## Next required step
 
-Compare the current read-only Yoast head API status, title and description with the saved rows and the HTML from the [staging product page](https://stg-bhcraftsshop-affiliate.kinsta.cloud/product/knit-handbag-with-dolls-applique/). Preserve the staging visibility setting and live subscription during diagnosis. The next implementation step is a staging proposal that exercises changes to the other Yoast fields and verifies their rendered output.
+Inspect the existing Yoast indexable on staging by product ID 2839, with a read-only query that does not create, upgrade or refresh rows. Compare its permalink, title and description with the current WordPress permalink, saved Yoast values and storefront source. A row with a different permalink would explain the exact URL miss. If the row is absent or matches the saved values, investigate the current product page response and any metadata overrides. Keep staging visibility and the live subscription in place during diagnosis.
 
 ## Still open
 

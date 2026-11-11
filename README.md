@@ -15,7 +15,7 @@ The staging-only plugin collects read-only product evidence. The SEO writer is p
 
 ## Current action on staging
 
-The latest 0.3.1 export matches the proposed SEO title, meta description and all five phrases. The primary synonym slot repeats the first related phrase’s synonyms. Follow the [editor check and export steps](docs/product-2839/yoast_editor_test_v0.1.md#verify-the-primary-synonyms).
+The corrected 0.3.1 export confirms the primary synonym slot followed by the four related slots. The exact-text check flags one trailing comma in the primary synonyms. The next phase is to prepare the [Yoast adapter and staging test](docs/product-2839/yoast_editor_test_v0.1.md#next-adapter-test).
 
 ## Documents and evidence
 
@@ -27,7 +27,7 @@ The latest 0.3.1 export matches the proposed SEO title, meta description and all
 | First product inspection, copy, keyphrases and image metadata drafts | [Product 2839 report](docs/product-2839/BHcrafts_Product_2839_Inspection_and_Draft.md) |
 | Updated raw-baseline draft and shared references | [Draft v0.2](docs/product-2839/review_v0.2.json), [historical v0.1](docs/product-2839/review.json) |
 | Saved raw baseline and Yoast findings | [Baseline validation](docs/product-2839/BHcrafts_Product_2839_Saved_Baseline_Validation.md), [original JSON](docs/product-2839/baseline/BHcrafts_Product_2839_ReadOnly_Snapshot_2026-11-10.json) |
-| Yoast editor test and saved values | [Comparison and next step](docs/product-2839/yoast_editor_test_v0.1.md#first-editor-save-result), [post-save snapshot](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Save_2026-11-11.json) |
+| Yoast editor test and saved values | [Corrected comparison](docs/product-2839/yoast_editor_test_v0.1.md#corrected-editor-save), [corrected snapshot](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Correction_2026-11-11.json) |
 | Artisan preservation registry | [Exact raw block and image markup](docs/product-2839/preservation_registry_v0.2.json) |
 | Frozen inspection scope | [Selection manifest](docs/product-2839/selection_manifest.json) |
 | Proposed product descriptions | [Long HTML](docs/product-2839/proposed_long_description.html), [short HTML](docs/product-2839/proposed_short_description.html) |

@@ -1,6 +1,6 @@
 # Product 2839 Yoast editor test
 
-Proposal **bhcrafts-stg-2839-yoast-editor-v0.1**. First save reviewed. One synonym mismatch remains. Batch size one product.
+Proposal **bhcrafts-stg-2839-yoast-editor-v0.1**. Corrected save confirms all five synonym positions. Exact text differs by one trailing comma. Batch size one product.
 
 Proposal values SHA-256 `886af01b918931b71d4b351fda84a4632ccba40ecb5535264d59bbb886b5f844`.
 
@@ -57,12 +57,26 @@ Compared with the pre-test export, the raw long and short descriptions, attribut
 
 Post-save snapshot SHA-256 `758ddf2b075bdecabc14436c9b496d3dee227b6ec8f37f7f8c0a1dc413d211a6`.
 
-## Verify the primary synonyms
+## Corrected editor save
 
-Open the same [staging editor](https://stg-bhcraftsshop-affiliate.kinsta.cloud/wp-admin/post.php?post=2839&action=edit). If the primary focus-keyphrase synonyms field is different, enter `cotton knit handbag, knitted cotton bag` there, update the product, and reopen it. Check that Related 1 still shows `handcrafted cotton bag, cotton bag made by hand`. Export another snapshot with the installed 0.3.1 diagnostics. If the primary field already looks correct, record what both fields show and export a fresh snapshot so the display can be compared with the stored values.
+The user supplied the [corrected export](baseline/BHcrafts_Product_2839_Yoast_Editor_Correction_2026-11-11.json) from 11 November 2026 at 07:52:57 Europe/Sarajevo. Within the five Yoast metadata records, only `_yoast_wpseo_keywordsynonyms` changed from the first save. All five synonym pairs now appear in distinct slots in the intended order. The title, meta description and all five keyphrases still match exactly.
 
-The offline check below compares the exact proposed text and expected slot order. It exits with a failure status when a field differs. Once the distinct slots are confirmed, the next adapter test must verify its own write, editor reload and resave, frontend output, and rollback.
+| Saved synonym slot | Role | Saved value |
+| --- | --- | --- |
+| 1 | Primary | `cotton knit handbag, knitted cotton bag,` |
+| 2 | Related 1 | `handcrafted cotton bag, cotton bag made by hand` |
+| 3 | Related 2 | `bag with doll appliqués, doll applique handbag` |
+| 4 | Related 3 | `knit bag with dolls, knitted doll handbag` |
+| 5 | Related 4 | `fair trade bag, fairly traded handbag` |
+
+The snapshot integrity check passes. The exact-text comparison below reports one difference because the primary field ends with an extra comma. This punctuation does not obscure the two intended synonyms or their slot. Preserve the comma in this evidence and in any before-value snapshot. Use the proposal text for a future approved write. This evidence completes the slot-mapping check. It does not require another manual export.
+
+The recorded product fields match the original baseline apart from the modification timestamp. The variation, eight attachment records, image assignments and artisan checks also match. The corrected file SHA-256 is `5b77c7493d6ecf09cc26cafb88d9fe766645ede2c4407035688fa9e22f5ddffe`.
 
 ```bash
-php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Save_2026-11-11.json --yoast-proposal docs/product-2839/review_v0.2.json
+php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Correction_2026-11-11.json --yoast-proposal docs/product-2839/review_v0.2.json
 ```
+
+## Next adapter test
+
+Use the observed slot order to prepare the Yoast 28.8 adapter. The staging test needs an exact proposal against a fresh baseline, a verified backup, and explicit approval. The test must check the adapter’s write, exact read-back, editor reload and resave, rendered title and description, and field-level rollback. Capture the existing raw synonyms as part of the rollback baseline.

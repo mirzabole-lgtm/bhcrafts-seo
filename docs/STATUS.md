@@ -10,6 +10,8 @@ Draft v0.2 includes actual before-values but remains held. Diagnostics 0.3.1 add
 
 The [first editor save export](product-2839/baseline/BHcrafts_Product_2839_Yoast_Editor_Save_2026-11-11.json) verifies the saved title, description and five keyphrases. The first synonym slot duplicates the second. The other four slots match the expected values. The saved descriptions, recorded protected-field hashes, variation, attachment records and artisan checks match the pre-test export. Any future Yoast apply proposal needs a fresh baseline.
 
+The [corrected export](product-2839/yoast_editor_test_v0.1.md#corrected-editor-save) confirms the primary synonym pair in the first slot and the four related pairs in order. The only exact-text difference from the proposal is a trailing comma in the primary synonyms. The baseline comparisons still pass for descriptions, protected-field hashes, variation, image records and artisan checks.
+
 ## Completed
 
 - Governing brief saved with all 17 sections, screenshot transcription and preservation requirements.
@@ -26,11 +28,10 @@ The [first editor save export](product-2839/baseline/BHcrafts_Product_2839_Yoast
 
 ## Next required step
 
-Follow the [primary synonym check](product-2839/yoast_editor_test_v0.1.md#verify-the-primary-synonyms) for product 2839. Export again with 0.3.1. The optional offline proposal comparison checks all five synonym strings and their expected order.
+Prepare the version-specific adapter and [staging test proposal](product-2839/yoast_editor_test_v0.1.md#next-adapter-test) using the verified slot order. The next staging validation covers the adapter write, reload and resave, rendered metadata and rollback.
 
 ## Still open
 
-- Verify the two distinct synonym strings in the first two slots after an editor save and reload.
 - Validate the Yoast Premium 28.8 adapter, normal resave, frontend output and rollback on staging.
 - Preserve the exact artisan block, tag identity, links and markup in a reviewed proposal.
 - Complete authenticated sitewide shared-image checks, including variations, posts, pages, UX Blocks and settings.

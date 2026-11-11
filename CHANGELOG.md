@@ -4,6 +4,7 @@
 
 - Preserve the product 2839 post-save export and document the primary synonym mismatch.
 - Add an optional offline comparison of the title, meta description, keyphrases and synonyms against the proposed values.
+- Preserve the corrected export confirming all five synonym positions and record the trailing comma as an exact-text difference.
 
 ## 0.3.1: selected Yoast reference
 

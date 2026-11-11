@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. Work Bridge provides
 
 ## Current action on staging
 
-The authenticated post-repair snapshot matches the protected-field baseline on product 2839. Work Bridge 0.1.3 is ready to preview and approve the [staging title and description test](plugin/bhcrafts-seo-work-bridge/README.md#test-the-staging-seo-title-and-description).
+The Work Bridge 0.1.3 apply receipt, Yoast API and storefront verify the [staging title and description test](docs/STATUS.md#draft-staging-title-and-description-test) on product 2839. The next check is a normal editor resave and an authenticated Diagnostics snapshot.
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 114 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The earlier repair receipt, public API and rendered HTML all match the repair proposal. The title and description test still needs its first staging database run.
+Current result: 78 diagnostics and 114 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The title and description test passed its staging apply and public output checks. Its editor resave, authenticated protected-field comparison and rollback remain pending.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

@@ -54,7 +54,7 @@ The authenticated [post-repair Diagnostics snapshot](product-2839/baseline/BHcra
 
 ## Next required step
 
-Install Work Bridge 0.1.3 on staging, then [review and approve the exact title and description test](../plugin/bhcrafts-seo-work-bridge/README.md#test-the-staging-seo-title-and-description). The package passed 114 isolated fixture checks. Its first staging database run is pending.
+Reopen staging product 2839 in the normal WordPress editor and click Update with the test values in place. Export a fresh authenticated Diagnostics snapshot. Compare the saved fields and protected-field baseline, then recheck the public Yoast head response and storefront before the separate rollback test.
 
 ## Proposed staging indexable repair
 
@@ -81,7 +81,11 @@ Scope is product 2839 on the designated Kinsta staging host. The two distinct pr
 | SEO title | Knitted Cotton Handbag with Doll Appliqué &#124; BHcrafts | Knitted Cotton Handbag with Three Doll Appliqués &#124; BHcrafts |
 | Meta description | Choose a knitted cotton handbag with three doll appliqués and colorful striped handles. Available in black or green, handmade by BHcrafts women artisans. | This knitted cotton handbag has three doll appliqués and striped handles. Handmade by BHcrafts women artisans and available in black or green. |
 
-The preview covers both saved fields and the derived output. Apply and restore use a single guarded statement against two existing postmeta rows and one indexable row, with exact before-values, source and URL collision checks, and a verified InnoDB and autocommit preflight. Verify the exact values in the WordPress editor, Yoast head response and ordinary storefront HTML. Resave through the editor and check again. Verify `noindex` and the protected-field snapshots. The separate rollback restores the exact before-values in both locations after its own drift checks and approval. Staging approval and execution remain pending.
+The preview covers both saved fields and the derived output. Apply and restore use a single guarded statement against two existing postmeta rows and one indexable row, with exact before-values, source and URL collision checks, and a verified InnoDB and autocommit preflight. The separate rollback restores the exact before-values in both locations after its own drift checks and approval.
+
+On 11 November 2026 at 12:47:43 Europe/Sarajevo, the staging apply receipt reported three affected rows. Its proposal hash, before-values, saved Yoast values and indexable read-back match the exact test proposal. The staging permalink and hash match the verified baseline. The receipt remains private because it contains administrator and backup details.
+
+Independent GET requests to the Yoast head endpoint and ordinary staging product URL returned HTTP 200. Both responses show the exact test title and meta description. The storefront response dated 12:48:35 Europe/Sarajevo contains one title, one meta description, `noindex, nofollow` and the Kinsta `X-Robots-Tag` with `noindex`. A public WooCommerce Store API read also returned 200 and matched all 23 fields compared against the post-repair public capture. The authenticated protected-field export, normal editor resave and separate rollback still need staging verification.
 
 ## Still open
 

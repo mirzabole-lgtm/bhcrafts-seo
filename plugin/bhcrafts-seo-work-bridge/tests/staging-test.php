@@ -7,6 +7,7 @@ if ( PHP_SAPI !== 'cli' ) {
 use BHcrafts\SEO\WorkBridge as Bridge;
 
 define( 'ABSPATH', __DIR__ . '/' );
+define( 'ARRAY_A', 'ARRAY_A' );
 class RequestStopped extends RuntimeException {}
 class Receipt extends RuntimeException {
     public array $data;
@@ -49,6 +50,10 @@ function wp_get_theme() {
     };
 }
 function get_post( $id ) { return $id === 2839 ? (object) $GLOBALS['post'] : null; }
+function get_permalink( $id ) {
+    if ( $id !== 2839 ) { throw new LogicException( 'Unexpected permalink read.' ); }
+    return $GLOBALS['home'] . 'product/' . $GLOBALS['post']['post_name'] . '/';
+}
 function get_post_meta( $id, $key, $single ) {
     if ( 2839 !== $id || ! array_key_exists( $key, $GLOBALS['proposal']['before'] ) || $single ) {
         throw new LogicException( 'Unexpected metadata read.' );
@@ -101,9 +106,9 @@ function form( string $operation ): array {
         'staging_checked' => 'yes', 'submit' => 'Approve reviewed change',
     );
 }
-function request( int $status ): array {
+function request( int $status, ?callable $handler = null ): array {
     try {
-        Bridge\submit_test();
+        ( $handler ?? 'BHcrafts\\SEO\\WorkBridge\\submit_test' )();
     } catch ( RequestStopped | Receipt $result ) {
         check( $result->getCode() === $status, 'Unexpected request status: ' . $result->getMessage() );
         return $result instanceof Receipt ? $result->data : array();
@@ -199,4 +204,80 @@ $GLOBALS['fault'] = 'hook_fails';
 $failed = request( 409 );
 check( ! $failed['all_five_rows_verified'] && $failed['readback'] === array( $proposal['proposed_value'] ), 'Hook failure reports actual read-back and uncertainty.' );
 check( $GLOBALS['filters'] === array(), 'Temporary insert guard is removed.' );
+
+class IndexableDatabaseFixture {
+    public string $prefix = 'custom_';
+    public string $last_error = '';
+    public bool $suppressed = false;
+    public array $rows = array();
+    public int $reads = 0;
+    public bool $fail = false;
+    public function prepare( $query, ...$params ) {
+        if ( $params !== array( 'custom_yoast_indexable', 2839, 'post' )
+            || $query !== 'SELECT object_sub_type, permalink, permalink_hash, title, description FROM %i WHERE object_id = %d AND object_type = %s ORDER BY id LIMIT 3' ) {
+            throw new LogicException( 'Unexpected indexable query or scope.' );
+        }
+        return 'prepared-select';
+    }
+    public function get_results( $query, $format ) {
+        if ( $query !== 'prepared-select' || $format !== ARRAY_A || ! $this->suppressed ) {
+            throw new LogicException( 'Unexpected indexable query execution.' );
+        }
+        ++$this->reads;
+        $this->last_error = $this->fail ? 'Fixture database error' : '';
+        return $this->rows;
+    }
+    public function suppress_errors( bool $suppress ): bool {
+        $previous = $this->suppressed;
+        $this->suppressed = $suppress;
+        return $previous;
+    }
+}
+
+$GLOBALS['wpdb'] = $wpdb = new IndexableDatabaseFixture();
+$download_report = $GLOBALS['hooks']['admin_post_' . Bridge\INDEXABLE_ACTION];
+check( ! isset( $GLOBALS['hooks']['admin_post_nopriv_' . Bridge\INDEXABLE_ACTION] ), 'Report has no unauthenticated action.' );
+check( strpos( $preview, 'value="' . Bridge\INDEXABLE_ACTION . '"' ) !== false && strpos( $preview, 'Download Yoast indexable report' ) !== false, 'Preview contains the report form.' );
+$report_form = array( 'action' => Bridge\INDEXABLE_ACTION, '_wpnonce' => hash( 'sha256', Bridge\INDEXABLE_ACTION ),
+    '_wp_http_referer' => '/wp-admin/tools.php', 'submit' => 'Download Yoast indexable report' );
+$_POST = $report_form;
+$_SERVER['REQUEST_METHOD'] = 'GET';
+request( 405, $download_report );
+$_SERVER['REQUEST_METHOD'] = 'POST';
+$GLOBALS['environment'] = 'production';
+request( 403, $download_report );
+$GLOBALS['environment'] = 'staging';
+$GLOBALS['can_edit'] = false;
+request( 403, $download_report );
+$GLOBALS['can_edit'] = true;
+$_POST['_wpnonce'] = form( 'apply' )['_wpnonce'];
+request( 403, $download_report );
+$_POST = $report_form + array( 'product_id' => '616' );
+request( 400, $download_report );
+$_POST = array_replace( $report_form, array( 'submit' => array( 'unexpected' ) ) );
+request( 400, $download_report );
+check( $wpdb->reads === 0, 'Rejected requests do not read the indexable table.' );
+$_POST = $report_form;
+$writes_before = $GLOBALS['attempts'];
+$missing = request( 200, $download_report );
+check( $missing['status'] === 'missing' && $missing['indexable_rows'] === array(), 'Missing indexable is reported.' );
+check( $missing['saved_title_values'] === $original['_yoast_wpseo_title'] && $missing['saved_description_values'] === $original['_yoast_wpseo_metadesc'], 'Saved values stay separate from indexable data.' );
+$old = 'https://bhcrafts.shop/product/' . $proposal['product_slug'] . '/';
+$wpdb->rows = array( array( 'object_sub_type' => 'product', 'permalink' => $old,
+    'permalink_hash' => strlen( $old ) . ':' . md5( $old ), 'title' => 'Old title', 'description' => null ) );
+$found = request( 200, $download_report );
+check( $found['status'] === 'found' && $found['indexable_rows'][0]['permalink'] === $old, 'The exact stored permalink is returned.' );
+check( array_filter( $found['indexable_rows'][0], 'is_bool' ) === array_fill_keys( array( 'matches_current_permalink', 'matches_current_permalink_hash', 'matches_saved_title', 'matches_saved_description' ), false ), 'Each mismatch is reported independently.' );
+$url = $found['current_permalink'];
+$matching = array( 'object_sub_type' => 'product', 'permalink' => $url, 'permalink_hash' => strlen( $url ) . ':' . md5( $url ),
+    'title' => $original['_yoast_wpseo_title'][0], 'description' => $original['_yoast_wpseo_metadesc'][0] );
+$wpdb->rows[] = $matching;
+$multiple = request( 200, $download_report );
+check( $multiple['status'] === 'multiple' && count( $multiple['indexable_rows'] ) === 2, 'Multiple records are distinguished.' );
+check( count( array_filter( $multiple['indexable_rows'][1], static fn( $value ) => $value === true ) ) === 4, 'All exact matches are detected.' );
+$wpdb->fail = true;
+$failed = request( 200, $download_report );
+check( $failed['status'] === 'query_failed' && $failed['indexable_rows'] === array(), 'Failed reads are distinct from missing records.' );
+check( strpos( json_encode( $failed ), 'Fixture database error' ) === false && ! $wpdb->suppressed, 'Raw database error stays private and suppression is restored.' );
+check( $GLOBALS['attempts'] === $writes_before, 'Report never attempts a metadata write.' );
 echo 'PASS: ' . $GLOBALS['checks'] . " staging test fixture checks.\n";

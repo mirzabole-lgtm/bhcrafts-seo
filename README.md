@@ -11,12 +11,12 @@ The diagnostics plugin collects read-only product evidence. A separate staging a
 - [Plugin setup instructions](plugin/bhcrafts-seo-diagnostics/README.md)
 - [Plugin source](plugin/bhcrafts-seo-diagnostics/)
 - [Current installable ZIP: 0.3.1](releases/BHcrafts_SEO_Staging_Diagnostics_0.3.1.zip)
-- [Yoast staging test ZIP: Work Bridge 0.1.0](releases/BHcrafts_SEO_Work_Bridge_0.1.0.zip)
+- [Yoast staging test ZIP: Work Bridge 0.1.1](releases/BHcrafts_SEO_Work_Bridge_0.1.1.zip)
 - [Change history](CHANGELOG.md)
 
 ## Current action on staging
 
-The staging snapshots confirm the synonym correction survived the normal editor resave on product 2839 and the rollback restored the exact original value. The page source confirms the expected staging robots directive. Its rendered title and description still match the earlier storefront output and differ from the saved Yoast values. See the [latest test evidence](docs/STATUS.md#current-result).
+The staging snapshots confirm apply, editor resave and rollback for the synonym field on product 2839. The staging page still shows the earlier title. Work Bridge 0.1.1 adds a [read-only report](plugin/bhcrafts-seo-work-bridge/README.md#download-the-read-only-indexable-report) to compare Yoast's stored indexable with the current permalink and saved metadata.
 
 ## Documents and evidence
 
@@ -59,6 +59,6 @@ php -n tools/validate_snapshot.php docs/product-2839/baseline/BHcrafts_Product_2
 php -n plugin/bhcrafts-seo-work-bridge/tests/staging-test.php
 ```
 
-Current result: 78 diagnostics and 39 staging writer fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The staging exports confirm apply, editor resave and rollback for the synonym field. The rendered metadata mismatch and the remaining Yoast write types still need investigation on staging.
+Current result: 78 diagnostics and 61 Work Bridge fixture checks passed, plus a valid UTF-8 JSON export using the standard WordPress form payload. The indexable report and the remaining Yoast write types still need staging runs.
 
 The repository contains no deployment automation or production credentials. Work continues in the existing Work Cloud conversation.

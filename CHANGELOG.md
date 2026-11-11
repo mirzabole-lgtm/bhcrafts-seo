@@ -1,5 +1,11 @@
 # Change history
 
+## Work Bridge 0.1.1: read-only Yoast indexable report
+
+- Compare the stored Yoast indexable for staging product 2839 with its current permalink and saved metadata.
+- Use a bounded SELECT behind the existing staging and administrator checks. The report does not refresh Yoast data.
+- Preserve the 0.1.0 write and rollback proposal. Pass 61 Work Bridge fixture checks. The new report still needs its first staging run.
+
 ## Work Bridge 0.1.0: first Yoast staging write test
 
 - Add a separate staging-only WordPress plugin for the exact product 2839 synonym correction and field-level restore.

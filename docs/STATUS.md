@@ -44,7 +44,7 @@ In Yoast 28.8, the URL surface looks up a stored indexable by the exact permalin
 
 ## Next required step
 
-Inspect the existing Yoast indexable on staging by product ID 2839, with a read-only query that does not create, upgrade or refresh rows. Compare its permalink, title and description with the current WordPress permalink, saved Yoast values and storefront source. A row with a different permalink would explain the exact URL miss. If the row is absent or matches the saved values, investigate the current product page response and any metadata overrides. Keep staging visibility and the live subscription in place during diagnosis.
+The administrator confirmed the storefront still shows the old title. Install Work Bridge 0.1.1 on staging and [download its read-only report](../plugin/bhcrafts-seo-work-bridge/README.md#download-the-read-only-indexable-report) for product 2839. Compare its stored permalink, title and description with the current WordPress permalink, saved Yoast values and storefront source. A row with a different permalink would explain the exact URL miss. If the row is absent or matches the saved values, investigate the current product page response and any metadata overrides. Keep staging visibility and the live subscription in place during diagnosis. The report passed local fixtures and still needs its first staging run.
 
 ## Still open
 

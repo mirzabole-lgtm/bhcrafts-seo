@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: BHcrafts SEO Work Bridge
- * Description: Fixed-proposal Yoast Premium staging write and rollback test for product 2839.
- * Version: 0.1.0
- * Requires at least: 6.0
+ * Description: Yoast indexable diagnostics and a fixed-proposal staging test for product 2839.
+ * Version: 0.1.1
+ * Requires at least: 6.2
  * Requires PHP: 8.0
  * Author: BHcrafts
  * License: GPL-2.0-or-later
@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 const ACTION = 'bhcrafts_seo_yoast_staging_test';
+const INDEXABLE_ACTION = 'bhcrafts_seo_yoast_indexable_report';
 const PRODUCT_ID = 2839;
 const SYNONYMS_KEY = '_yoast_wpseo_keywordsynonyms';
 const PROPOSAL_SHA256 = '51894bdd9415e611dc4984cdf56389395aaa0b075e2866fe22407f9fa894d60d';
@@ -91,11 +92,83 @@ function register_page(): void {
     }
 }
 
+/** Read the stored Yoast rows directly so the check cannot build or upgrade an indexable. */
+function download_indexable_report(): void {
+    $proposal = proposal();
+    assert_staging( $proposal );
+    if ( ( $_SERVER['REQUEST_METHOD'] ?? '' ) !== 'POST' ) {
+        stop_test( 'Submit the Yoast report form.', 405 );
+    }
+    $fields = array( 'action', '_wpnonce', '_wp_http_referer', 'submit' );
+    if ( ! empty( $_GET ) || array_diff( array_keys( $_POST ), $fields ) || count( array_filter( $_POST, 'is_string' ) ) !== count( $_POST )
+        || ( $_POST['action'] ?? '' ) !== INDEXABLE_ACTION ) {
+        stop_test( 'Unexpected form input. The report covers product 2839 only.', 400 );
+    }
+    if ( ! wp_verify_nonce( $_POST['_wpnonce'] ?? '', INDEXABLE_ACTION ) ) {
+        stop_test( 'Refresh the staging test page and download the report again.', 403 );
+    }
+
+    global $wpdb;
+    $permalink = get_permalink( PRODUCT_ID );
+    $permalink = is_string( $permalink ) && $permalink !== '' ? $permalink : null;
+    // Yoast 28.8 looks up the full permalink and its length-prefixed MD5 together.
+    $permalink_hash = $permalink === null ? null : strlen( $permalink ) . ':' . md5( $permalink );
+    $saved_title = get_post_meta( PRODUCT_ID, '_yoast_wpseo_title', false );
+    $saved_description = get_post_meta( PRODUCT_ID, '_yoast_wpseo_metadesc', false );
+    $query = $wpdb->prepare(
+        'SELECT object_sub_type, permalink, permalink_hash, title, description FROM %i WHERE object_id = %d AND object_type = %s ORDER BY id LIMIT 3',
+        $wpdb->prefix . 'yoast_indexable', PRODUCT_ID, 'post'
+    );
+    $previous_suppression = $wpdb->suppress_errors( true );
+    try {
+        $rows = $wpdb->get_results( $query, ARRAY_A );
+        $query_failed = $wpdb->last_error !== '' || ! is_array( $rows );
+    } finally {
+        $wpdb->suppress_errors( $previous_suppression );
+    }
+
+    if ( $query_failed ) {
+        $rows = array();
+        $status = 'query_failed';
+    } else {
+        $status = array( 'missing', 'found' )[count( $rows )] ?? 'multiple';
+        foreach ( $rows as &$row ) {
+            $row['matches_current_permalink'] = $permalink !== null && $row['permalink'] === $permalink;
+            $row['matches_current_permalink_hash'] = $permalink_hash !== null && $row['permalink_hash'] === $permalink_hash;
+            $row['matches_saved_title'] = $saved_title === array( $row['title'] );
+            $row['matches_saved_description'] = $saved_description === array( $row['description'] );
+        }
+        unset( $row );
+    }
+
+    nocache_headers();
+    header( 'Content-Disposition: attachment; filename="BHcrafts_Yoast_Indexable_2839.json"' );
+    wp_send_json( array(
+        'report_schema' => 'bhcrafts-yoast-indexable/1',
+        'status' => $status,
+        'site' => $proposal['site'],
+        'product_id' => PRODUCT_ID,
+        'yoast_version' => $proposal['yoast_version'],
+        'generated_at_utc' => gmdate( 'c' ),
+        'current_permalink' => $permalink,
+        'saved_title_values' => $saved_title,
+        'saved_description_values' => $saved_description,
+        'indexable_rows' => $rows,
+        'row_limit' => 3,
+    ), 200, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+}
+
 function render_page(): void {
     $proposal = proposal();
     assert_staging( $proposal );
     $rows = read_rows( $proposal );
     echo '<div class="wrap"><h1>BHcrafts Yoast Staging Test</h1>';
+    echo '<h2>Read-only indexable report</h2><p>Compare the saved Yoast title and description with the stored indexable for product 2839.</p>';
+    echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
+    echo '<input type="hidden" name="action" value="' . esc_attr( INDEXABLE_ACTION ) . '">';
+    wp_nonce_field( INDEXABLE_ACTION );
+    submit_button( 'Download Yoast indexable report', 'secondary' );
+    echo '</form><hr>';
     echo '<p>Product 2839. The test changes one Yoast metadata field. Compare the values below before approving.</p>';
     echo '<p>Proposal <code>' . esc_html( $proposal['id'] ) . '</code> · SHA-256 <code>' . esc_html( PROPOSAL_SHA256 ) . '</code></p>';
     foreach ( array( 'apply' => 'Approve and remove trailing comma', 'restore' => 'Approve and restore original synonyms' ) as $operation => $label ) {
@@ -188,3 +261,4 @@ function submit_test(): void {
 
 add_action( 'admin_menu', __NAMESPACE__ . '\\register_page' );
 add_action( 'admin_post_' . ACTION, __NAMESPACE__ . '\\submit_test' );
+add_action( 'admin_post_' . INDEXABLE_ACTION, __NAMESPACE__ . '\\download_indexable_report' );

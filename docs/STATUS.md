@@ -54,7 +54,7 @@ The authenticated [post-repair Diagnostics snapshot](product-2839/baseline/BHcra
 
 ## Next required step
 
-The administrator requested a restart, and both original values are restored. With the product editor closed, approve the title and description test again in Work Bridge 0.1.3. Open a fresh editor tab after the apply, confirm both test values, click Update without editing, and export a Diagnostics snapshot. Verify the fresh resave before the final rollback test.
+The clean title and description rerun passed. To close the rerun and return product 2839 to the starting values, use **Approve and restore previous SEO title and description** in Work Bridge 0.1.3. Verify the saved fields and storefront against the post-repair baseline. The same rollback already passed on 11 November.
 
 ## Proposed staging indexable repair
 
@@ -90,6 +90,8 @@ Independent GET requests to the Yoast head endpoint and ordinary staging product
 The [first resave snapshot](product-2839/baseline/BHcrafts_Product_2839_Yoast_Title_Description_First_Resave_2026-11-11.json) from 12:55:47 Europe/Sarajevo shows the previous SEO title and the new test meta description in saved Yoast fields. The other three saved Yoast records, product data apart from the modification timestamp, all 29 product and 29 variation hashes, eight attachments, and artisan evidence match the baseline. The administrator reported the editor tab had already been open. This is a possible explanation for the earlier title being submitted. The exact browser state was not captured. At 12:57:13, the ordinary storefront and Yoast head API still served the new test title and description. Staging remained `noindex`.
 
 The administrator's restore receipt at 13:01:57 Europe/Sarajevo reports three affected rows and exact read-back of both original values in the saved fields and indexable. The Yoast head API and ordinary storefront returned HTTP 200 and both original values. The storefront response at 13:02:46 Europe/Sarajevo confirmed `noindex, nofollow`. This verifies the rollback operation and establishes the starting point for the requested clean rerun. The receipt remains private because it contains administrator and backup details.
+
+The clean rerun on 13 November passed. The apply receipt at 10:03:27 Europe/Sarajevo matches the proposal and verifies all three affected rows. The [post-resave Diagnostics snapshot](product-2839/baseline/BHcrafts_Product_2839_Yoast_Title_Description_Clean_Resave_2026-11-13.json) at 10:04:55 confirms the exact test title and description after the editor updated the product at 10:04:25. The other three saved Yoast records, 29 protected product hashes, 29 variation hashes, eight attachment records and artisan evidence match the post-repair baseline. Independent Yoast API and storefront checks returned HTTP 200 and both exact test values. At 10:06:18 the storefront still served `noindex, nofollow`. Both test values are currently applied on staging. The final restore after this rerun is pending.
 
 ## Still open
 

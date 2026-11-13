@@ -5,7 +5,7 @@
 **Website:** https://bhcrafts.shop/  
 **Working environment:** ChatGPT Work Cloud, with background execution  
 **Source repository:** https://github.com/mirzabole-lgtm/bhcrafts-seo  
-**Current stage:** Staging title and description apply, restore and clean editor resave verified. Final restore after the rerun pending. No live product changes authorized.  
+**Current stage:** Staging title and description apply, clean editor resave and final restore verified. Remaining Yoast keyphrase tests pending. No live product changes authorized.  
 **Source conversation:** [Connect ChatGPT WooCommerce](https://chatgpt.com/c/6af0b60e-e7f0-83eb-a17f-58a0d05e52a8)
 
 ## 1. Project mandate and immediate next steps
@@ -584,7 +584,7 @@ The [storefront check](docs/STATUS.md#current-result) confirms `noindex, nofollo
 
 The [Work Bridge 0.1.3 title and description test](docs/STATUS.md#draft-staging-title-and-description-test) ran on staging product 2839 on 11 November 2026 at 12:47:43 Europe/Sarajevo. The supplied receipt and independent Yoast head and storefront checks confirm the two saved values and rendered metadata match the proposal. Staging `noindex` remains active. All 23 compared public product fields match the post-repair public capture. The [first resave snapshot](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Title_Description_First_Resave_2026-11-11.json) verifies the protected-field baseline and shows the saved title reverted while the test description survived. The administrator reported a previously open editor tab and requested a restart. The restore receipt at 13:01:57, Yoast head response and storefront HTML verify both original values. Follow the [rerun steps](docs/STATUS.md#next-required-step) to apply and resave in a fresh editor.
 
-On 13 November, the clean rerun confirmed both test values survived the normal WordPress editor save and matched the Yoast API and rendered storefront. The [clean resave snapshot](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Title_Description_Clean_Resave_2026-11-13.json) confirms that the captured protected fields match the post-repair baseline. Staging still serves `noindex, nofollow`. The test values remain applied on staging pending the final restore.
+On 13 November, the clean rerun confirmed both test values survived the normal WordPress editor save and matched the Yoast API and rendered storefront. The [clean resave snapshot](docs/product-2839/baseline/BHcrafts_Product_2839_Yoast_Title_Description_Clean_Resave_2026-11-13.json) confirms that the captured protected fields match the post-repair baseline. The final restore receipt at 10:09:40 Europe/Sarajevo, Yoast API and storefront confirm both exact starting values. Staging still serves `noindex, nofollow`. The [title and description test](docs/STATUS.md#draft-staging-title-and-description-test) is complete.
 
 ### Before integration testing or live optimization
 

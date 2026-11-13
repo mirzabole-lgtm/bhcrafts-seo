@@ -16,7 +16,7 @@ The diagnostics plugin collects read-only product evidence. Work Bridge provides
 
 ## Current action on staging
 
-The clean staging rerun confirms the [SEO title and description](docs/STATUS.md#draft-staging-title-and-description-test) survived a normal editor save and match the public Yoast and storefront output. The next step is to [restore the starting values](docs/STATUS.md#next-required-step) after the rerun.
+The [SEO title and description test](docs/STATUS.md#draft-staging-title-and-description-test) is complete. Both test values survived a normal editor save. The final restore returned the saved fields, Yoast API and storefront to the exact starting values. See the [next staging step](docs/STATUS.md#next-required-step).
 
 ## Documents and evidence
 
